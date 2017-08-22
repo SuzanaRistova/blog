@@ -70,7 +70,7 @@
                             <div class="col-md-6">
                                 <select name="role" id="role" class="form-control">
                                         @foreach($roles as $role)
-                                        <option value="{{ $loop->iteration }}" @if(old('role', $role->name) == $selectedRole->name) selected @endif></option>
+                                        <option value="{{ $loop->iteration }}" @if(old('role', $role->name) == $selectedRole->name) selected @endif>{{$role->name}}</option>
                                         @endforeach
                                 </select>
                             </div>
