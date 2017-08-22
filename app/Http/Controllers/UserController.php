@@ -17,11 +17,12 @@ class UserController extends Controller {
     }
 
     protected function rules() {
-        $user_id = Auth::id();
-
+//        $user_id = Auth::id();
         $rules = [
             'name' => 'sometimes|string|max:255',
-            'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user_id,
+            'email' => 'required|string|email|max:255|unique:users',
+//            'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user_id,
+            'password' => 'required|string|min:6|confirmed',
             'role' => 'sometimes|string|max:255',
         ];
 
@@ -56,7 +57,7 @@ class UserController extends Controller {
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = "da";
+        $user->password = bcrypt($request->password);
         $user->save();
         $user->roles()->attach($roles);
         return \Redirect::route('user.show', array($user->id));
@@ -75,7 +76,7 @@ class UserController extends Controller {
         $roles = $request->role;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = "da";
+        $user->password = bcrypt($request->password);
         $user->remember_token = NULL;
         $user->roles()->attach($roles);
         $user->update();
