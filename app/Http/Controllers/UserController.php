@@ -47,7 +47,13 @@ class UserController extends Controller {
 
     public function create() {
         $roles = Role::get();
-        return view('user.create', compact('roles'));
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $admin_role = true;
+        } else {
+            $admin_role = false;
+        }
+        return view('user.create', compact('roles', 'admin_role'));
     }
 
     public function store(Request $request) {
@@ -65,7 +71,8 @@ class UserController extends Controller {
 
     public function edit(User $user) {
         $roles = Role::get();
-        return view('user.edit', compact('user', 'roles'));
+        $selectedRole = $user->roles->first();
+        return view('user.edit', compact('user', 'roles', 'selectedRole'));
     }
 
     public function update(Request $request, User $user) {

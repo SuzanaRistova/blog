@@ -64,9 +64,8 @@
                             <label for="role" class="col-md-4 control-label">Role </label>
                             <div class="col-md-6">
                                 <select name="role" id="role" class="form-control">
-                                    <option value=""></option>
                                     @foreach($roles as $role)
-                                    <option value="{{ $loop->iteration }}" {{ old('role') == $loop->iteration ? 'selected' : ''}}>{{ $role->name }}</option>
+                                    <option value="{{ $loop->iteration }}" {{ old('role') == $loop->iteration ? 'selected' : ''}}>{{ ($role->name == 'admin') && !($admin_role) ? '' : $role->name }} </option>
                                     @endforeach
                                 </select>
                             </div>

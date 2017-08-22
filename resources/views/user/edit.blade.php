@@ -69,10 +69,9 @@
                             <label for="role" class="col-md-4 control-label">Role </label>
                             <div class="col-md-6">
                                 <select name="role" id="role" class="form-control">
-                                    <option value=""></option>
-                                    @foreach($roles as $val => $role)
-                                    <option value="{{ $val+1 }}" @if(old('role', $role->name) == $val+1) selected @endif>{{ $role->name }}</option>
-                                    @endforeach
+                                        @foreach($roles as $role)
+                                        <option value="{{ $loop->iteration }}" @if(old('role', $role->name) == $selectedRole->name) selected @endif></option>
+                                        @endforeach
                                 </select>
                             </div>
                         </div>
