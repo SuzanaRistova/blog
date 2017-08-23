@@ -12,7 +12,8 @@
                         <thead>
                          <tr>
                            <th>Name</th>
-                           <th>Email</th>
+                           <th>Slug</th>
+                           <th>Content</th>
                            <th>Actions</th>
                          </tr>
                         </thead>
@@ -20,7 +21,8 @@
                             @foreach($pages as $page)
                                                         <tr>
                             <td>{{ $page->name }}</td>
-                            <td>{{ $page->email }}</td>
+                            <td>{{ $page->slug }}</td>
+                            <td>{{ $page->content }}</td>
                             <td>   
                                 <a class="btn btn-primary" href="{{ route('page.show', $page->id) }}">Show</a>
 

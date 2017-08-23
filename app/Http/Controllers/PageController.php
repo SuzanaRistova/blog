@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\PageUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,16 +32,17 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::get();
         $user = Auth::user();
-        
-        if ($user->hasRole('admin')) {
+        $pages = Auth::user()->pages;
+        if ($user->hasRole('admin') || $user->hasRole('editor')) {
             $admin_role = true;  
+            $pages = Page::get();
         } else {
             $admin_role = false;  
         }
         
-        return view('page.index', compact('pages', 'admin_role'));
+        
+        return view('page.index', compact('pages', 'admin_role', 'user'));
     }
 
     /**
@@ -63,12 +65,13 @@ class PageController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validate($request, $this->rules());
-        
+        $user_id = Auth::user()->id;
         $page = new Page();
         $page->name = $request->name;
         $page->slug = $request->slug;
         $page->content = $request->content;
         $page->save();
+        $page->users()->attach($user_id);
         
         return \Redirect::route('page.show', array($page->id))->with('message', 'New Page created!');
     }
@@ -106,9 +109,12 @@ class PageController extends Controller
     public function update(Request $request, Page $page)
     {
         $validator = $this->validate($request, $this->rules());
+        $user_id = Auth::user()->id;
+        DB::table('page_user')->where('page_id', $page->id)->delete();
         $page->name = $request->name;
         $page->slug = $request->slug;
         $page->content = $request->content;
+        $page->users()->attach($user_id);
         $page->update();
         
         return view('page.show', compact('page'));
