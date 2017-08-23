@@ -26,3 +26,15 @@ Route::post('user/store', 'UserController@store')->name("user.store");
 Route::post('user/update/{user}', 'UserController@update')->name("user.update");
 Route::get('user/update/{user}', 'UserController@update')->name("user.update");
 Route::get('user/delete/{user}', ['as' => 'user.delete', 'uses' => 'UserController@destroy']);
+
+//Login
+Route::get('login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
+Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');
+
+//Twitter
+Route::get('login/twitter', 'Auth\LoginController@redirectToTwitterProvider');
+Route::get('login/twitter/callback', 'Auth\LoginController@handleProviderTwitterCallback');
+
+//Google
+Route::get('login/google', 'Auth\LoginController@redirectToGoogleProvider');
+Route::get('login/google/callback', 'Auth\LoginController@handleProviderGoogleCallback');
