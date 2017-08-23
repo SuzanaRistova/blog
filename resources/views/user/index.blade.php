@@ -7,14 +7,35 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Users</div>
                 <div class="panel-body">
-                    <a class="btn" href="{{ route('user.create') }}">Add user</a>
-                    @foreach($users as $user)
-                    <h4>{{ $user->name }} 
-                        <a class="btn" href="{{ route('user.show', $user->id) }}">Show</a>
-                        @if($admin_role) <a class="btn" href="{{ route('user.delete', $user->id) }}"><a class="btn" href="{{ route('user.edit', $user->id) }}">Edit</a>@endif
-                            @if($admin_role) <a class="btn" href="{{ route('user.delete', $user->id) }}">Delete</a> @endif
-                    </h4>
-                    @endforeach
+                    <a class="btn btn-primary" href="{{ route('user.create') }}">Add user</a>
+                     <table class="table">
+                        <thead>
+                         <tr>
+                           <th>Name</th>
+                           <th>Email</th>
+                           <th>Actions</th>
+                         </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $user)
+                                                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>   
+                                <a class="btn btn-primary" href="{{ route('user.show', $user->id) }}">Show</a>
+
+                                @if($admin_role) 
+                                    <a class="btn btn-primary" href="{{ route('user.edit', $user->id) }}">Edit</a>
+                                @endif
+
+                                @if($admin_role) 
+                                    <a class="btn btn-primary" href="{{ route('user.delete', $user->id) }}">Delete</a>
+                                @endif
+                            </td>
+                             </tr>
+                            @endforeach   
+                        </tbody>
+                     </table>
                 </div>
             </div>
         </div>
