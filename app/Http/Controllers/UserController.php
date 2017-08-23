@@ -88,7 +88,7 @@ class UserController extends Controller {
     }
 
     public function update(Request $request, User $user) {
-        
+        $validator = $this->validate($request, $this->rules());
         DB::table('role_user')->where('user_id', $user->id)->delete();
         $roles = $request->role;
         $user->name = $request->name;
