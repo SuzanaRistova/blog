@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Role;
 
 class LoginController extends Controller
 {
@@ -69,6 +70,7 @@ class LoginController extends Controller
             $user->password = bcrypt("user");
             $user->save();
             Auth::login($user);
+            $user->roles()->attach(Role::where('name', 'author')->first());
             return "done new";
         }
     }
@@ -102,6 +104,7 @@ class LoginController extends Controller
             $user->password = bcrypt("user");
             $user->save();
             Auth::login($user);
+            $user->roles()->attach(Role::where('name', 'author')->first());
             return "done new";
         }
     }
@@ -135,6 +138,7 @@ class LoginController extends Controller
             $user->password = bcrypt("user");
             $user->save();
             Auth::login($user);
+            $user->roles()->attach(Role::where('name', 'author')->first());
             return "done new";
         }
     }
