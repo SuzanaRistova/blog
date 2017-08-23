@@ -25,14 +25,8 @@
                             <td>{{ $page->content }}</td>
                             <td>   
                                 <a class="btn btn-primary" href="{{ route('page.show', $page->id) }}">Show</a>
-
-                                @if($admin_role) 
                                     <a class="btn btn-primary" href="{{ route('page.edit', $page->id) }}">Edit</a>
-                                @endif
-
-                                @if($admin_role) 
                                     <a class="btn btn-primary" href="{{ route('page.delete', $page->id) }}">Delete</a>
-                                @endif
                             </td>
                              </tr>
                             @endforeach   
