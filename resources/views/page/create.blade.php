@@ -10,15 +10,15 @@
                     <form class="form-horizontal" method="POST" action="{{ route('page.store') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                        <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                            <label for="title" class="col-md-4 control-label">Title</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Name" required autofocus>
+                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" placeholder="Title" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('title'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('title') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -28,7 +28,7 @@
                             <label for="slug" class="col-md-4 control-label">Slug</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="slug" value="{{ old('slug') }}" placeholder="Slug" required>
+                                <input id="slug" type="text" class="form-control" name="slug" value="{{ old('slug') }}" placeholder="Slug" required>
 
                                 @if ($errors->has('slug'))
                                     <span class="help-block">

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Page</div>
                 <div class="panel-body">
-                <h4>Page Name: <?= $page->name ?></h4>
+                <h4>Page Title: <?= $page->title ?></h4>
                 <h4>Page Slug: <?= $page->slug ?></h4>
                 <h4>Page Content: <?= $page->content ?></h4>
                </div>

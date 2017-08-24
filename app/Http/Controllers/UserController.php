@@ -39,14 +39,12 @@ class UserController extends Controller {
         } else {
             $admin_role = false;  
         }
-        
         return view('user.index', compact('users', 'admin_role'));
     }
 
     public function show(User $user) {
         
         $role = $user->roles->first();
-        
         return view('user.show', compact('user', 'role'));
     }
 

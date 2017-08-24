@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
-      protected $fillable = [
-        'name', 'slug', 'content',
+    protected $fillable = [
+        'title', 'slug', 'content',
     ];
       
-    public function users()
-    {
-        return $this->belongsToMany('App\User')->withTimestamps();
-    } 
+//    public function user()
+//    {
+//        return $this->belongsTo('App\User');
+//    } 
 }

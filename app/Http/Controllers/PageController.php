@@ -42,7 +42,7 @@ class PageController extends Controller
         }
         
         
-        return view('page.index', compact('pages', 'admin_role', 'user'));
+        return view('page.index', compact('pages', 'admin_role'));
     }
 
     /**
@@ -68,7 +68,7 @@ class PageController extends Controller
         $user_id = Auth::user()->id;
         $page = new Page();
         $page->user_id = $user_id;
-        $page->name = $request->name;
+        $page->title = $request->title;
         $page->slug = $request->slug;
         $page->content = $request->content;
         $page->save();
@@ -84,7 +84,6 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
-
         return view('page.show', compact('page'));
     }
 
@@ -111,7 +110,7 @@ class PageController extends Controller
         $validator = $this->validate($request, $this->rules());
         $user_id = Auth::user()->id;
         $page->user_id = $user_id;
-        $page->name = $request->name;
+        $page->title = $request->title;
         $page->slug = $request->slug;
         $page->content = $request->content;
         $page->update();

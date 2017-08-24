@@ -11,7 +11,7 @@
                      <table class="table">
                         <thead>
                          <tr>
-                           <th>Name</th>
+                           <th>Title</th>
                            <th>Slug</th>
                            <th>Content</th>
                            <th>Actions</th>
@@ -20,7 +20,7 @@
                         <tbody>
                             @foreach($pages as $page)
                                                         <tr>
-                            <td>{{ $page->name }}</td>
+                            <td>{{ $page->title }}</td>
                             <td>{{ $page->slug }}</td>
                             <td>{{ $page->content }}</td>
                             <td>   
