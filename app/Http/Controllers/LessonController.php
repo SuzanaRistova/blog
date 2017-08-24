@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Lesson;
 use App\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ModuleController extends Controller
+class LessonController extends Controller
 {
     public function __construct() {
         
@@ -23,7 +24,7 @@ class ModuleController extends Controller
 
         return $rules;
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -32,15 +33,18 @@ class ModuleController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $modules = Module::where('user_id', $user->id)->get();
+        $user_id = $user->id;
+//        $modules = \App\Module::where('user_id', $user->id)->get();
+        $lessons = Lesson::get();
         if ($user->hasRole('admin') || $user->hasRole('editor')) {
             $admin_role = true;  
-            $modules = Module::get();
+            $lessons = Lesson::get();
         } else {
             $admin_role = false;  
         }
         
-        return view('module.index', compact('modules', 'admin_role'));
+        
+        return view('lesson.index', compact('lessons', 'admin_role'));
     }
 
     /**
@@ -49,8 +53,8 @@ class ModuleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {  
-        return view('module.create');
+    {
+         return view('lesson.create');
     }
 
     /**
@@ -62,71 +66,69 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validate($request, $this->rules());
-        
         $user_id = Auth::user()->id;
-        $module = new Module();
-        $module->user_id = $user_id;
-        $module->title = $request->title;
-        $module->slug = $request->slug;
-        $module->content = $request->content;
-        $module->save();
+        $lesson = new Lesson();
+        $lesson->module_id = $request->module_id;
+        $lesson->title = $request->title;
+        $lesson->slug = $request->slug;
+        $lesson->content = $request->content;
+        $lesson->save();
         
-        return \Redirect::route('module.show', array($module->id))->with('message', 'New Module created!');
+        return \Redirect::route('lesson.show', array($lesson->id))->with('message', 'New Lesson created!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Module  $module
+     * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function show(Module $module)
+    public function show(Lesson $lesson)
     {
-        $lessons = $module->lessons()->get();
-        return view('module.show', compact('module', 'lessons'));
+         return view('lesson.show', compact('lesson'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Module  $module
+     * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function edit(Module $module)
+    public function edit(Lesson $lesson)
     {
-         return view('module.edit', compact('module'));
+        return view('lesson.edit', compact('lesson'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Module  $module
+     * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Module $module)
+    public function update(Request $request, Lesson $lesson)
     {
         $validator = $this->validate($request, $this->rules());
-        
+          
         $user_id = Auth::user()->id;
-        $module->user_id = $user_id;
-        $module->title = $request->title;
-        $module->slug = $request->slug;
-        $module->content = $request->content;
-        $module->update();
+        $lesson->module_id = $request->module_id;
+        $lesson->title = $request->title;
+        $lesson->slug = $request->slug;
+        $lesson->content = $request->content;
+        $lesson->update();
         
-        return view('module.show', compact('module'));
+        return view('lesson.show', compact('lesson'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Module  $module
+     * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Module $module)
+    public function destroy(Lesson $lesson)
     {
-        $module->delete();
+        $lesson->delete();
         return back();
     }
 }
