@@ -33,7 +33,7 @@ class ModuleController extends Controller
     {
         $user = Auth::user();
         $modules = Module::where('user_id', $user->id)->get();
-        if ($user->hasRole('subsciber')) {
+        if ($user->hasRole('admin') || $user->hasRole('editor')) {
             $admin_role = true;  
             $modules = Module::get();
         } else {

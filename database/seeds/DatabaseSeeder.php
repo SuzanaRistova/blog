@@ -21,5 +21,8 @@ class DatabaseSeeder extends Seeder
         
         // Page seeder will use the roles above created.
         $this->call(PageTableSeeder::class);
+        
+        // Module seeder will use the roles above created.
+        $this->call(ModuleTableSeeder::class);
     }
 }

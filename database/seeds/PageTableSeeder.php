@@ -12,7 +12,7 @@ class PageTableSeeder extends Seeder
      */
     public function run()
     {
-         // Page Admin
+        // Page Admin
         $page_admin = new Page();
         $page_admin->user_id = 1;
         $page_admin->title = 'Admin Page';
