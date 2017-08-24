@@ -61,6 +61,17 @@ Route::post('lesson/update/{lesson}', 'LessonController@update')->name("lesson.u
 Route::get('lesson/update/{lesson}', 'LessonController@update')->name("lesson.update");
 Route::get('lesson/delete/{lesson}', ['as' => 'lesson.delete', 'uses' => 'LessonController@destroy']);
 
+//Session routes
+Route::get('sessions', 'SessionController@index')->name('sessions');
+Route::get('session/edit/{session}', 'SessionController@edit')->name("session.edit");
+Route::get('session/show/{session}', 'SessionController@show')->name("session.show");
+Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create");
+Route::post('session/store', 'SessionController@store')->name("session.store");
+Route::post('session/save/{session}', 'SessionController@save')->name("session.save");
+Route::post('session/update/{session}', 'SessionController@update')->name("session.update");
+Route::get('session/update/{session}', 'SessionController@update')->name("session.update");
+Route::get('session/delete/{session}', ['as' => 'session.delete', 'uses' => 'SessionController@destroy']);
+
 //Login facebook
 Route::get('login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderFacebookCallback');

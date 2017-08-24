@@ -10,9 +10,14 @@ class Lesson extends Model
        'module_id', 'title', 'slug', 'content',
     ];
     
-    public function module()
+    public function sessions()
     {
-        return $this->belongsTo('App\Module');
+        return $this->hasMany('App\Session');
     }
+    
+//    public function module()
+//    {
+//        return $this->belongsTo('App\Module');
+//    }
 
 }

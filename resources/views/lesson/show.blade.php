@@ -22,13 +22,39 @@
                                 <td>{{ $lesson->slug }}</td>
                                 <td>{{ $lesson->content }}</td>
                                 <td>   
-                                    <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a>
-                                    <a class="btn btn-primary" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a>
+                                    <a class="btn btn-primary" href="{{ route('session.create', $lesson->id) }}">Create Session</a>
                                 </td>
                             </tr>
                         </tbody>
                      </table>
                </div>
+                 <div class="panel-heading">Sessions</div>
+                <div class="panel-body">
+                        <table class="table table-striped">
+                           <thead>
+                            <tr>
+                              <th>Title</th>
+                              <th>Slug</th>
+                              <th>Content</th>
+                              <th>Action</th>
+                            </tr>
+                           </thead>
+                           <tbody>
+                                @foreach($sessions as $session)
+                                <tr>
+                                    <td>{{ $session->title }}</td>
+                                    <td>{{ $session->slug }}</td>
+                                    <td>{{ $session->content }}</td>
+                                    <td>   
+                                        <a class="btn btn-primary" href="{{ route('session.show', $session->id) }}">Show</a>
+                                        <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>
+                                        <a class="btn btn-primary" href="{{ route('session.delete', $session->id) }}">Delete</a>
+                                    </td>
+                                 </tr>
+                                @endforeach 
+                           </tbody>
+                        </table>
+                </div>
             </div>
         </div>
     </div>

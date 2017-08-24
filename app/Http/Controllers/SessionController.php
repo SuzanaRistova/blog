@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Lesson;
-use App\Module;
+use App\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LessonController extends Controller
+class SessionController extends Controller
 {
     public function __construct() {
         
@@ -20,6 +19,7 @@ class LessonController extends Controller
             'title' => 'sometimes|string|max:255',
             'slug' => 'sometimes|string|max:255',
             'content' => 'sometimes|string|max:255',
+            'video' => 'sometimes|string|max:255',
         ];
 
         return $rules;
@@ -34,17 +34,16 @@ class LessonController extends Controller
     {
         $user = Auth::user();
         $user_id = $user->id;
-//        $modules = \App\Module::where('user_id', $user->id)->get();
-        $lessons = Lesson::get();
+        $sessions = Session::get();
         if ($user->hasRole('admin') || $user->hasRole('editor')) {
             $admin_role = true;  
-            $lessons = Lesson::get();
+            $sessions = Session::get();
         } else {
             $admin_role = false;  
         }
         
         
-        return view('lesson.index', compact('lessons', 'admin_role'));
+        return view('session.index', compact('sessions', 'admin_role'));
     }
 
     /**
@@ -54,7 +53,7 @@ class LessonController extends Controller
      */
     public function create()
     {
-         return view('lesson.create');
+        return view('session.create');
     }
 
     /**
@@ -66,68 +65,71 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validate($request, $this->rules());
-
-        $lesson = new Lesson();
-        $lesson->module_id = $request->module_id;
-        $lesson->title = $request->title;
-        $lesson->slug = $request->slug;
-        $lesson->content = $request->content;
-        $lesson->save();
+        $session = new Session();
+        $session->lesson_id = $request->lesson_id;
+        $session->title = $request->title;
+        $session->slug = $request->slug;
+        $session->content = $request->content;
+        $session->video = $request->video;
+        $session->completed = $request->completed;
+        $session->save();
         
-        return \Redirect::route('lesson.show', array($lesson->id))->with('message', 'New Lesson created!');
+        return \Redirect::route('session.show', array($session->id))->with('message', 'New Session created!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function show(Lesson $lesson)
-    {    $sessions = $lesson->sessions()->get();
-         return view('lesson.show', compact('lesson', 'sessions'));
+    public function show(Session $session)
+    {
+        return view('session.show', compact('session'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lesson $lesson)
+    public function edit(Session $session)
     {
-        return view('lesson.edit', compact('lesson'));
+        return view('session.edit', compact('session'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lesson $lesson)
+    public function update(Request $request, Session $session)
     {
         $validator = $this->validate($request, $this->rules());
           
-        $lesson->module_id = $request->module_id;
-        $lesson->title = $request->title;
-        $lesson->slug = $request->slug;
-        $lesson->content = $request->content;
-        $lesson->update();
+        $session->lesson_id = $request->lesson_id;
+        $session->title = $request->title;
+        $session->slug = $request->slug;
+        $session->content = $request->content;
+        $session->video = $request->video;
+        $session->completed = $request->completed;
+        $session->update();
         
-        return view('lesson.show', compact('lesson'));
+        return view('session.show', compact('session'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Lesson  $lesson
+     * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lesson $lesson)
+    public function destroy(Session $session)
     {
-        $lesson->delete();
+        $session->delete();
         return back();
     }
 }
