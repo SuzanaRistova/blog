@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Page;
-use App\PageUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +16,7 @@ class PageController extends Controller
     protected function rules() {
         
         $rules = [
-            'name' => 'sometimes|string|max:255',
+            'title' => 'sometimes|string|max:255',
             'slug' => 'sometimes|string|max:255',
             'content' => 'sometimes|string|max:255',
         ];

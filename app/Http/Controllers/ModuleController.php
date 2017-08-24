@@ -4,9 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModuleController extends Controller
 {
+    public function __construct() {
+        
+        $this->middleware('auth');
+    }
+    
+    protected function rules() {
+        
+        $rules = [
+            'title' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255',
+            'content' => 'sometimes|string|max:255',
+        ];
+
+        return $rules;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +31,16 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $modules = Module::where('user_id', $user->id)->get();
+        if ($user->hasRole('subsciber')) {
+            $admin_role = true;  
+            $modules = Module::get();
+        } else {
+            $admin_role = false;  
+        }
+        
+        return view('module.index', compact('modules', 'admin_role'));
     }
 
     /**
@@ -24,7 +50,7 @@ class ModuleController extends Controller
      */
     public function create()
     {
-        //
+        return view('module.create');
     }
 
     /**
@@ -35,7 +61,17 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = $this->validate($request, $this->rules());
+        
+        $user_id = Auth::user()->id;
+        $module = new Module();
+        $module->user_id = $user_id;
+        $module->title = $request->title;
+        $module->slug = $request->slug;
+        $module->content = $request->content;
+        $module->save();
+        
+        return \Redirect::route('module.show', array($module->id))->with('message', 'New Module created!');
     }
 
     /**
@@ -46,7 +82,7 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
-        //
+        return view('module.show', compact('module'));
     }
 
     /**
@@ -57,7 +93,7 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        //
+         return view('module.edit', compact('module'));
     }
 
     /**
@@ -69,7 +105,16 @@ class ModuleController extends Controller
      */
     public function update(Request $request, Module $module)
     {
-        //
+        $validator = $this->validate($request, $this->rules());
+        
+        $user_id = Auth::user()->id;
+        $module->user_id = $user_id;
+        $module->title = $request->title;
+        $module->slug = $request->slug;
+        $module->content = $request->content;
+        $module->update();
+        
+        return view('module.show', compact('module'));
     }
 
     /**
@@ -80,6 +125,7 @@ class ModuleController extends Controller
      */
     public function destroy(Module $module)
     {
-        //
+        $module->delete();
+        return back();
     }
 }
