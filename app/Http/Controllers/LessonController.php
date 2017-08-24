@@ -66,7 +66,7 @@ class LessonController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validate($request, $this->rules());
-        $user_id = Auth::user()->id;
+
         $lesson = new Lesson();
         $lesson->module_id = $request->module_id;
         $lesson->title = $request->title;
@@ -110,7 +110,6 @@ class LessonController extends Controller
     {
         $validator = $this->validate($request, $this->rules());
           
-        $user_id = Auth::user()->id;
         $lesson->module_id = $request->module_id;
         $lesson->title = $request->title;
         $lesson->slug = $request->slug;
