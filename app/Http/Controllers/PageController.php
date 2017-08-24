@@ -33,7 +33,7 @@ class PageController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $pages = Auth::user()->pages;
+        $pages = Page::where('user_id', $user->id)->get();
         if ($user->hasRole('admin') || $user->hasRole('editor')) {
             $admin_role = true;  
             $pages = Page::get();
@@ -67,11 +67,11 @@ class PageController extends Controller
         $validator = $this->validate($request, $this->rules());
         $user_id = Auth::user()->id;
         $page = new Page();
+        $page->user_id = $user_id;
         $page->name = $request->name;
         $page->slug = $request->slug;
         $page->content = $request->content;
         $page->save();
-        $page->users()->attach($user_id);
         
         return \Redirect::route('page.show', array($page->id))->with('message', 'New Page created!');
     }
@@ -110,11 +110,10 @@ class PageController extends Controller
     {
         $validator = $this->validate($request, $this->rules());
         $user_id = Auth::user()->id;
-        DB::table('page_user')->where('page_id', $page->id)->delete();
+        $page->user_id = $user_id;
         $page->name = $request->name;
         $page->slug = $request->slug;
         $page->content = $request->content;
-        $page->users()->attach($user_id);
         $page->update();
         
         return view('page.show', compact('page'));

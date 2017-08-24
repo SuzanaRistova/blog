@@ -32,11 +32,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role')->withTimestamps();
     } 
     
-    public function pages()
-    {
-        return $this->belongsToMany('App\Page')->withTimestamps();
-    }
-    
     public function authorizeRoles($roles)
     {
         if ($this->hasAnyRole($roles)) {
