@@ -52,9 +52,10 @@
                             </div>
                         </div>
                         <?php 
-                            $url = explode("/",($_SERVER["REQUEST_URI"])); 
+                       
+                            
                         ?>
-                        <input id="module_id" type="hidden" class="form-control" name="module_id" value="<?=$url[2] ?>" placeholder="module_id" required>
+                        <input id="module_id" type="hidden" class="form-control" name="module_id" value="<?= $module_id ?>" placeholder="module_id" required>
                         
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

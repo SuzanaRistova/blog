@@ -51,9 +51,7 @@
                                 @endif
                             </div>
                         </div>
-                        <?php 
-                            $url = explode("/",($_SERVER["REQUEST_URI"])); 
-                        ?>
+
                         <input id="module_id" type="hidden" class="form-control" name="module_id" value="<?= $lesson->module_id ?>" placeholder="module_id" required>
                         
                         <div class="form-group">

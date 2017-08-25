@@ -53,9 +53,9 @@ class LessonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($module_id)
     {
-         return view('lesson.create');
+         return view('lesson.create', array('module_id'=> $module_id));
     }
 
     /**
@@ -87,6 +87,7 @@ class LessonController extends Controller
     public function show(Lesson $lesson) {
         $sessions = $lesson->sessions()->get();
         $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
+        $completed = false;
         if ($sessions_completed == 0) {
             $completed = true;
         } else {
@@ -123,7 +124,15 @@ class LessonController extends Controller
         $lesson->content = $request->content;
         $lesson->update();
         
-        return view('lesson.show', compact('lesson'));
+        $sessions = $lesson->sessions()->get();
+        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
+        $completed = false;
+        if ($sessions_completed == 0) {
+            $completed = true;
+        } else {
+            $completed = false;
+        }
+        return view('lesson.show', compact('lesson', 'sessions', 'completed'));
     }
 
     /**
