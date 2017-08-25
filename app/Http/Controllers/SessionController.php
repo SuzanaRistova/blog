@@ -109,7 +109,11 @@ class SessionController extends Controller
     public function update(Request $request, Session $session)
     {
         $validator = $this->validate($request, $this->rules());
-          
+        
+        if($request->completed == NULL){
+            $request->completed = 0;
+        }
+        
         $session->lesson_id = $request->lesson_id;
         $session->title = $request->title;
         $session->slug = $request->slug;

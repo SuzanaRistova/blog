@@ -68,9 +68,9 @@
                         
                         <div class="form-group{{ $errors->has('completed') ? ' has-error' : '' }}">
                             <label for="completed" class="col-md-4 control-label">Completed</label>
-
                             <div class="col-md-6">
-                                <input id="completed" type="text" class="form-control" name="completed" value="{{ old('completed', $session->completed) }}" placeholder="Completed" required>
+
+                                <input id="completed" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
 
                                 @if ($errors->has('completed'))
                                     <span class="help-block">
@@ -84,7 +84,7 @@
                         
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn test btn-primary">
                                     Update
                                 </button>
                             </div>
