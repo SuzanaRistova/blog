@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Lesson;
 use App\Module;
+use App\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,7 +86,13 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {    $sessions = $lesson->sessions()->get();
-         return view('lesson.show', compact('lesson', 'sessions'));
+         $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
+         if($sessions_completed == 0){
+            $completed = true;
+         } else {
+            $completed = false;
+         }
+         return view('lesson.show', compact('lesson', 'sessions', 'completed'));
     }
 
     /**

@@ -13,6 +13,7 @@
                            <th>Title</th>
                            <th>Slug</th>
                            <th>Content</th>
+                           <th>Completed</th>
                            <th>Action</th>
                          </tr>
                         </thead>
@@ -21,9 +22,12 @@
                                 <td>{{ $lesson->title }}</td>
                                 <td>{{ $lesson->slug }}</td>
                                 <td>{{ $lesson->content }}</td>
+                                <td>
+                                    {{($completed) ? "Completed" : "Not completed"}}
+                                </td>
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('session.create', $lesson->id) }}">Create Session</a>
-                                </td>
+                               </td>
                             </tr>
                         </tbody>
                      </table>
@@ -50,7 +54,7 @@
                                     <td>{{ $session->video }}</td>
                                     <td>{{ $session->completed }}</td>
                                     <td>   
-                                        <a class="btn btn-primary {{ ($session->completed) ? "" : "disabled" }}" href="{{ route('session.show', $session->id) }}">Show</a>
+                                        <a class="btn btn-primary" href="{{ route('session.show', $session->id) }}">Show</a>
                                         <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>
                                         <a class="btn btn-primary" href="{{ route('session.delete', $session->id) }}">Delete</a>
                                     </td>
