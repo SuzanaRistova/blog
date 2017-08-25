@@ -51,9 +51,9 @@ class SessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($lesson_id)
     {
-        return view('session.create');
+        return view('session.create', array('lesson_id' => $lesson_id));
     }
 
     /**

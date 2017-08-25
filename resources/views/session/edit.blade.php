@@ -80,10 +80,7 @@
                             </div>
                         </div>
                         
-                        <?php 
-                            $url = explode("/",($_SERVER["REQUEST_URI"])); 
-                        ?>
-                        <input id="lesson_id" type="hidden" class="form-control" name="lesson_id" value="<?=$url[3] ?>" placeholder="lesson_id" required>
+                        <input id="lesson_id" type="hidden" class="form-control" name="lesson_id" value="<?= $session->lesson_id ?>" placeholder="lesson_id" required>
                         
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
