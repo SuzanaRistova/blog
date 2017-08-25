@@ -76,6 +76,16 @@ class SessionController extends Controller
         
         return \Redirect::route('session.show', array($session->id))->with('message', 'New Session created!');
     }
+    
+     public function save(Request $request)
+    {
+        $response = array(
+            'status' => 'updated',
+            'msg' => 'Rating successfully updated',
+            );
+         
+        return \Response::json($response);
+    }
 
     /**
      * Display the specified resource.
@@ -85,7 +95,13 @@ class SessionController extends Controller
      */
     public function show(Session $session)
     {
-        return view('session.show', compact('session'));
+//        $user = Auth::user();
+//        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+////            return view('session.show', compact('session'));
+//        } else {
+//        dd($session);
+            return view('session.view', compact('session'));
+//        }
     }
 
     /**

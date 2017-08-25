@@ -65,6 +65,8 @@ Route::get('lesson/delete/{lesson}', ['as' => 'lesson.delete', 'uses' => 'Lesson
 Route::get('sessions', 'SessionController@index')->name('sessions');
 Route::get('session/edit/{session}', 'SessionController@edit')->name("session.edit");
 Route::get('session/show/{session}', 'SessionController@show')->name("session.show");
+Route::get('session/view/{session}', 'SessionController@view')->name("session.view");
+Route::post('session/view/{session}', 'SessionController@view')->name("session.view");
 Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create");
 Route::post('session/store', 'SessionController@store')->name("session.store");
 Route::post('session/save/{session}', 'SessionController@save')->name("session.save");

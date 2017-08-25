@@ -23,11 +23,29 @@ const app = new Vue({
 
 $(document).ready( function() {
     $("#completed").click(function () {
+        var ans = 0;
+        var $this = $(this);
         if ($(this).is(":checked")) {
+            ans = 1;
             $(this).val(1);
         } else {
+            ans = 0;
             $(this).val(0);
         }
+        
+        $.ajax({
+            type: "POST",
+            url: "/session/save",
+            dataType: 'json',
+            data: {'completed': ans},
+            success: function (data) {
+                alert(data);
+            },
+            errors: function (data) {
+                alert(data);
+            }
+        });
     });
-    
+
+            
 });
