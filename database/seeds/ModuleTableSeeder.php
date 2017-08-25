@@ -15,7 +15,7 @@ class ModuleTableSeeder extends Seeder
         //Module Admin
         $module_admin = new App\Module();
         $module_admin->user_id = 1;
-        $module_admin->title = 'Module Page';
+        $module_admin->title = 'Admin Module';
         $module_admin->slug = 'admin-module';
         $module_admin->content = 'Admin Content';
         $module_admin->save();
