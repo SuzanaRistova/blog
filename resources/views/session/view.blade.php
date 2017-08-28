@@ -16,7 +16,7 @@
                     </div>
                     <div class="content"><?= $session->content; ?></div>
                     <div class="body-container">
-                        <iframe id="video" width="420" height="315" src="<?= $session->video ?>" frameborder="0" allowfullscreen></iframe>
+                        <!--<iframe id="video" width="420" height="315" src="<?php //= $session->video ?>" frameborder="0" allowfullscreen></iframe>-->
                     </div>
                 </div>
             </div>

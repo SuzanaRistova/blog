@@ -79,12 +79,26 @@ class SessionController extends Controller
     
      public function save(Request $request)
     {
+        $session = Session::where('id', $request->session_id )->first();
+        $session->completed = $request->completed;
+        $session->update();
+        
+        $lesson_id = $session->lesson_id;
+        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson_id)->count();
+        
+        $lesson = \App\Lesson::where(['id' => $lesson_id])->first();
+        
+        if ($sessions_completed == 0) {
+            $lesson->completed = 1;
+        } else {
+            $lesson->completed = 0;
+        }
+        $lesson->save();
+            
         $response = array(
             'status' => 'updated',
-            'msg' => 'Rating successfully updated',
-            );
-         
-        return \Response::json($response);
+            'msg' => 'Session successfully updated',
+        );
     }
 
     /**
@@ -95,13 +109,12 @@ class SessionController extends Controller
      */
     public function show(Session $session)
     {
-//        $user = Auth::user();
-//        if ($user->hasRole('admin') || $user->hasRole('editor')) {
-////            return view('session.show', compact('session'));
-//        } else {
-//        dd($session);
+        $user = Auth::user();
+        if ($user->hasRole('subscriber') || $user->hasRole('admin')) {
             return view('session.view', compact('session'));
-//        }
+        } else {
+            return view('session.show', compact('session'));
+        }
     }
 
     /**

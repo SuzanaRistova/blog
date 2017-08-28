@@ -23,13 +23,14 @@ const app = new Vue({
 
 $(document).ready( function() {
     $("#completed").click(function () {
-        var ans = 0;
+        var checked = 0;
+        var session_id = $('#session_id').val();
         var $this = $(this);
         if ($(this).is(":checked")) {
-            ans = 1;
+            checked = 1;
             $(this).val(1);
         } else {
-            ans = 0;
+            checked = 0;
             $(this).val(0);
         }
         
@@ -37,15 +38,15 @@ $(document).ready( function() {
             type: "POST",
             url: "/session/save",
             dataType: 'json',
-            data: {'completed': ans},
+            data: {
+                '_token': $('meta[name=csrf-token]').attr("content"),
+                'completed': checked,
+                'session_id': session_id,
+            },
             success: function (data) {
-                alert(data);
+                
             },
             errors: function (data) {
-                alert(data);
             }
         });
     });
-
-            
-});
