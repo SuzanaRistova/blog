@@ -109,12 +109,12 @@ class SessionController extends Controller
      */
     public function show(Session $session)
     {
-        $user = Auth::user();
-        if ($user->hasRole('subscriber') || $user->hasRole('admin')) {
-            return view('session.view', compact('session'));
-        } else {
-            return view('session.show', compact('session'));
-        }
+        return view('session.show', compact('session'));
+    }
+    
+    public function view(Session $session)
+    {
+        return view('session.view', compact('session'));
     }
 
     /**

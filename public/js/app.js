@@ -792,6 +792,7 @@ var app = new Vue({
 });
 
 $(document).ready(function () {
+
     $("#completed").click(function () {
         var complete = 0;
         var session_id = $('#session_id').val();
@@ -813,12 +814,8 @@ $(document).ready(function () {
                 'completed': complete,
                 'session_id': session_id
             },
-            success: function success(data) {
-                alert("yes");
-            },
-            errors: function errors(data) {
-                alert("no");
-            }
+            success: function success(data) {},
+            errors: function errors(data) {}
         });
     });
 });

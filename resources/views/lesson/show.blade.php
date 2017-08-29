@@ -25,9 +25,11 @@
                                 <td>
                                     {{($completed) ? "Completed" : "Not completed"}}
                                 </td>
+                                @if($user->hasRole('admin'))
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('session.create', $lesson->id) }}">Create Session</a>
                                </td>
+                               @endif
                             </tr>
                         </tbody>
                      </table>
@@ -53,11 +55,16 @@
                                     <td>{{ $session->content }}</td>
                                     <td>{{ $session->video }}</td>
                                     <td>{{ $session->completed }}</td>
+                                    @if($user->hasRole('subscriber'))
+                                    <td>   
+                                        <a class="btn btn-primary" href="{{ route('session.view', $session->id) }}">View</a>
+                                    </td>
+                                    @else
                                     <td>   
                                         <a class="btn btn-primary" href="{{ route('session.show', $session->id) }}">Show</a>
                                         <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>
                                         <a class="btn btn-primary" href="{{ route('session.delete', $session->id) }}">Delete</a>
-                                    </td>
+                                    </td> @endif
                                  </tr>
                                 @endforeach 
                            </tbody>

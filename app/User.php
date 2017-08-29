@@ -32,6 +32,22 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role')->withTimestamps();
     } 
     
+    public function isAdmin() {
+        if ($this->role_id === 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     
+    public function isSubscriber() {
+        if ($this->role_id === 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function pages()
     {
         return $this->hasMany('App\Page');

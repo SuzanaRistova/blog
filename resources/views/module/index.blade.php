@@ -7,7 +7,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Modules</div>
                 <div class="panel-body">
-                    <a class="btn btn-primary" href="{{ route('module.create') }}">Add module</a>
+                    @if($user->hasRole('admin'))
+                        <a class="btn btn-primary" href="{{ route('module.create') }}">Add module</a>
+                    @endif
                      <table class="table">
                         <thead>
                          <tr>
@@ -25,8 +27,8 @@
                                 <td>{{ $module->content }}</td>
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('module.show', $module->id) }}">Show</a>
-                                    <a class="btn btn-primary" href="{{ route('module.edit', $module->id) }}">Edit</a>
-                                    <a class="btn btn-primary" href="{{ route('module.delete', $module->id) }}">Delete</a>
+                                    @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('module.edit', $module->id) }}">Edit</a> @endif
+                                    @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('module.delete', $module->id) }}">Delete</a> @endif
                                 </td>
                             </tr>
                             @endforeach   

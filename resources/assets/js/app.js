@@ -22,6 +22,7 @@ const app = new Vue({
 });
 
 $(document).ready( function() {
+    
     $("#completed").click(function () {
         var complete = 0;
         var session_id = $('#session_id').val();
@@ -49,4 +50,5 @@ $(document).ready( function() {
             }
         });
     });
+    
 });

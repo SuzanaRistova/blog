@@ -85,6 +85,7 @@ class LessonController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Lesson $lesson) {
+        $user = Auth::user();
         $sessions = $lesson->sessions()->get();
         $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
         $completed = false;
@@ -93,7 +94,7 @@ class LessonController extends Controller
         } else {
             $completed = false;
         }
-        return view('lesson.show', compact('lesson', 'sessions', 'completed'));
+        return view('lesson.show', compact('lesson', 'sessions', 'completed', 'user'));
     }
 
     /**
