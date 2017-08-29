@@ -83,6 +83,12 @@ class PageController extends Controller
      */
     public function show(Page $page)
     {
+        $user_id = Auth::user()->id;
+        $user =  Auth::user();
+        
+        if ( ($user->id == 3 ) && ($page->user_id != $user_id)) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('page.show', compact('page'));
     }
 
@@ -94,6 +100,12 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
+        $user_id = Auth::user()->id;
+        $user =  Auth::user();
+        
+        if ( ($user->id == 3 ) && ($page->user_id != $user_id) ) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('page.edit', compact('page'));
     }
 
