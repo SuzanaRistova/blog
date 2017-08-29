@@ -13,6 +13,7 @@
                     <div class="body-container">
                         <label>Completed:</label>
                         <input id="completed" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
+                        <input id="session_id" name="session_id" type="hidden" value="{{ $session->id }}">
                     </div>
                     <div class="content"><?= $session->content; ?></div>
                     <div class="body-container">
