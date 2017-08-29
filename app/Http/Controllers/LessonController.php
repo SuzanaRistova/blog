@@ -94,6 +94,7 @@ class LessonController extends Controller
         } else {
             $completed = false;
         }
+        
         return view('lesson.show', compact('lesson', 'sessions', 'completed', 'user'));
     }
 

@@ -20,18 +20,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 //User routes
-//Route::get('users', 'UserController@index')->name('users')->middleware('role:admin');
-//Route::get('user/edit/{user}', 'UserController@edit')->name("user.edit")->middleware('role:admin');
-//Route::get('user/show/{user}', 'UserController@show')->name("user.show")->middleware('role:admin');
-//Route::get('user/create', 'UserController@create')->name("user.create")->middleware('role:admin');
-//Route::post('user/store', 'UserController@store')->name("user.store")->middleware('role:admin');
-//Route::post('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
-//Route::get('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
-//Route::get('user/delete/{user}', ['as' => 'user.delete', 'uses' => 'UserController@destroy'])->middleware('role:admin');
-Route::get('users', 'UserController@index')->name('users')->middleware('role:editor');
-Route::get('user/create', 'UserController@create')->name("user.create")->middleware('role:editor');
-Route::post('user/store', 'UserController@store')->name("user.store")->middleware('role:editor');
-Route::get('user/show/{user}', 'UserController@show')->name("user.show")->middleware('role:editor');
+Route::get('users', 'UserController@index')->name('users')->middleware('role:admin,editor');
+Route::get('user/edit/{user}', 'UserController@edit')->name("user.edit")->middleware('role:admin');
+Route::get('user/show/{user}', 'UserController@show')->name("user.show")->middleware('role:admin,editor');
+Route::get('user/create', 'UserController@create')->name("user.create")->middleware('role:admin,editor');
+Route::post('user/store', 'UserController@store')->name("user.store")->middleware('role:admin,editor');
+Route::post('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
+Route::get('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
+Route::get('user/delete/{user}', ['as' => 'user.delete', 'uses' => 'UserController@destroy'])->middleware('role:admin');
+
 
 //Page routes
 Route::get('pages', 'PageController@index')->name('pages');
@@ -46,10 +43,9 @@ Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageControll
 
 
 //Module routes
-//Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin');
-Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:subscriber');
+Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin,subscriber');
 Route::get('module/edit/{module}', 'ModuleController@edit')->name("module.edit")->middleware('role:admin');
-Route::get('module/show/{module}', 'ModuleController@show')->name("module.show");
+Route::get('module/show/{module}', 'ModuleController@show')->name("module.show")->middleware('role:admin,subscriber');
 Route::get('module/create', 'ModuleController@create')->name("module.create")->middleware('role:admin');
 Route::post('module/store', 'ModuleController@store')->name("module.store")->middleware('role:admin');
 Route::post('module/update/{module}', 'ModuleController@update')->name("module.update")->middleware('role:admin');
@@ -57,9 +53,9 @@ Route::get('module/update/{module}', 'ModuleController@update')->name("module.up
 Route::get('module/delete/{module}', ['as' => 'module.delete', 'uses' => 'ModuleController@destroy'])->middleware('role:admin');
 
 //Lesson routes
-Route::get('lessons', 'LessonController@index')->name('lessons')->middleware('role:admin');
+Route::get('lessons', 'LessonController@index')->name('lessons')->middleware('role:admin,subscriber');
 Route::get('lesson/edit/{lesson}', 'LessonController@edit')->name("lesson.edit")->middleware('role:admin');
-Route::get('lesson/show/{lesson}', 'LessonController@show')->name("lesson.show");
+Route::get('lesson/show/{lesson}', 'LessonController@show')->name("lesson.show")->middleware('role:admin,subscriber');
 Route::get('module/{lesson}/lesson/create', 'LessonController@create')->name("lesson.create")->middleware('role:admin');
 //Route::get('lesson/create', 'LessonController@create')->name("lesson.create");
 Route::post('lesson/store', 'LessonController@store')->name("lesson.store")->middleware('role:admin');
@@ -69,14 +65,14 @@ Route::get('lesson/update/{lesson}', 'LessonController@update')->name("lesson.up
 Route::get('lesson/delete/{lesson}', ['as' => 'lesson.delete', 'uses' => 'LessonController@destroy'])->middleware('role:admin');
 
 //Session routes
-Route::get('sessions', 'SessionController@index')->name('sessions')->middleware('role:admin');
+Route::get('sessions', 'SessionController@index')->name('sessions')->middleware('role:admin,subscriber');
 Route::get('session/edit/{session}', 'SessionController@edit')->name("session.edit")->middleware('role:admin');
 Route::get('session/show/{session}', 'SessionController@show')->name("session.show")->middleware('role:admin');
-Route::get('session/view/{session}', 'SessionController@view')->name("session.view");
-Route::post('session/view/{session}', 'SessionController@view')->name("session.view");
+Route::get('session/view/{session}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
+Route::post('session/view/{session}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
 Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create")->middleware('role:admin');
 Route::post('session/store', 'SessionController@store')->name("session.store")->middleware('role:admin');
-Route::post('session/save', 'SessionController@save')->name("session.save");
+Route::post('session/save', 'SessionController@save')->name("session.save,subscriber");
 Route::post('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
 Route::get('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
 Route::get('session/delete/{session}', ['as' => 'session.delete', 'uses' => 'SessionController@destroy'])->middleware('role:admin');
