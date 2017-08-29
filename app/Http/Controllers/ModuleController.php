@@ -79,12 +79,13 @@ class ModuleController extends Controller
      */
     public function show(Module $module)
     {
+        $user = Auth::user();
         $lessons = $module->lessons()->get();
         if($lessons == NULL){
             $lessons = "";
         }
         
-        return view('module.show', compact('module', 'lessons'));
+        return view('module.show', compact('module', 'lessons', 'user'));
     }
 
     /**

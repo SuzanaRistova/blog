@@ -21,9 +21,11 @@
                                 <td>{{ $module->title }}</td>
                                 <td>{{ $module->slug }}</td>
                                 <td>{{ $module->content }}</td>
+                                 @if($user->hasRole('admin')) 
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('lesson.create', $module->id) }}">Create Lesson</a>
                                 </td>
+                                @endif
                             </tr>
                         </tbody>
                      </table>
@@ -46,13 +48,13 @@
                                     <td>{{ $lesson->title }}</td>
                                     <td>{{ $lesson->slug }}</td>
                                     <td>{{ $lesson->content }}</td>
-                                    @if( (isset($lessons[$key-1]) && $lessons[$key-1]->completed == 1) || ($key == 0) )
-                                    <td>   
-                                        <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->id) }}">Show</a>
-                                        <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a>
-                                        <a class="btn btn-primary" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a>
+                                    <td>  
+                                        @if( (isset($lessons[$key-1]) && $lessons[$key-1]->completed == 1) || ($key == 0) )
+                                            <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->id) }}">Show</a>
+                                             @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a> @endif
+                                             @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a> @endif
+                                        @endif
                                     </td>
-                                    @endif
                                  </tr>
                                 @endforeach 
                            </tbody>
