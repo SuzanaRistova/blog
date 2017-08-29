@@ -20,24 +20,47 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 //User routes
-Route::get('users', 'UserController@index')->name('users');
-Route::get('user/edit/{user}', 'UserController@edit')->name("user.edit");
-Route::get('user/show/{user}', 'UserController@show')->name("user.show");
-Route::get('user/create', 'UserController@create')->name("user.create");
-Route::post('user/store', 'UserController@store')->name("user.store");
-Route::post('user/update/{user}', 'UserController@update')->name("user.update");
-Route::get('user/update/{user}', 'UserController@update')->name("user.update");
-Route::get('user/delete/{user}', ['as' => 'user.delete', 'uses' => 'UserController@destroy']);
+//Route::get('users', 'UserController@index')->name('users')->middleware('role:admin');
+//Route::get('user/edit/{user}', 'UserController@edit')->name("user.edit")->middleware('role:admin');
+//Route::get('user/show/{user}', 'UserController@show')->name("user.show")->middleware('role:admin');
+//Route::get('user/create', 'UserController@create')->name("user.create")->middleware('role:admin');
+//Route::post('user/store', 'UserController@store')->name("user.store")->middleware('role:admin');
+//Route::post('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
+//Route::get('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
+//Route::get('user/delete/{user}', ['as' => 'user.delete', 'uses' => 'UserController@destroy'])->middleware('role:admin');
+Route::get('users', 'UserController@index')->name('users')->middleware('role:editor');
+Route::get('user/create', 'UserController@create')->name("user.create")->middleware('role:editor');
+Route::post('user/store', 'UserController@store')->name("user.store")->middleware('role:editor');
+Route::get('user/show/{user}', 'UserController@show')->name("user.show")->middleware('role:editor');
 
 //Page routes
-Route::get('pages', 'PageController@index')->name('pages');
-Route::get('page/edit/{page}', 'PageController@edit')->name("page.edit");
-Route::get('page/show/{page}', 'PageController@show')->name("page.show");
-Route::get('page/create', 'PageController@create')->name("page.create");
-Route::post('page/store', 'PageController@store')->name("page.store");
-Route::post('page/update/{page}', 'PageController@update')->name("page.update");
-Route::get('page/update/{page}', 'PageController@update')->name("page.update");
-Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy']);
+Route::get('pages', 'PageController@index')->name('pages')->middleware('role:admin');
+Route::get('page/edit/{page}', 'PageController@edit')->name("page.edit")->middleware('role:admin');
+Route::get('page/show/{page}', 'PageController@show')->name("page.show")->middleware('role:admin');
+Route::get('page/create', 'PageController@create')->name("page.create")->middleware('role:admin');
+Route::post('page/store', 'PageController@store')->name("page.store")->middleware('role:admin');
+Route::post('page/update/{page}', 'PageController@update')->name("page.update")->middleware('role:admin');
+Route::get('page/update/{page}', 'PageController@update')->name("page.update")->middleware('role:admin');
+Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy'])->middleware('role:admin');
+
+Route::get('pages', 'PageController@index')->name('pages')->middleware('role:editor');
+Route::get('page/edit/{page}', 'PageController@edit')->name("page.edit")->middleware('role:editor');
+Route::get('page/show/{page}', 'PageController@show')->name("page.show")->middleware('role:editor');
+Route::get('page/create', 'PageController@create')->name("page.create")->middleware('role:editor');
+Route::post('page/store', 'PageController@store')->name("page.store")->middleware('role:editor');
+Route::post('page/update/{page}', 'PageController@update')->name("page.update")->middleware('role:editor');
+Route::get('page/update/{page}', 'PageController@update')->name("page.update")->middleware('role:editor');
+Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy'])->middleware('role:editor');
+
+Route::get('pages', 'PageController@index')->name('pages')->middleware('role:author');
+Route::get('page/edit/{page}', 'PageController@edit')->name("page.edit")->middleware('role:author');
+Route::get('page/show/{page}', 'PageController@show')->name("page.show")->middleware('role:author');
+Route::get('page/create', 'PageController@create')->name("page.create")->middleware('role:author');
+Route::post('page/store', 'PageController@store')->name("page.store")->middleware('role:author');
+Route::post('page/update/{page}', 'PageController@update')->name("page.update")->middleware('role:author');
+Route::get('page/update/{page}', 'PageController@update')->name("page.update")->middleware('role:author');
+Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy'])->middleware('role:author');
+
 
 //Module routes
 //Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin');

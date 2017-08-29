@@ -94,12 +94,6 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        $user_id = Auth::user()->id;
-        
-        if ($page->user_id != $user_id) {
-            abort(403, 'Unauthorized action.');
-        }
-        
         return view('page.edit', compact('page'));
     }
 
