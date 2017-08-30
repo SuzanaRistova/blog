@@ -16,7 +16,7 @@
                             <a href="{{ route('pages')}}">Pages</a>
                         </div>
                         <div class="link">
-                            <a href="{{ route('modules')}}">Modules</a>
+                            <a href="{{ $user->hasRole('admin') ? route('modules') : "/modules" }}">Modules</a>
                         </div>
                      </div>
                 </div>

@@ -45,7 +45,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
 });
 
 //Module routes
-    Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin,subscriber');
+Route::resource('modules', 'ModuleController', array('only' => array('index', 'show'), 'middleware' => ['role:subscriber']));
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
+    Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin');
     Route::get('module/edit/{module}', 'ModuleController@edit')->name("module.edit")->middleware('role:admin');
     Route::get('module/show/{slug}', 'ModuleController@show')->name("module.show")->middleware('role:admin,subscriber');
     Route::get('module/create', 'ModuleController@create')->name("module.create")->middleware('role:admin');
@@ -53,6 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
     Route::post('module/update/{module}', 'ModuleController@update')->name("module.update")->middleware('role:admin');
     Route::get('module/update/{module}', 'ModuleController@update')->name("module.update")->middleware('role:admin');
     Route::get('module/delete/{module}', ['as' => 'module.delete', 'uses' => 'ModuleController@destroy'])->middleware('role:admin');
+});
 
 
 //Lesson routes
