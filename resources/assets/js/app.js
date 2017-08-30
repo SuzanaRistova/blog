@@ -22,7 +22,7 @@ const app = new Vue({
 });
 
 $(document).ready( function() {
-    
+//    Completed Sessions
     $("#completed").click(function () {
         var complete = 0;
         var session_id = $('#session_id').val();
@@ -48,6 +48,25 @@ $(document).ready( function() {
             },
             errors: function (data) {
             }
+        });
+    });
+
+//    Sweet Alert
+    $('body').on('click', '.delete-btn', function (e) {
+        e.preventDefault();
+        var linkURL = $(this).attr("href");
+
+        sweetAlert({
+            title: "Are you sure?",
+            text: "You will not be able to recover this workspace!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, delete it!",
+            closeOnConfirm: false,
+            html: false
+        }, function () {
+            window.location.href = linkURL;
         });
     });
     

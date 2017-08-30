@@ -28,7 +28,7 @@
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('module.show', $module->slug) }}">Show</a>
                                     @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('module.edit', $module->id) }}">Edit</a> @endif
-                                    @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('module.delete', $module->id) }}">Delete</a> @endif
+                                    @if($user->hasRole('admin')) <a class="btn btn-primary delete-btn" href="{{ route('module.delete', $module->id) }}">Delete</a> @endif
                                 </td>
                             </tr>
                             @endforeach   

@@ -9,6 +9,7 @@
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "raymondwilkinson/sweetalert-laravel": "^1.0",
         "tinymce/tinymce": "^4.6",
         "unisharp/laravel-ckeditor": "^4.6"
     },
