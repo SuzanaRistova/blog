@@ -32,6 +32,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role')->withTimestamps();
     } 
     
+    public function sessions()
+    {
+        return $this->belongsToMany('App\Session')->withTimestamps();
+    } 
+    
     public function isAdmin() {
         if ($this->role_id === 1) {
             return true;

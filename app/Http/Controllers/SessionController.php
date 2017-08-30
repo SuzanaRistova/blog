@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,11 +35,11 @@ class SessionController extends Controller
     {
         $user = Auth::user();
         $user_id = $user->id;
-        $sessions = Session::get();
-        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+        if ($user->hasRole('admin')) {
             $admin_role = true;  
             $sessions = Session::get();
         } else {
+            $sessions = $user->sessions()->get();
             $admin_role = false;  
         }
         
@@ -81,19 +82,25 @@ class SessionController extends Controller
     {
         $session = Session::where('id', $request->session_id )->first();
         $session->completed = $request->completed;
+        $user_id = Auth::user()->id;
+        if($request->completed == 1){
+            $session->users()->attach($user_id);
+        } else {
+             DB::table('session_user')->where('user_id', $user_id)->delete();
+        }
         $session->update();
         
-        $lesson_id = $session->lesson_id;
-        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson_id)->count();
-        
-        $lesson = \App\Lesson::where(['id' => $lesson_id])->first();
-        
-        if ($sessions_completed == 0) {
-            $lesson->completed = 1;
-        } else {
-            $lesson->completed = 0;
-        }
-        $lesson->save();
+//        $lesson_id = $session->lesson_id;
+//        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson_id)->count();
+//        
+//        $lesson = \App\Lesson::where(['id' => $lesson_id])->first();
+//        
+//        if ($sessions_completed == 0) {
+//            $lesson->completed = 1;
+//        } else {
+//            $lesson->completed = 0;
+//        }
+//        $lesson->save();
             
         $response = array(
             'status' => 'updated',
@@ -114,7 +121,15 @@ class SessionController extends Controller
     
     public function view(Session $session)
     {
-        return view('session.view', compact('session'));
+        $user = Auth::user();
+        $sessions = $user->sessions()->get();
+        $completed = false;
+        foreach ($sessions as $current_session){
+            if($current_session->id == $session->id){
+                $completed = true;
+            }
+        }
+        return view('session.view', compact('session', 'completed'));
     }
 
     /**

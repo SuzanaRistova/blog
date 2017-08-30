@@ -87,12 +87,16 @@ class LessonController extends Controller
     public function show(Lesson $lesson) {
         $user = Auth::user();
         $sessions = $lesson->sessions()->get();
-        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
+        
+        $sessions_this_user = $user->sessions()->count();
+        $sessions_all = $lesson->sessions()->count();
+        
         $completed = false;
-        if ($sessions_completed == 0) {
-            $completed = true;
+        
+        if($sessions_this_user == $sessions_all){
+                $completed = true;
         } else {
-            $completed = false;
+                $completed = false;
         }
         
         return view('lesson.show', compact('lesson', 'sessions', 'completed', 'user'));
@@ -126,14 +130,14 @@ class LessonController extends Controller
         $lesson->content = $request->content;
         $lesson->update();
         
-        $sessions = $lesson->sessions()->get();
-        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
-        $completed = false;
-        if ($sessions_completed == 0) {
-            $completed = true;
-        } else {
-            $completed = false;
-        }
+//        $sessions = $lesson->sessions()->get();
+//        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
+//        $completed = false;
+//        if ($sessions_completed == 0) {
+//            $completed = true;
+//        } else {
+//            $completed = false;
+//        }
         return view('lesson.show', compact('lesson', 'sessions', 'completed'));
     }
 

@@ -30,7 +30,6 @@
                         </tbody>
                      </table>
                </div>
-                
                 <div class="panel-heading">Lessons</div>
                 <div class="panel-body">
                         <table class="table table-striped">
@@ -49,7 +48,7 @@
                                     <td>{{ $lesson->slug }}</td>
                                     <td>{{ $lesson->content }}</td>
                                     <td>  
-                                        @if( (isset($lessons[$key-1]) && $lessons[$key-1]->completed == 1) || ($key == 0) )
+                                        @if( (isset($lessons[$key-1]) && $completed == true) || ($key == 0) )
                                             <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->id) }}">Show</a>
                                              @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a> @endif
                                              @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a> @endif

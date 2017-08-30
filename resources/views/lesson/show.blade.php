@@ -54,7 +54,7 @@
                                     <td>{{ $session->slug }}</td>
                                     <td>{{ $session->content }}</td>
                                     <td>{{ $session->video }}</td>
-                                    <td>{{ $session->completed }}</td>
+                                    <!--<td>{{ $session->completed }}</td>-->
                                     @if($user->hasRole('subscriber'))
                                     <td>   
                                         <a class="btn btn-primary" href="{{ route('session.view', $session->id) }}">View</a>

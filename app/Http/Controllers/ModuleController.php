@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Module;
+use App\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -82,11 +83,23 @@ class ModuleController extends Controller
         $user = Auth::user();
         $module = Module::where('slug', $slug)->first();
         $lessons = $module->lessons()->get();
+        $completed = false;
+        foreach($lessons as $lesson){
+            $sessions = $lesson->sessions()->get();  
+            $sessions_this_user = $user->sessions()->count();
+            $sessions_all = $lesson->sessions()->count();            
+            if ($sessions_this_user == $sessions_all) {
+                $completed = true;
+            } else {
+                $completed = false;
+            }
+        }
+        
         if($lessons == NULL){
             $lessons = "";
         }
        
-        return view('module.show', compact('module', 'lessons', 'user'));
+        return view('module.show', compact('module', 'lessons', 'user', 'completed'));
     }
 
     /**

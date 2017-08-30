@@ -8,11 +8,15 @@
             <div class="panel panel-default">
                 <div class="title-container">
                     <div class="title"><?= $session->title; ?></div>
-                </div>
+                </div>                        
                 <div class="body-container">
                     <div class="body-container">
                         <label>Completed:</label>
-                        <input id="completed" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
+                        <?php if($completed){ ?>
+                            <input id="completed" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
+                        <?php } else { ?> 
+                             <input id="completed" name="completed" type="checkbox" value="0">
+                        <?php } ?>
                         <input id="session_id" name="session_id" type="hidden" value="{{ $session->id }}">
                     </div>
                     <div class="content"><?= $session->content; ?></div>

@@ -10,4 +10,9 @@ class Session extends Model
        'lesson_id', 'title', 'slug', 'content', 'video', 'completed',
     ];
     
+    public function users()
+    {
+        return $this->belongsToMany('App\User')->withTimestamps();
+    }
+    
 }
