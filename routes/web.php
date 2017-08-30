@@ -46,8 +46,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
 
 //Module routes
 Route::resource('modules', 'ModuleController', array('only' => array('index', 'show'), 'middleware' => ['role:subscriber']));
+//Route::resource('module/show/{slug}', 'ModuleController', array('only' => array('index', 'show'), 'middleware' => ['role:subscriber']));
+//Route::resource('show', 'ModuleController', array('only' => array('index', 'show'), 'middleware' => ['role:subscriber']));
 
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,subscriber']], function(){
     Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin');
     Route::get('module/edit/{module}', 'ModuleController@edit')->name("module.edit")->middleware('role:admin');
     Route::get('module/show/{slug}', 'ModuleController@show')->name("module.show")->middleware('role:admin,subscriber');
