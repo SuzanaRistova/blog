@@ -80,13 +80,12 @@ class ModuleController extends Controller
     public function show(Module $module, $slug)
     {
         $user = Auth::user();
+        $module = Module::where('slug', $slug)->first();
         $lessons = $module->lessons()->get();
         if($lessons == NULL){
             $lessons = "";
         }
-         
-        $module = Module::where('slug', $slug)->first();
-        
+       
         return view('module.show', compact('module', 'lessons', 'user'));
     }
 
