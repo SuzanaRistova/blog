@@ -792,7 +792,7 @@ var app = new Vue({
 });
 
 $(document).ready(function () {
-
+    //    Completed Sessions
     $("#completed").click(function () {
         var complete = 0;
         var session_id = $('#session_id').val();
@@ -819,7 +819,8 @@ $(document).ready(function () {
         });
     });
 
-    $('body').on('click', '.delete-btn', function (e) {
+    //    Sweet Alert
+    $('body').on('click', '.delete-button', function (e) {
         e.preventDefault();
         var linkURL = $(this).attr("href");
 
