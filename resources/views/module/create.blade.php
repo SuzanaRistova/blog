@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create new module</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('module.store') }}">
+                    <form name="moduleform" novalidate class="form-horizontal" method="POST" action="{{ route('module.store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create new lesson</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('lesson.store') }}">
+                    <form  name="lessonform" novalidate  class="form-horizontal" method="POST" action="{{ route('lesson.store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

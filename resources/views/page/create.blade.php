@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create new page</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('page.store') }}">
+                    <form class="form-horizontal" name="pageform" method="POST" novalidate action="{{ route('page.store') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

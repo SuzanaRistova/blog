@@ -70,4 +70,11 @@ $(document).ready( function() {
         });
     });
     
+   tinymce.init({
+    selector: 'textarea',
+    auto_focus: 'content'
+  });
+ 
+
+    
 });

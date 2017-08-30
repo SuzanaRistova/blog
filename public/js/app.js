@@ -837,6 +837,11 @@ $(document).ready(function () {
             window.location.href = linkURL;
         });
     });
+
+    tinymce.init({
+        selector: 'textarea',
+        auto_focus: 'content'
+    });
 });
 
 /***/ }),
