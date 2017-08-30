@@ -10,13 +10,13 @@
                      You are logged in!
                      <div class="home body-container">
                         <div class="link">
-                            <a href="users">Users</a>
+                            <a href="{{ route('users')}}">Users</a>
                         </div>
                         <div class="link">
-                            <a href="pages">Pages</a>
+                            <a href="{{ route('pages')}}">Pages</a>
                         </div>
                         <div class="link">
-                            <a href="modules">Modules</a>
+                            <a href="{{ route('modules')}}">Modules</a>
                         </div>
                      </div>
                 </div>

@@ -29,7 +29,7 @@
                                 @endif
 
                                 @if($admin_role) 
-                                    <a class="btn btn-primary" href="{{ route('user.delete', $user->id) }}">Delete</a>
+                                    <a class="btn btn-primary delete-button" href="{{ route('user.delete', $user->id) }}">Delete</a>
                                 @endif
                             </td>
                              </tr>

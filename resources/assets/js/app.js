@@ -52,7 +52,7 @@ $(document).ready( function() {
     });
 
 //    Sweet Alert
-    $('body').on('click', '.delete-btn', function (e) {
+    $('body').on('click', '.delete-button', function (e) {
         e.preventDefault();
         var linkURL = $(this).attr("href");
 

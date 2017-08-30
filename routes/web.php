@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 //User routes
+Route::group(array('prefix' => 'admin'), function(){
 Route::get('users', 'UserController@index')->name('users')->middleware('role:admin,editor');
 Route::get('user/edit/{user}', 'UserController@edit')->name("user.edit")->middleware('role:admin');
 Route::get('user/show/{user}', 'UserController@show')->name("user.show")->middleware('role:admin,editor');
@@ -28,6 +29,7 @@ Route::post('user/store', 'UserController@store')->name("user.store")->middlewar
 Route::post('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
 Route::get('user/update/{user}', 'UserController@update')->name("user.update")->middleware('role:admin');
 Route::get('user/delete/{user}', ['as' => 'user.delete', 'uses' => 'UserController@destroy'])->middleware('role:admin');
+});
 
 
 //Page routes

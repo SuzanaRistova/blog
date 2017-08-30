@@ -29,7 +29,7 @@
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('session.show', $session->id) }}">Show</a>
                                     <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>
-                                    <a class="btn btn-primary" href="{{ route('session.delete', $session->id) }}">Delete</a>
+                                    <a class="btn btn-primary delete-button" href="{{ route('session.delete', $session->id) }}">Delete</a>
                                 </td>
                             </tr>
                             @endforeach   
