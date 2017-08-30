@@ -68,7 +68,7 @@ class ModuleController extends Controller
         $module->content = $request->content;
         $module->save();
         
-        return \Redirect::route('module.show', array($module->id))->with('message', 'New Module created!');
+        return \Redirect::route('module.show', array("slug" => $request->slug))->with('message', 'New Module created!');
     }
 
     /**
@@ -77,13 +77,15 @@ class ModuleController extends Controller
      * @param  \App\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function show(Module $module)
+    public function show(Module $module, $slug)
     {
         $user = Auth::user();
         $lessons = $module->lessons()->get();
         if($lessons == NULL){
             $lessons = "";
         }
+         
+        $module = Module::where('slug', $slug)->first();
         
         return view('module.show', compact('module', 'lessons', 'user'));
     }
@@ -108,6 +110,7 @@ class ModuleController extends Controller
      */
     public function update(Request $request, Module $module)
     {
+        $user = Auth::user();
         $validator = $this->validate($request, $this->rules());
         
         $user_id = Auth::user()->id;
@@ -117,7 +120,12 @@ class ModuleController extends Controller
         $module->content = $request->content;
         $module->update();
         
-        return view('module.show', compact('module'));
+        $lessons = $module->lessons()->get();
+        if($lessons == NULL){
+            $lessons = "";
+        }
+        
+        return view('module.show', compact('module','lessons','user'));
     }
 
     /**

@@ -45,7 +45,7 @@ Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageControll
 //Module routes
 Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin,subscriber');
 Route::get('module/edit/{module}', 'ModuleController@edit')->name("module.edit")->middleware('role:admin');
-Route::get('module/show/{module}', 'ModuleController@show')->name("module.show")->middleware('role:admin,subscriber');
+Route::get('module/show/{slug}', 'ModuleController@show')->name("module.show")->middleware('role:admin,subscriber');
 Route::get('module/create', 'ModuleController@create')->name("module.create")->middleware('role:admin');
 Route::post('module/store', 'ModuleController@store')->name("module.store")->middleware('role:admin');
 Route::post('module/update/{module}', 'ModuleController@update')->name("module.update")->middleware('role:admin');
@@ -57,7 +57,6 @@ Route::get('lessons', 'LessonController@index')->name('lessons')->middleware('ro
 Route::get('lesson/edit/{lesson}', 'LessonController@edit')->name("lesson.edit")->middleware('role:admin');
 Route::get('lesson/show/{lesson}', 'LessonController@show')->name("lesson.show")->middleware('role:admin,subscriber');
 Route::get('module/{lesson}/lesson/create', 'LessonController@create')->name("lesson.create")->middleware('role:admin');
-//Route::get('lesson/create', 'LessonController@create')->name("lesson.create");
 Route::post('lesson/store', 'LessonController@store')->name("lesson.store")->middleware('role:admin');
 Route::post('lesson/save/{lesson}', 'LessonController@save')->name("lesson.save")->middleware('role:admin');
 Route::post('lesson/update/{lesson}', 'LessonController@update')->name("lesson.update")->middleware('role:admin');

@@ -26,7 +26,7 @@
                                 <td>{{ $module->slug }}</td>
                                 <td>{{ $module->content }}</td>
                                 <td>   
-                                    <a class="btn btn-primary" href="{{ route('module.show', $module->id) }}">Show</a>
+                                    <a class="btn btn-primary" href="{{ route('module.show', $module->slug) }}">Show</a>
                                     @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('module.edit', $module->id) }}">Edit</a> @endif
                                     @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('module.delete', $module->id) }}">Delete</a> @endif
                                 </td>

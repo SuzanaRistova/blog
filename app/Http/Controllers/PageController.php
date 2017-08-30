@@ -89,6 +89,9 @@ class PageController extends Controller
         if ( ($user->id == 3 ) && ($page->user_id != $user_id)) {
             abort(403, 'Unauthorized action.');
         }
+        
+        $page = Page::where('slug', $slug)->first();
+
         return view('page.show', array("slug" => $page->slug), compact('page'));
     }
 
