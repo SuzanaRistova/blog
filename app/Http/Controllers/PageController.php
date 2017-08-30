@@ -72,7 +72,7 @@ class PageController extends Controller
         $page->content = $request->content;
         $page->save();
         
-        return \Redirect::route('page.show', array($page->id))->with('message', 'New Page created!');
+        return \Redirect::route('page.show', array("slug" => $request->slug))->with('message', 'New Page created!');
     }
 
     /**
@@ -81,7 +81,7 @@ class PageController extends Controller
      * @param  \App\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show(Page $page, $slug)
     {
         $user_id = Auth::user()->id;
         $user =  Auth::user();
@@ -89,7 +89,7 @@ class PageController extends Controller
         if ( ($user->id == 3 ) && ($page->user_id != $user_id)) {
             abort(403, 'Unauthorized action.');
         }
-        return view('page.show', compact('page'));
+        return view('page.show', array("slug" => $page->slug), compact('page'));
     }
 
     /**

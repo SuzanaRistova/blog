@@ -24,7 +24,7 @@
                                 <td>{{ $page->slug }}</td>
                                 <td>{{ $page->content }}</td>
                                 <td>   
-                                    <a class="btn btn-primary" href="{{ route('page.show', $page->id) }}">Show</a>
+                                    <a class="btn btn-primary" href="{{ route('page.show', $page->slug) }}">Show</a>
                                     <a class="btn btn-primary" href="{{ route('page.edit', $page->id) }}">Edit</a>
                                     <a class="btn btn-primary" href="{{ route('page.delete', $page->id) }}">Delete</a>
                                 </td>
