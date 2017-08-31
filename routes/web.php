@@ -60,30 +60,40 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
  Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin,subscriber');
  Route::get('module/show/{slug}', 'ModuleController@show')->name("module.show")->middleware('role:admin,subscriber');
 
+//Lesson routes with prefix admin
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
+    Route::get('lessons', 'LessonController@index')->name('lessons')->middleware('role:admin');
+    Route::get('lesson/edit/{lesson}', 'LessonController@edit')->name("lesson.edit")->middleware('role:admin');
+    Route::get('lesson/show/{slug}', 'LessonController@show')->name("lesson.show")->middleware('role:admin');
+    Route::get('module/{lesson}/lesson/create', 'LessonController@create')->name("lesson.create")->middleware('role:admin');
+    Route::post('lesson/store', 'LessonController@store')->name("lesson.store")->middleware('role:admin');
+    Route::post('lesson/save/{lesson}', 'LessonController@save')->name("lesson.save")->middleware('role:admin');
+    Route::post('lesson/update/{lesson}', 'LessonController@update')->name("lesson.update")->middleware('role:admin');
+    Route::get('lesson/update/{lesson}', 'LessonController@update')->name("lesson.update")->middleware('role:admin');
+    Route::get('lesson/delete/{lesson}', ['as' => 'lesson.delete', 'uses' => 'LessonController@destroy'])->middleware('role:admin');
+});
 
 //Lesson routes
-Route::get('lessons', 'LessonController@index')->name('lessons')->middleware('role:admin,subscriber');
-Route::get('lesson/edit/{lesson}', 'LessonController@edit')->name("lesson.edit")->middleware('role:admin');
 Route::get('lesson/show/{slug}', 'LessonController@show')->name("lesson.show")->middleware('role:admin,subscriber');
-Route::get('module/{lesson}/lesson/create', 'LessonController@create')->name("lesson.create")->middleware('role:admin');
-Route::post('lesson/store', 'LessonController@store')->name("lesson.store")->middleware('role:admin');
-Route::post('lesson/save/{lesson}', 'LessonController@save')->name("lesson.save")->middleware('role:admin');
-Route::post('lesson/update/{lesson}', 'LessonController@update')->name("lesson.update")->middleware('role:admin');
-Route::get('lesson/update/{lesson}', 'LessonController@update')->name("lesson.update")->middleware('role:admin');
-Route::get('lesson/delete/{lesson}', ['as' => 'lesson.delete', 'uses' => 'LessonController@destroy'])->middleware('role:admin');
+
+//Session routes with prefix admin
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
+    Route::get('sessions', 'SessionController@index')->name('sessions')->middleware('role:admin');
+    Route::get('session/edit/{session}', 'SessionController@edit')->name("session.edit")->middleware('role:admin');
+    Route::get('session/show/{slug}', 'SessionController@show')->name("session.show")->middleware('role:admin');
+    Route::get('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin');
+    Route::post('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin');
+    Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create")->middleware('role:admin');
+    Route::post('session/store', 'SessionController@store')->name("session.store")->middleware('role:admin');
+    Route::post('session/save', 'SessionController@save')->name("session.save,subscriber");
+    Route::post('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
+    Route::get('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
+    Route::get('session/delete/{session}', ['as' => 'session.delete', 'uses' => 'SessionController@destroy'])->middleware('role:admin');
+});
 
 //Session routes
-Route::get('sessions', 'SessionController@index')->name('sessions')->middleware('role:admin,subscriber');
-Route::get('session/edit/{session}', 'SessionController@edit')->name("session.edit")->middleware('role:admin');
-Route::get('session/show/{slug}', 'SessionController@show')->name("session.show")->middleware('role:admin');
 Route::get('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
 Route::post('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
-Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create")->middleware('role:admin');
-Route::post('session/store', 'SessionController@store')->name("session.store")->middleware('role:admin');
-Route::post('session/save', 'SessionController@save')->name("session.save,subscriber");
-Route::post('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
-Route::get('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
-Route::get('session/delete/{session}', ['as' => 'session.delete', 'uses' => 'SessionController@destroy'])->middleware('role:admin');
 
 //Login facebook
 Route::get('login/facebook', 'Auth\LoginController@redirectToFacebookProvider');
