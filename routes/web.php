@@ -76,7 +76,7 @@ Route::get('lesson/delete/{lesson}', ['as' => 'lesson.delete', 'uses' => 'Lesson
 Route::get('sessions', 'SessionController@index')->name('sessions')->middleware('role:admin,subscriber');
 Route::get('session/edit/{session}', 'SessionController@edit')->name("session.edit")->middleware('role:admin');
 Route::get('session/show/{slug}', 'SessionController@show')->name("session.show")->middleware('role:admin');
-Route::get('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
+Route::get('session/view/{session}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
 Route::post('session/view/{session}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
 Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create")->middleware('role:admin');
 Route::post('session/store', 'SessionController@store')->name("session.store")->middleware('role:admin');
