@@ -66,6 +66,11 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validate($request, $this->rules());
+        
+        if($request->completed == NULL){
+            $request->completed = 0;
+        }
+        
         $session = new Session();
         $session->lesson_id = $request->lesson_id;
         $session->title = $request->title;
@@ -83,24 +88,14 @@ class SessionController extends Controller
         $session = Session::where('id', $request->session_id )->first();
         $session->completed = $request->completed;
         $user_id = Auth::user()->id;
+        
         if($request->completed == 1){
             $session->users()->attach($user_id);
         } else {
              DB::table('session_user')->where('user_id', $user_id)->delete();
         }
-        $session->update();
         
-//        $lesson_id = $session->lesson_id;
-//        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson_id)->count();
-//        
-//        $lesson = \App\Lesson::where(['id' => $lesson_id])->first();
-//        
-//        if ($sessions_completed == 0) {
-//            $lesson->completed = 1;
-//        } else {
-//            $lesson->completed = 0;
-//        }
-//        $lesson->save();
+        $session->update();
             
         $response = array(
             'status' => 'updated',

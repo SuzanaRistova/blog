@@ -86,7 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
     Route::post('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin');
     Route::get('lesson/{session}/session/create', 'SessionController@create')->name("session.create")->middleware('role:admin');
     Route::post('session/store', 'SessionController@store')->name("session.store")->middleware('role:admin');
-    Route::post('session/save', 'SessionController@save')->name("session.save,subscriber");
+    Route::post('session/save', 'SessionController@save')->name("session.save")->middleware('role:admin');
     Route::post('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
     Route::get('session/update/{session}', 'SessionController@update')->name("session.update")->middleware('role:admin');
     Route::get('session/delete/{session}', ['as' => 'session.delete', 'uses' => 'SessionController@destroy'])->middleware('role:admin');
@@ -95,6 +95,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
 //Session routes
 Route::get('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
 Route::post('session/view/{slug}', 'SessionController@view')->name("session.view")->middleware('role:admin,subscriber');
+Route::post('session/save', 'SessionController@save')->name("session.save")->middleware('role:admin,subscriber');
 
 //Login facebook
 Route::get('login/facebook', 'Auth\LoginController@redirectToFacebookProvider');

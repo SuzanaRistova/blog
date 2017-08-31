@@ -13,9 +13,9 @@
                     <div class="body-container">
                         <label>Completed:</label>
                         <?php if($completed){ ?>
-                            <input id="completed" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
+                            <input id="completed-view" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
                         <?php } else { ?> 
-                             <input id="completed" name="completed" type="checkbox" value="0">
+                             <input id="completed-view" name="completed" type="checkbox" value="0">
                         <?php } ?>
                         <input id="session_id" name="session_id" type="hidden" value="{{ $session->id }}">
                     </div>

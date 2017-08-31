@@ -22,8 +22,8 @@ const app = new Vue({
 });
 
 $(document).ready( function() {
-//    Completed Sessions
-    $("#completed").click(function () {
+//  Completed Sessions
+    $("#completed-view").click(function () {
         var complete = 0;
         var session_id = $('#session_id').val();
         var $this = $(this);
@@ -49,6 +49,20 @@ $(document).ready( function() {
             errors: function (data) {
             }
         });
+    });
+    
+    //  Checked
+     $("#completed").click(function () {
+        var complete = 0;
+        var session_id = $('#session_id').val();
+        var $this = $(this);
+        if ($(this).is(":checked")) {
+            complete = 1;
+            $(this).val(1);
+        } else {
+            complete = 0;
+            $(this).val(0);
+        }
     });
 
 //    Sweet Alert

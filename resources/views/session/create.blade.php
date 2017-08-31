@@ -66,8 +66,21 @@
                             </div>
                         </div>
                         
-                        <input id="completed" type="hidden" class="form-control" name="completed" value="0" placeholder="Completed" required>
+                        <div class="form-group{{ $errors->has('completed') ? ' has-error' : '' }}">
+                            <label for="completed" class="col-md-4 control-label">Completed</label>
 
+                            <div class="col-md-6">
+                                <input id="completed" type="checkbox" class="form-control" name="completed" value="{{ old('completed') }}">
+
+                                @if ($errors->has('completed'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('completed') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                      
+                        
                         <input id="lesson_id" type="hidden" class="form-control" name="lesson_id" value="<?= $lesson_id?>" placeholder="lesson_id" required>
                         
                         <div class="form-group">

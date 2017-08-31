@@ -13,7 +13,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Update new page</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('page.update', $page->id) }}">
+                    <form name="page_form_update" novalidate  class="form-horizontal" method="POST" action="{{ route('page.update', $page->id) }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">

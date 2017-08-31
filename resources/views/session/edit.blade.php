@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create new session</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('session.update', $session->id) }}">
+                    <form name="session_form_update" novalidate  class="form-horizontal" method="POST" action="{{ route('session.update', $session->id) }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
