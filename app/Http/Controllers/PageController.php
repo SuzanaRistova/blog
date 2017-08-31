@@ -85,11 +85,11 @@ class PageController extends Controller
     {
         $user_id = Auth::user()->id;
         $user =  Auth::user();
-        if (($user->hasRole('admin')) && ($page->user_id != $user_id)) {
+        $page = Page::where('slug', $slug)->first();
+
+        if (($user->hasRole('author')) && ($page->user_id != $user_id)) {
             abort(403, 'Unauthorized action.');
         }
-        
-        $page = Page::where('slug', $slug)->first();
 
         return view('page.show', compact('page'));
     }
