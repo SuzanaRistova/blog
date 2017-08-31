@@ -18,6 +18,14 @@
                         <div class="link">
                             <a href="{{ $user->hasRole('admin') ? "admin/modules" : route('modules') }}">Modules</a>
                         </div>
+                         @if($user->hasRole('admin'))
+                          <div class="link">
+                            <a href="{{ route('lessons')}}">Lessons</a>
+                        </div>
+                         <div class="link">
+                            <a href="{{ route('sessions')}}">Sessions</a>
+                        </div>
+                         @endif
                      </div>
                 </div>
             </div>

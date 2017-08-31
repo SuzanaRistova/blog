@@ -26,3 +26,21 @@
 .home .link{
     margin: 10px;
 }
+.profile{
+    width: 150px;
+    border-radius: 50%;
+    float:left;
+    margin-right: 25px;
+}
+.profile-header{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.profile-name-header{
+    position: relative !important;
+    padding-left: 50px !important;
+}

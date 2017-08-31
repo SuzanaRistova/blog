@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use DB;
 use App\User;
 use App\Role;
+use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,6 +41,24 @@ class UserController extends Controller {
             $admin_role = false;  
         }
         return view('user.index', compact('users', 'admin_role'));
+    }
+    
+    public function profile() {
+        $user = Auth::user();
+        return view('user.profile', compact('user'));
+    }
+    
+    public function update_avatar(Request $request) {
+            if($request->hasFile('avatar')){
+                $avatar = $request->file('avatar');
+                $filename = time().".".$avatar->getClientOriginalExtension();
+                Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/'. $filename));
+                $user = Auth::user();
+                $user->avatar = $filename;
+                $user->save();
+            }
+    
+        return view('user.profile', compact('user'));
     }
 
     public function show(User $user) {
