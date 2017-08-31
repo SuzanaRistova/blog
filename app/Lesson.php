@@ -30,8 +30,8 @@ class Lesson extends Model
             ->count();
         
         $all_sessions = $this->sessions()->count();
-        $completed = false;
         
+        $completed = false;
         if($sessions_completed == $all_sessions){
                 $completed = true;
         } else {
@@ -39,8 +39,6 @@ class Lesson extends Model
         }
         
        return $completed;
-        //Site sessi za ovoj lesson/user_id/Sessions
-        //Dali site ovie sessii se vo session_user. Ako se tamu site, togas e lessono completed.
 
     }
 
