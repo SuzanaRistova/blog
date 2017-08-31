@@ -51,10 +51,7 @@
                                 @endif
                             </div>
                         </div>
-                        <?php 
-                       
-                            
-                        ?>
+
                         <input id="module_id" type="hidden" class="form-control" name="module_id" value="<?= $module_id ?>" placeholder="module_id" required>
                         
                         <div class="form-group">
