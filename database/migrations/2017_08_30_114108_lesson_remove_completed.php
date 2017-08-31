@@ -25,6 +25,8 @@ class LessonRemoveCompleted extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('lessons', function($table) {
+            $table->integer('completed');
+        });
     }
 }

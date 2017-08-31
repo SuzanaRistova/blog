@@ -12,36 +12,133 @@ class LessonTableSeeder extends Seeder
      */
     public function run()
     {
-        //Lesson 1
-        $lesson_admin = new Lesson();
-        $lesson_admin->module_id = 4;
-        $lesson_admin->title = 'Lesson 1';
-        $lesson_admin->slug = 'lesson-1';
-        $lesson_admin->content = 'Lesson Content 1';
-        $lesson_admin->save();
+        //Module 1 Lesson 1
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 1;
+        $lesson_module->title = 'Module 1 Lesson 1';
+        $lesson_module->slug = 'module-1-lesson-1';
+        $lesson_module->content = 'Lesson Content 1';
+        $lesson_module->save();
         
-        //Lesson 2
-        $lesson_editor = new Lesson();
-        $lesson_editor->module_id = 4;
-        $lesson_editor->title = 'Lesson 2';
-        $lesson_editor->slug = 'lesson-2';
-        $lesson_editor->content = 'Lesson Content 2';
-        $lesson_editor->save();
+        //Module 1 Lesson 2
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 1;
+        $lesson_module->title = 'Module 1 Lesson 2';
+        $lesson_module->slug = 'module-1-lesson-2';
+        $lesson_module->content = 'Lesson Content 2';
+        $lesson_module->save();
         
-        //Lesson 3
-        $lesson_author = new Lesson();
-        $lesson_author->module_id = 4;
-        $lesson_author->title = 'Lesson 3';
-        $lesson_author->slug = 'lesson-3';
-        $lesson_author->content = 'Lesson Content 3';
-        $lesson_author->save();
+        //Module 1 Lesson 3
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 1;
+        $lesson_module->title = 'Module 1 Lesson 3';
+        $lesson_module->slug = 'module-1-lesson-3';
+        $lesson_module->content = 'Lesson Content 3';
+        $lesson_module->save();
         
-        //Lesson 4
-        $lesson_subscriber= new Lesson();
-        $lesson_subscriber->module_id = 4;
-        $lesson_subscriber->title = 'Lesson 4';
-        $lesson_subscriber->slug = 'lesson-4';
-        $lesson_subscriber->content = 'Lesson Content 4';
-        $lesson_subscriber->save();
+        //Module 1 Lesson 4
+        $lesson_module= new Lesson();
+        $lesson_module->module_id = 1;
+        $lesson_module->title = 'Module 1 Lesson 4';
+        $lesson_module->slug = 'module-1-lesson-4';
+        $lesson_module->content = 'Lesson Content 4';
+        $lesson_module->save();
+        
+         //Module 2 Lesson 1
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 2;
+        $lesson_module->title = 'Module 2 Lesson 1';
+        $lesson_module->slug = 'module-2-lesson-1';
+        $lesson_module->content = 'Lesson Content 1';
+        $lesson_module->save();
+        
+        //Module 2 Lesson 2
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 2;
+        $lesson_module->title = 'Module 2 Lesson 2';
+        $lesson_module->slug = 'module-2-lesson-2';
+        $lesson_module->content = 'Lesson Content 2';
+        $lesson_module->save();
+        
+        //Module 2 Lesson 3
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 2;
+        $lesson_module->title = 'Module 2 Lesson 3';
+        $lesson_module->slug = 'module-2-lesson-3';
+        $lesson_module->content = 'Lesson Content 3';
+        $lesson_module->save();
+        
+        //Module 2 Lesson 4
+        $lesson_module= new Lesson();
+        $lesson_module->module_id = 2;
+        $lesson_module->title = 'Module 2 Lesson 4';
+        $lesson_module->slug = 'module-2-lesson-4';
+        $lesson_module->content = 'Lesson Content 4';
+        $lesson_module->save();
+        
+          
+         //Module 3 Lesson 1
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 3;
+        $lesson_module->title = 'Module 3 Lesson 1';
+        $lesson_module->slug = 'module-3-lesson-1';
+        $lesson_module->content = 'Lesson Content 1';
+        $lesson_module->save();
+        
+        //Module 3 Lesson 2
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 3;
+        $lesson_module->title = 'Module 3 Lesson 2';
+        $lesson_module->slug = 'module-3-lesson-2';
+        $lesson_module->content = 'Lesson Content 2';
+        $lesson_module->save();
+        
+        //Module 3 Lesson 3
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 3;
+        $lesson_module->title = 'Module 3 Lesson 3';
+        $lesson_module->slug = 'module-3-lesson-3';
+        $lesson_module->content = 'Lesson Content 3';
+        $lesson_module->save();
+        
+        //Module 3 Lesson 4
+        $lesson_module= new Lesson();
+        $lesson_module->module_id = 3;
+        $lesson_module->title = 'Module 3 Lesson 4';
+        $lesson_module->slug = 'module-3-lesson-4';
+        $lesson_module->content = 'Lesson Content 4';
+        $lesson_module->save();       
+          
+        //Module 4 Lesson 1
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 4;
+        $lesson_module->title = 'Module 4 Lesson 1';
+        $lesson_module->slug = 'module-4-lesson-1';
+        $lesson_module->content = 'Lesson Content 1';
+        $lesson_module->save();
+        
+        //Module 4 Lesson 2
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 4;
+        $lesson_module->title = 'Module 4 Lesson 2';
+        $lesson_module->slug = 'module-4-lesson-2';
+        $lesson_module->content = 'Lesson Content 2';
+        $lesson_module->save();
+        
+        //Module 4 Lesson 3
+        $lesson_module = new Lesson();
+        $lesson_module->module_id = 4;
+        $lesson_module->title = 'Module 4 Lesson 3';
+        $lesson_module->slug = 'module-4-lesson-3';
+        $lesson_module->content = 'Lesson Content 3';
+        $lesson_module->save();
+        
+        //Module 4 Lesson 4
+        $lesson_module= new Lesson();
+        $lesson_module->module_id = 4;
+        $lesson_module->title = 'Module 4 Lesson 4';
+        $lesson_module->slug = 'module-4-lesson-4';
+        $lesson_module->content = 'Lesson Content 4';
+        $lesson_module->save();
     }
 }
