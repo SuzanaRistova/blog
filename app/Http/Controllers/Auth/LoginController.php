@@ -62,7 +62,7 @@ class LoginController extends Controller
         $findUser = User::where("email", $userSocial->email)->first();
         if($findUser){
             Auth::login($findUser);
-            return "done old";
+            return \Redirect::route("home");
         } else {
             $user = new \App\User;
             $user->name = $userSocial->name;
@@ -70,8 +70,8 @@ class LoginController extends Controller
             $user->password = bcrypt("user");
             $user->save();
             Auth::login($user);
-            $user->roles()->attach(Role::where('name', 'author')->first());
-            return "done new";
+            $user->roles()->attach(Role::where('name', 'subscriber')->first());
+            return \Redirect::route("home");
         }
     }
     
@@ -96,7 +96,7 @@ class LoginController extends Controller
         $findUser = User::where("email", $userSocial->email)->first();
         if($findUser){
             Auth::login($findUser);
-            return "done old";
+            return \Redirect::route("home");
         } else {
             $user = new \App\User;
             $user->name = $userSocial->name;
@@ -104,8 +104,8 @@ class LoginController extends Controller
             $user->password = bcrypt("user");
             $user->save();
             Auth::login($user);
-            $user->roles()->attach(Role::where('name', 'author')->first());
-            return "done new";
+            $user->roles()->attach(Role::where('name', 'subscriber')->first());
+            return \Redirect::route("home");
         }
     }
     
@@ -130,7 +130,7 @@ class LoginController extends Controller
         $findUser = User::where("email", $userSocial->email)->first();
         if($findUser){
             Auth::login($findUser);
-            return "done old";
+            return \Redirect::route("home");
         } else {
             $user = new \App\User;
             $user->name = $userSocial->name;
@@ -138,8 +138,8 @@ class LoginController extends Controller
             $user->password = bcrypt("user");
             $user->save();
             Auth::login($user);
-            $user->roles()->attach(Role::where('name', 'author')->first());
-            return "done new";
+            $user->roles()->attach(Role::where('name', 'subscriber')->first());
+            return \Redirect::route("home");
         }
     }
 }
