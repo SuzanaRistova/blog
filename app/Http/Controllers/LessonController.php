@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Lesson;
 use App\Module;
 use App\Session;
@@ -87,13 +88,20 @@ class LessonController extends Controller
     public function show(Lesson $lesson) {
         $user = Auth::user();
         $sessions = $lesson->sessions()->get();
+
+        // All completed lesson for this user and this lesson
+        $sessions_completed = DB::table('sessions')
+            ->join('session_user', 'sessions.id', '=', 'session_user.session_id')
+            ->where('user_id', $user->id)  
+            ->where('lesson_id', $lesson->id)
+            ->select('sessions.*')
+            ->count();
         
-        $sessions_this_user = $user->sessions()->count();
-        $sessions_all = $lesson->sessions()->count();
+        $all_sessions = $lesson->sessions()->count();
         
         $completed = false;
         
-        if($sessions_this_user == $sessions_all){
+        if($sessions_completed == $all_sessions){
                 $completed = true;
         } else {
                 $completed = false;

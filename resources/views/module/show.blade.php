@@ -43,17 +43,19 @@
                            </thead>
                            <tbody>
                                 @foreach($lessons as $key => $lesson)
-                                <?php
-//                                $lesson_completed = $lessons[$key-1]->isCompleted();
-                                var_dump($lessons[$key-1]->isCompleted());
-                                exit();
-                                ?>
+                                    <?php
+                                        if(isset($lessons[$key-1]) && $lessons[$key-1]->isCompleted()){
+                                            $lesson_completed = true;
+                                        } else {
+                                            $lesson_completed= false;
+                                        }
+                                    ?>
                                 <tr>
                                     <td>{{ $lesson->title }}</td>
                                     <td>{{ $lesson->slug }}</td>
                                     <td>{{ $lesson->content }}</td>
                                     <td>  
-                                        @if( isset($lessons[$key-1]) || ($key == 0) )
+                                        @if(($lesson_completed) || ($key == 0) )
                                             <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->id) }}">Show</a>
                                              @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a> @endif
                                              @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a> @endif

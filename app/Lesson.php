@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,16 +19,29 @@ class Lesson extends Model
     
     public function isCompleted()
     {
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
         $lesson_id = $this->id;
-        $sessions = Session::where('lesson_id',$lesson_id)->get();
-        dd($sessions);
+        
+        $sessions_completed = DB::table('sessions')
+            ->join('session_user', 'sessions.id', '=', 'session_user.session_id')
+            ->where('user_id', $user->id)  
+            ->where('lesson_id', $lesson_id)
+            ->select('sessions.*')
+            ->count();
+        
+        $all_sessions = $this->sessions()->count();
+        $completed = false;
+        
+        if($sessions_completed == $all_sessions){
+                $completed = true;
+        } else {
+                $completed = false;
+        }
+        
+       return $completed;
         //Site sessi za ovoj lesson/user_id/Sessions
         //Dali site ovie sessii se vo session_user. Ako se tamu site, togas e lessono completed.
-        
-        
-        var_dump($this->id);
-        exit();
+
     }
 
 
