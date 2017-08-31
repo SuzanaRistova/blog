@@ -85,8 +85,7 @@ class PageController extends Controller
     {
         $user_id = Auth::user()->id;
         $user =  Auth::user();
-        
-        if ( ($user->id == 3 ) && ($page->user_id != $user_id)) {
+        if (($user->hasRole('admin')) && ($page->user_id != $user_id)) {
             abort(403, 'Unauthorized action.');
         }
         
