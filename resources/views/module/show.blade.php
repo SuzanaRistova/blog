@@ -56,7 +56,7 @@
                                     <td>{{ $lesson->content }}</td>
                                     <td>  
                                         @if(($lesson_completed) || ($key == 0) )
-                                            <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->id) }}">Show</a>
+                                            <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->slug) }}">Show</a>
                                              @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a> @endif
                                              @if($user->hasRole('admin')) <a class="btn btn-primary" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a> @endif
                                         @endif

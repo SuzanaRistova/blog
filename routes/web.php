@@ -64,7 +64,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,subscriber']], f
 //Lesson routes
 Route::get('lessons', 'LessonController@index')->name('lessons')->middleware('role:admin,subscriber');
 Route::get('lesson/edit/{lesson}', 'LessonController@edit')->name("lesson.edit")->middleware('role:admin');
-Route::get('lesson/show/{lesson}', 'LessonController@show')->name("lesson.show")->middleware('role:admin,subscriber');
+Route::get('lesson/show/{slug}', 'LessonController@show')->name("lesson.show")->middleware('role:admin,subscriber');
 Route::get('module/{lesson}/lesson/create', 'LessonController@create')->name("lesson.create")->middleware('role:admin');
 Route::post('lesson/store', 'LessonController@store')->name("lesson.store")->middleware('role:admin');
 Route::post('lesson/save/{lesson}', 'LessonController@save')->name("lesson.save")->middleware('role:admin');

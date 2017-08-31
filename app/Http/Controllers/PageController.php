@@ -92,7 +92,7 @@ class PageController extends Controller
         
         $page = Page::where('slug', $slug)->first();
 
-        return view('page.show', array("slug" => $page->slug), compact('page'));
+        return view('page.show', compact('page'));
     }
 
     /**

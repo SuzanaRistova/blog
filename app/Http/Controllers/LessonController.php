@@ -76,7 +76,7 @@ class LessonController extends Controller
         $lesson->content = $request->content;
         $lesson->save();
         
-        return \Redirect::route('lesson.show', array($lesson->id))->with('message', 'New Lesson created!');
+        return \Redirect::route('lesson.show', array($request->slug))->with('message', 'New Lesson created!');
     }
 
     /**
@@ -85,8 +85,9 @@ class LessonController extends Controller
      * @param  \App\Lesson  $lesson
      * @return \Illuminate\Http\Response
      */
-    public function show(Lesson $lesson) {
+    public function show(Lesson $lesson, $slug) {
         $user = Auth::user();
+        $lesson = Lesson::where('slug', $slug)->first();
         $sessions = $lesson->sessions()->get();
 
         // All completed lesson for this user and this lesson
