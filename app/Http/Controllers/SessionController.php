@@ -75,7 +75,7 @@ class SessionController extends Controller
         $session->completed = $request->completed;
         $session->save();
         
-        return \Redirect::route('session.show', array($session->id))->with('message', 'New Session created!');
+        return \Redirect::route('session.show', array($session->slug))->with('message', 'New Session created!');
     }
     
      public function save(Request $request)
@@ -114,14 +114,16 @@ class SessionController extends Controller
      * @param  \App\Session  $session
      * @return \Illuminate\Http\Response
      */
-    public function show(Session $session)
+    public function show(Session $session, $slug)
     {
+        $session = Session::where('slug', $slug)->first();
         return view('session.show', compact('session'));
     }
     
-    public function view(Session $session)
+    public function view(Session $session, $slug)
     {
         $user = Auth::user();
+        $session = Session::where('slug', $slug)->first();
         $sessions = $user->sessions()->get();
         $completed = false;
         foreach ($sessions as $current_session){

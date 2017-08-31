@@ -55,11 +55,11 @@
                                     <td>{{ $session->video }}</td>
                                     @if($user->hasRole('subscriber'))
                                     <td>   
-                                        <a class="btn btn-primary" href="{{ route('session.view', $session->id) }}">View</a>
+                                        <a class="btn btn-primary" href="{{ route('session.view', $session->slug) }}">View</a>
                                     </td>
                                     @else
                                     <td>   
-                                        <a class="btn btn-primary" href="{{ route('session.show', $session->id) }}">Show</a>
+                                        <a class="btn btn-primary" href="{{ route('session.show', $session->slug) }}">Show</a>
                                         <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>
                                         <a class="btn btn-primary" href="{{ route('session.delete', $session->id) }}">Delete</a>
                                     </td> @endif
