@@ -72,12 +72,28 @@ class SessionController extends Controller
             $request->completed = 0;
         }
         
+        $url = $request->video;
+        
+        if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtube\.com\/v\/([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtu\.be\/([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtube\.com\/verify_age\?next_url=\/watch%3Fv%3D([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else {
+            // not an youtube video
+        }
+
         $session = new Session();
         $session->lesson_id = $request->lesson_id;
         $session->title = $request->title;
         $session->slug = $request->slug;
         $session->content = $request->content;
-        $session->video = $request->video;
+        $session->video = $values;
         $session->completed = $request->completed;
         $session->save();
         
@@ -169,12 +185,28 @@ class SessionController extends Controller
             DB::table('session_user')->where('session_id', $session->id)->delete();
         }
         
+        $url = $request->video;
+        
+        if (preg_match('/youtube\.com\/watch\?v=([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtube\.com\/embed\/([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtube\.com\/v\/([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtu\.be\/([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else if (preg_match('/youtube\.com\/verify_age\?next_url=\/watch%3Fv%3D([^\&\?\/]+)/', $url, $id)) {
+            $values = $id[1];
+        } else {
+            // not an youtube video
+        }
+        
         
         $session->lesson_id = $request->lesson_id;
         $session->title = $request->title;
         $session->slug = $request->slug;
         $session->content = $request->content;
-        $session->video = $request->video;
+        $session->video = $values;
         $session->completed = $request->completed;
         $session->update();
         
