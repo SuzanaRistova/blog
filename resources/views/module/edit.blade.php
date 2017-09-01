@@ -43,7 +43,7 @@
                             <label for="content" class="col-md-4 control-label">Content</label>
 
                             <div class="col-md-6">
-                                <textarea id="content" type="text" class="form-control" name="content" value="{{ old('content',  $module->content) }}" placeholder="Content" required></textarea>
+                                <textarea id="content" type="text" class="form-control" name="content" placeholder="Content" required> {{$page->content}}</textarea>
 
                                 @if ($errors->has('content'))
                                     <span class="help-block">
