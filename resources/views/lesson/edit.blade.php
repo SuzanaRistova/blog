@@ -42,7 +42,7 @@
                             <label for="content" class="col-md-4 control-label">Content</label>
 
                             <div class="col-md-6">
-                                <textarea id="content" type="text" class="form-control" name="content" placeholder="Content" required> {{$page->content}} </textarea>
+                                <textarea id="content" type="text" class="form-control" name="content" placeholder="Content" required> {{$lesson->content}} </textarea>
 
                                 @if ($errors->has('content'))
                                     <span class="help-block">
