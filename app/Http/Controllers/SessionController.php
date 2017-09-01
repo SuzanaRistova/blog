@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Session;
+use App\SessionUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -142,13 +143,12 @@ class SessionController extends Controller
     {
         $user = Auth::user();
         $session = Session::where('slug', $slug)->first();
-        $sessions = $user->sessions()->get();
+        $completed_session = \App\SessionUser::where('session_id', $session->id)->where('user_id', $user->id)->first();
         $completed = false;
-        foreach ($sessions as $current_session){
-            if($current_session->id == $session->id){
-                $completed = true;
-            }
+        if($completed_session != NULL){
+            $completed = true;
         }
+        
         return view('session.view', compact('session', 'completed'));
     }
 

@@ -13,7 +13,7 @@
                     <div class="body-container">
                         <label>Completed:</label>
                         <?php if($completed){ ?>
-                            <input id="completed-view" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
+                        <input id="completed-view" name="completed" type="checkbox" checked="checked" value="1">
                         <?php } else { ?> 
                              <input id="completed-view" name="completed" type="checkbox" value="0">
                         <?php } ?>
