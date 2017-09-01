@@ -132,23 +132,34 @@ class LessonController extends Controller
     public function update(Request $request, Lesson $lesson)
     {
         $validator = $this->validate($request, $this->rules());
-          
+        $user = Auth::user();
+        
         $lesson->module_id = $request->module_id;
         $lesson->title = $request->title;
         $lesson->slug = $request->slug;
         $lesson->content = $request->content;
         $lesson->update();
         
-//        $sessions = $lesson->sessions()->get();
-//        $sessions_completed = Session::where("completed", 0)->where("lesson_id", $lesson->id)->count();
-//        $completed = false;
-//        if ($sessions_completed == 0) {
-//            $completed = true;
-//        } else {
-//            $completed = false;
-//        }
+        $sessions = $lesson->sessions()->get();
         
-        return view('lesson.show', compact('lesson', 'sessions', 'completed'));
+        $sessions_completed = DB::table('sessions')
+            ->join('session_user', 'sessions.id', '=', 'session_user.session_id')
+            ->where('user_id', $user->id)  
+            ->where('lesson_id', $lesson->id)
+            ->select('sessions.*')
+            ->count();
+        
+        $all_sessions = $lesson->sessions()->count();
+        
+        $completed = false;
+        
+        if($sessions_completed == $all_sessions){
+                $completed = true;
+        } else {
+                $completed = false;
+        }
+        
+        return view('lesson.show', compact('lesson', 'sessions', 'completed', 'user'));
     }
 
     /**
