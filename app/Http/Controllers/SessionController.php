@@ -95,7 +95,6 @@ class SessionController extends Controller
         $session->slug = $request->slug;
         $session->content = $request->content;
         $session->video = $values;
-        $session->completed = $request->completed;
         $session->save();
         
         if($request->completed == 1){
@@ -208,7 +207,6 @@ class SessionController extends Controller
         $session->slug = $request->slug;
         $session->content = $request->content;
         $session->video = $values;
-        $session->completed = $request->completed;
         $session->update();
         
         return view('session.show', compact('session'));

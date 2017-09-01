@@ -70,7 +70,7 @@
                             <label for="completed" class="col-md-4 control-label">Completed</label>
                             <div class="col-md-6">
 
-                                <input id="completed" name="completed" type="checkbox" <?= ($session->completed == 0) ? "" : "checked" ?> value="{{ old('completed', $session->completed) }}">
+                                <input id="completed" name="completed" type="checkbox" value="">
 
                                 @if ($errors->has('completed'))
                                     <span class="help-block">
