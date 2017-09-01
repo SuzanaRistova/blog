@@ -14,7 +14,6 @@
                            <th>Slug</th>
                            <th>Content</th>
                            <th>Video</th>
-                           <th>Completed</th>
                            <th>Actions</th>
                          </tr>
                         </thead>
@@ -25,9 +24,8 @@
                                 <td>{{ $session->slug }}</td>
                                 <td>{{ $session->content }}</td>
                                 <td>{{ $session->video }}</td>
-                                <td>{{ $session->completed }}</td>
                                 <td>   
-                                    <a class="btn btn-primary" href="{{ route('session.show', $session->id) }}">Show</a>
+                                    <a class="btn btn-primary" href="{{ route('session.show', $session->slug) }}">Show</a>
                                     <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>
                                     <a class="btn btn-primary delete-button" href="{{ route('session.delete', $session->id) }}">Delete</a>
                                 </td>

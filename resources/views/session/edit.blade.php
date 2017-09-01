@@ -69,8 +69,12 @@
                         <div class="form-group{{ $errors->has('completed') ? ' has-error' : '' }}">
                             <label for="completed" class="col-md-4 control-label">Completed</label>
                             <div class="col-md-6">
-
-                                <input id="completed" name="completed" type="checkbox" value="">
+                                
+                               <?php if ($completed) { ?>
+                                    <input id="completed-view" name="completed" type="checkbox" checked="checked" value="1">
+                                <?php } else { ?> 
+                                    <input id="completed-view" name="completed" type="checkbox" value="0">
+                                <?php } ?>
 
                                 @if ($errors->has('completed'))
                                     <span class="help-block">

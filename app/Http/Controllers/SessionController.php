@@ -158,8 +158,15 @@ class SessionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Session $session)
-    {
-        return view('session.edit', compact('session'));
+    {   $user = Auth::user();
+        $completed_session = \App\SessionUser::where('session_id', $session->id)->where('user_id', $user->id)->first();
+        $completed = false;
+        if ($completed_session != NULL) {
+            
+            $completed = true;
+            
+        }
+        return view('session.edit', compact('session', 'completed'));
     }
 
     /**
