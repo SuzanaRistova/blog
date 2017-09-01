@@ -199,6 +199,7 @@ class SessionController extends Controller
             $values = $id[1];
         } else {
             // not an youtube video
+            $values = $request->video;
         }
         
         
