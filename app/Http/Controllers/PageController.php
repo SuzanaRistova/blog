@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -70,7 +71,17 @@ class PageController extends Controller
         $page->title = $request->title;
         $page->slug = $request->slug;
         $page->content = $request->content;
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . "." . $image->getClientOriginalExtension();
+            Image::make($image)->save(public_path('/uploads/pages/large/' . $filename));
+            Image::make($image)->resize(32, 32)->save(public_path('/uploads/pages/small/' . $filename));
+            $page->image = $filename;
+        }
+        
         $page->save();
+
         
         return \Redirect::route('page.show', array("slug" => $request->slug))->with('message', 'New Page created!');
     }
@@ -126,6 +137,15 @@ class PageController extends Controller
         $page->title = $request->title;
         $page->slug = $request->slug;
         $page->content = $request->content;
+        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . "." . $image->getClientOriginalExtension();
+            Image::make($image)->save(public_path('/uploads/pages/large/' . $filename));
+            Image::make($image)->resize(32, 32)->save(public_path('/uploads/pages/small/' . $filename));
+            $page->image = $filename;
+        }    
+        
         $page->update();
         
         return view('page.show', compact('page'));
