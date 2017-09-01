@@ -66,6 +66,7 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         $validator = $this->validate($request, $this->rules());
+        $user_id = Auth::user()->id;
         
         if($request->completed == NULL){
             $request->completed = 0;
@@ -80,6 +81,12 @@ class SessionController extends Controller
         $session->completed = $request->completed;
         $session->save();
         
+        if($request->completed == 1){
+            $session->users()->attach($user_id);
+        } else {
+            DB::table('session_user')->where('session_id', $session->id)->delete();
+        }
+        
         return \Redirect::route('session.show', array($session->slug))->with('message', 'New Session created!');
     }
     
@@ -92,7 +99,7 @@ class SessionController extends Controller
         if($request->completed == 1){
             $session->users()->attach($user_id);
         } else {
-             DB::table('session_user')->where('user_id', $user_id)->delete();
+            DB::table('session_user')->where('session_id', $session->id)->delete();
         }
         
         $session->update();
@@ -150,10 +157,18 @@ class SessionController extends Controller
     public function update(Request $request, Session $session)
     {
         $validator = $this->validate($request, $this->rules());
+        $user_id = Auth::user()->id;
         
         if($request->completed == NULL){
             $request->completed = 0;
         }
+        
+        if($request->completed == 1){
+            $session->users()->attach($user_id);
+        } else {
+            DB::table('session_user')->where('session_id', $session->id)->delete();
+        }
+        
         
         $session->lesson_id = $request->lesson_id;
         $session->title = $request->title;
