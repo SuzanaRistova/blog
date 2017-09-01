@@ -12,8 +12,8 @@
                          <tr>
                            <th>Title</th>
                            <th>Slug</th>
-                           <th>Content</th>
                            <th>Video</th>
+                           <th>Users</th>
                            <th>Actions</th>
                          </tr>
                         </thead>
@@ -22,8 +22,14 @@
                             <tr>
                                 <td>{{ $session->title }}</td>
                                 <td>{{ $session->slug }}</td>
-                                <td>{{ $session->content }}</td>
                                 <td>{{ $session->video }}</td>
+                                <td>
+                                    <select name="users" id="users" class="form-control">
+                                        @foreach($session->users as $user)
+                                        <option value="">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('session.show', $session->slug) }}">Show</a>
                                     <a class="btn btn-primary" href="{{ route('session.edit', $session->id) }}">Edit</a>

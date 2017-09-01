@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use App\User;
 use App\Session;
 use App\SessionUser;
 use Illuminate\Http\Request;
@@ -143,6 +144,7 @@ class SessionController extends Controller
         $user = Auth::user();
         $session = Session::where('slug', $slug)->first();
         $completed_session = \App\SessionUser::where('session_id', $session->id)->where('user_id', $user->id)->first();
+        
         $completed = false;
         if($completed_session != NULL){
             $completed = true;
@@ -159,6 +161,8 @@ class SessionController extends Controller
      */
     public function edit(Session $session)
     {   $user = Auth::user();
+        $users = User::where('id', '!=', $user->id)->get();
+    
         $completed_session = \App\SessionUser::where('session_id', $session->id)->where('user_id', $user->id)->first();
         $completed = false;
         if ($completed_session != NULL) {
@@ -166,7 +170,7 @@ class SessionController extends Controller
             $completed = true;
             
         }
-        return view('session.edit', compact('session', 'completed'));
+        return view('session.edit', compact('session', 'completed', 'user', 'users'));
     }
 
     /**
@@ -180,6 +184,15 @@ class SessionController extends Controller
     {
         $validator = $this->validate($request, $this->rules());
         $user_id = Auth::user()->id;
+        $user = Auth::user();
+        
+        if ($request->user_id != NULL && $user->hasRole('admin')) {
+            if ($request->completed == 1) {
+                $session->users()->attach($request->user_id);
+            } else {
+                DB::table('session_user')->where('user_id', $request->user_id)->delete();
+            }
+        }
         
         if($request->completed == NULL){
             $request->completed = 0;

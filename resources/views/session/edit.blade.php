@@ -71,9 +71,9 @@
                             <div class="col-md-6">
                                 
                                <?php if ($completed) { ?>
-                                    <input id="completed-view" name="completed" type="checkbox" checked="checked" value="1">
+                                    <input id="completed" name="completed" type="checkbox" checked="checked" value="1">
                                 <?php } else { ?> 
-                                    <input id="completed-view" name="completed" type="checkbox" value="0">
+                                    <input id="completed" name="completed" type="checkbox" value="0">
                                 <?php } ?>
 
                                 @if ($errors->has('completed'))
@@ -83,6 +83,32 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        @if($user->hasRole('admin'))
+                        
+                        <div class="form-group">
+                                <label class="col-md-4 control-label">All Users for this session</label>
+                                <div class="col-md-6">
+                                   <select name="users" id="users" class="form-control">
+                                       @foreach($session->users as $user)
+                                            <option value="{{$user->id}}">{{ $user->name }} </option>
+                                       @endforeach
+                                   </select>
+                                </div>
+                        </div>
+                        
+                        <div class="form-group">
+                                <label class="col-md-4 control-label">Users</label>
+                                <div class="col-md-6">
+                                   <select name="user_id" id="user_id" class="form-control">
+                                        <option value=""></option>
+                                       @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{ $user->name }} </option>
+                                       @endforeach
+                                   </select>
+                                </div>
+                        </div>
+                        @endif
                         
                         <input id="lesson_id" type="hidden" class="form-control" name="lesson_id" value="<?= $session->lesson_id ?>" placeholder="lesson_id" required>
                         

@@ -18,6 +18,11 @@ Route::get('/', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('profile', 'UserController@profile');
 Route::post('profile', 'UserController@update_avatar');
+Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
+    Route::get('session_user', 'SessionController@session_user');
+    Route::post('session_user', 'SessionController@update_session_user');
+});
+
 Auth::routes();
 
 //User routes
