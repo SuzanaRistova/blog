@@ -87,18 +87,19 @@
                         @if($user->hasRole('admin'))
                         
                         <div class="form-group">
-                                <label class="col-md-4 control-label">All Users for this session</label>
+                                <label class="col-md-4 control-label">All Users/Remove user</label>
                                 <div class="col-md-6">
-                                   <select name="users" id="users" class="form-control">
-                                       @foreach($session->users as $user)
-                                            <option value="{{$user->id}}">{{ $user->name }} </option>
-                                       @endforeach
-                                   </select>
+                                    <select name="user_remove" id="user_remove" class="form-control">
+                                        <option value=""></option>
+                                        @foreach($session->users as $user)
+                                             <option value="{{$user->id}}">{{ $user->name }} </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                         </div>
                         
                         <div class="form-group">
-                                <label class="col-md-4 control-label">Users</label>
+                                <label class="col-md-4 control-label">Add new user</label>
                                 <div class="col-md-6">
                                    <select name="user_id" id="user_id" class="form-control">
                                         <option value=""></option>

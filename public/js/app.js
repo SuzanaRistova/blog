@@ -792,6 +792,18 @@ var app = new Vue({
 });
 
 $(document).ready(function () {
+
+    $("#user_id").change(onSelectChange);
+    function onSelectChange() {
+        var output = "",
+            $this = $(this);
+
+        if ($this.val() != 0) {
+            output = $this.find('option:selected').attr('rel');
+        }
+        $("#output").html(output);
+    }
+
     //  Completed Sessions
     $("#completed-view").click(function () {
         var complete = 0;

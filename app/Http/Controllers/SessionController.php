@@ -116,7 +116,7 @@ class SessionController extends Controller
         if($request->completed == 1){
             $session->users()->attach($user_id);
         } else {
-            DB::table('session_user')->where('session_id', $session->id)->delete();
+            DB::table('session_user')->where('session_id', $session->id)->where('user_id', $user_id)->delete();
         }
         
         $session->update();
@@ -185,23 +185,32 @@ class SessionController extends Controller
         $validator = $this->validate($request, $this->rules());
         $user_id = Auth::user()->id;
         $user = Auth::user();
-        
-        if ($request->user_id != NULL && $user->hasRole('admin')) {
-            if ($request->completed == 1) {
-                $session->users()->attach($request->user_id);
-            } else {
-                DB::table('session_user')->where('user_id', $request->user_id)->delete();
-            }
-        }
-        
+        $user_remove = $request->user_remove;
+
         if($request->completed == NULL){
             $request->completed = 0;
+        }
+        
+        $user_session = \App\SessionUser::where('session_id', $session->id)->where('user_id', $request->user_id)->count();
+        
+        if ($request->user_id != NULL && $user->hasRole('admin') && $user_session == 0) {
+                $session->users()->attach($request->user_id);
+        }
+        
+        if ($user_remove != NULL && $user->hasRole('admin')) {
+            DB::table('session_user')->where('session_id', $session->id)->where('user_id', $user_remove)->delete();
+        }
+
+        if( ($request->completed == 1) && !($user->hasRole('admin'))){
+            $session->users()->attach($user_id);
+        } else {
+            DB::table('session_user')->where('session_id', $session->id)->where('user_id', $user_id)->delete();
         }
         
         if($request->completed == 1){
             $session->users()->attach($user_id);
         } else {
-            DB::table('session_user')->where('session_id', $session->id)->delete();
+            DB::table('session_user')->where('session_id', $session->id)->where('user_id', $user_id)->delete();
         }
         
         $url = $request->video;
