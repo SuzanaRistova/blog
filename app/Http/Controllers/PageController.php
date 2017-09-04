@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function __construct() {
         
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
     
     protected function rules() {
@@ -32,17 +32,23 @@ class PageController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $pages = Page::where('user_id', $user->id)->get();
-        if ($user->hasRole('admin') || $user->hasRole('editor')) {
-            $admin_role = true;  
-            $pages = Page::get();
-        } else {
-            $admin_role = false;  
-        }
+//        $user = Auth::user();
+        $user_id = 1;
+        $pages = Page::where('user_id', $user_id)->get();
+        $status = "success";
+//        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+//            $admin_role = true;  
+//            $pages = Page::get();
+//        } else {
+//            $admin_role = false;  
+//        }
         
+        return \Response::json([
+                'status' => $status,
+                'pages' => $pages
+            ], 201); // Status code here
         
-        return view('page.index', compact('pages', 'admin_role'));
+//        return view('page.index', compact('pages', 'admin_role'));
     }
 
     /**

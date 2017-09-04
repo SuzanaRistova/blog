@@ -39,16 +39,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor']], funct
 });
 
 //Page routes
-Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']], function(){
-    Route::get('pages', 'PageController@index')->name('pages');
-    Route::get('page/edit/{page}', 'PageController@edit')->name("page.edit");
-    Route::get('page/show/{slug}', 'PageController@show')->name("page.show");
-    Route::get('page/create', 'PageController@create')->name("page.create");
-    Route::post('page/store', 'PageController@store')->name("page.store");
-    Route::post('page/update/{page}', 'PageController@update')->name("page.update");
-    Route::get('page/update/{page}', 'PageController@update')->name("page.update");
-    Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy']);
-});
+//Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']], function(){
+//    Route::get('pages', 'PageController@index')->name('pages');
+//    Route::get('page/edit/{page}', 'PageController@edit')->name("page.edit");
+//    Route::get('page/show/{slug}', 'PageController@show')->name("page.show");
+//    Route::get('page/create', 'PageController@create')->name("page.create");
+//    Route::post('page/store', 'PageController@store')->name("page.store");
+//    Route::post('page/update/{page}', 'PageController@update')->name("page.update");
+//    Route::get('page/update/{page}', 'PageController@update')->name("page.update");
+//    Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy']);
+//});
 
 //Module routes with prefix admin
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
