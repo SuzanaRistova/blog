@@ -47,7 +47,8 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             $user = $this->guard()->user();
-            $user->generateToken();
+            $user->api_token = $user->generateToken();
+            $user->save();
 
             return response()->json([
                         'data' => $user->toArray(),
@@ -58,6 +59,7 @@ class LoginController extends Controller
     }
     
     public function logout(Request $request) {
+        
         $user = Auth::guard('api')->user();
 
         if ($user) {
