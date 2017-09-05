@@ -37,7 +37,7 @@ Route::post('logout', 'Auth\LoginController@logout');
 Route::group(['prefix' => 'all'], function(){
     Route::get('pages', 'PageApiController@index');
     Route::get('pages/show/{page}', 'PageApiController@show');
-    Route::post('pages', 'PageApiController@store');
+    Route::post('pages/store', 'PageApiController@store');
     Route::put('pages/edit/{page}', 'PageApiController@update');
     Route::delete('pages/delete/{page}', 'PageApiController@destroy');
 });

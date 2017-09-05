@@ -34,7 +34,7 @@ class PageApiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $page = Page::create($request->all());
 
         return response()->json($page, 201);
