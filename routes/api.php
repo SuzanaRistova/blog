@@ -17,6 +17,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Auth::guard('api')->user(); // instance of the logged user
+Auth::guard('api')->check(); // if a user is authenticated
+Auth::guard('api')->id();
+
 //Route::group(['prefix' => 'all'], function(){
 //    Route::get('pages', 'PageController@pages')->name('allpages');
 //});
@@ -24,7 +28,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::post('signup', 'UserController@signup')->name('signup');
 //Route::get('login', 'UserController@login')->name('login');
 
+Route::post('register', 'Auth\RegisterController@register');
+Route::get('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
 
+    
 Route::group(['prefix' => 'all'], function(){
     Route::get('pages', 'PageApiController@index');
     Route::get('pages/show/{page}', 'PageApiController@show');

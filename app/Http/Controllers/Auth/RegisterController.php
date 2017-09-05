@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Role;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -54,6 +55,13 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
+    
+     protected function registered(Request $request, $user) {
+        $user->api_token = $user->generateToken();
+        $user->save();
+        return response()->json(['data' => $user->toArray()], 201);
+    }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -72,4 +80,5 @@ class RegisterController extends Controller
         $user->roles()->attach(Role::where('name', 'subscriber')->first());
         return $user;
     }
+   
 }
