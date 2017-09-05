@@ -17,11 +17,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Route::group(['prefix' => 'all'], function(){
+//    Route::get('pages', 'PageController@pages')->name('allpages');
+//});
+//Route::get('signup', 'UserController@signup')->name('signup');
+//Route::post('signup', 'UserController@signup')->name('signup');
+//Route::get('login', 'UserController@login')->name('login');
+
+
 Route::group(['prefix' => 'all'], function(){
-    Route::get('pages', 'PageController@pages')->name('allpages');
+    Route::get('pages', 'PageApiController@index');
+    Route::get('pages/show/{page}', 'PageApiController@show');
+    Route::post('pages', 'PageApiController@store');
+    Route::put('pages/edit/{page}', 'PageApiController@update');
+    Route::delete('pages/delete/{page}', 'PageApiController@destroy');
 });
-Route::get('signup', 'UserController@signup')->name('signup');
-Route::post('signup', 'UserController@signup')->name('signup');
-Route::get('login', 'UserController@login')->name('login');
-
-
