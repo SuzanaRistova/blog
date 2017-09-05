@@ -48,4 +48,11 @@ Route::group(['prefix' => 'all'], function(){
     Route::post('modules/store', 'ModuleApiController@store');
     Route::put('modules/edit/{module}', 'ModuleApiController@update');
     Route::delete('modules/delete/{module}', 'ModuleApiController@destroy');
+    
+//    Lesson
+    Route::get('lessons', 'LessonApiController@index');
+    Route::get('lessons/show/{lesson}', 'LessonApiController@show');
+    Route::post('lessons/store', 'LessonApiController@store');
+    Route::put('lessons/edit/{lesson}', 'LessonApiController@update');
+    Route::delete('lessons/delete/{lesson}', 'LessonApiController@destroy');
 });
