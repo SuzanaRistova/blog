@@ -55,4 +55,11 @@ Route::group(['prefix' => 'all'], function(){
     Route::post('lessons/store', 'LessonApiController@store');
     Route::put('lessons/edit/{lesson}', 'LessonApiController@update');
     Route::delete('lessons/delete/{lesson}', 'LessonApiController@destroy');
+    
+//     Session
+    Route::get('sessions', 'SessionApiController@index');
+    Route::get('sessions/show/{session}', 'SessionApiController@show');
+    Route::post('sessions/store', 'SessionApiController@store');
+    Route::put('sessions/edit/{session}', 'SessionApiController@update');
+    Route::delete('sessions/delete/{session}', 'SessionApiController@destroy');
 });
