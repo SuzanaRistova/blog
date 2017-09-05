@@ -35,9 +35,17 @@ Route::post('logout', 'Auth\LoginController@logout');
 
     
 Route::group(['prefix' => 'all'], function(){
+//    Pages
     Route::get('pages', 'PageApiController@index');
     Route::get('pages/show/{page}', 'PageApiController@show');
     Route::post('pages/store', 'PageApiController@store');
     Route::put('pages/edit/{page}', 'PageApiController@update');
     Route::delete('pages/delete/{page}', 'PageApiController@destroy');
+    
+//    Modules
+    Route::get('modules', 'ModuleApiController@index');
+    Route::get('modules/show/{module}', 'ModuleApiController@show');
+    Route::post('modules/store', 'ModuleApiController@store');
+    Route::put('modules/edit/{module}', 'ModuleApiController@update');
+    Route::delete('modules/delete/{module}', 'ModuleApiController@destroy');
 });
