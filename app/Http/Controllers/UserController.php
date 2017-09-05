@@ -5,6 +5,7 @@ use DB;
 use App\User;
 use App\Role;
 use Image;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +16,7 @@ class UserController extends Controller {
     */
     public function __construct() {
         
-        $this->middleware('auth', ['except' => ['edit', 'update', 'destroy']]);
+        $this->middleware('auth', ['except' => ['signup', 'login']]);
     }
 
     protected function rules() {
@@ -48,6 +49,97 @@ class UserController extends Controller {
         return view('user.profile', compact('user'));
     }
     
+    public function signup(Request $request) {
+
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+        $password_bcrypt = bcrypt($password);
+
+        $validator = \Validator::make(
+                
+            [
+                'name' => $name,
+                'email' => $email,
+                'password' => $password
+            ],
+                
+            [
+                'name' => 'sometimes|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6',
+            ]
+        );
+        
+        if ($validator->fails()){
+
+            $result = ['result' => 'Failed',
+                       'message' => $validator->errors()];
+
+             $response = \Response::json($result)->setStatusCode(400, 'Fail');
+
+             return $response;
+
+        } else {
+
+          $user = new \App\User;
+
+          $user->name = $name;
+          $user->email = $email;
+          $user->password = $password_bcrypt;
+
+          $user->save();
+
+          $result = ['result' => 'Success',
+                     'message' => 'Account '. $name . ' with email '. $email . ' was created'];
+
+           $response = \Response::json($result)->setStatusCode(200, 'Success');
+           
+           return $response;
+
+        }
+        
+    }
+    
+      public function login(Request $request) {
+
+        $email = $request->email;
+        $password = $request->password;
+        $user = User::where('email', $email)->first();
+        
+        if ($user != null) {
+
+            if (\Hash::check($password, $user->password)) {
+
+                $result = ['result' => 'Success',
+                    'message' => 'Password correct',
+                    'user_id' => $user->id];
+
+                $response = \Response::json($result)->setStatusCode(200, 'Success');
+                
+                return $response;
+                
+            } else {
+
+                $result = ['result' => 'Failed',
+                    'message' => 'Password Incorrect'];
+
+                $response = \Response::json($result)->setStatusCode(400, 'Fail');
+                
+                return $response;
+            }
+
+        } else {
+
+            $result = ['result' => 'Failed',
+                'message' => 'User with email not found'];
+
+            $response = \Response::json($result)->setStatusCode(400, 'Fail');
+            
+            return $response;
+        }
+    }
+
     public function update_avatar(Request $request) {
             if($request->hasFile('avatar')){
                 $avatar = $request->file('avatar');

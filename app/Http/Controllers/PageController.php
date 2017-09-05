@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function __construct() {
         
-//        $this->middleware('auth');
+        $this->middleware('auth',  ['except' => ['pages']]);
     }
     
     protected function rules() {
@@ -32,23 +32,33 @@ class PageController extends Controller
      */
     public function index()
     {
-//        $user = Auth::user();
-        $user_id = 1;
+        $user = Auth::user();
+        $pages = Page::where('user_id', $user->id)->get();
+        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+            $admin_role = true;  
+            $pages = Page::get();
+        } else {
+            $admin_role = false;  
+        }
+        
+        
+        return view('page.index', compact('pages', 'admin_role'));
+    }
+    
+     public function pages(Request $request)
+    {
+        $user_id = $request->user_id;
+        $validator = \Validator::make(\Illuminate\Support\Facades\Input::all(), [
+                    'user_id' => 'required|integer',
+        ]);
+        
         $pages = Page::where('user_id', $user_id)->get();
-        $status = "success";
-//        if ($user->hasRole('admin') || $user->hasRole('editor')) {
-//            $admin_role = true;  
-//            $pages = Page::get();
-//        } else {
-//            $admin_role = false;  
-//        }
         
         return \Response::json([
-                'status' => $status,
+                'errors' => $validator->errors(),
                 'pages' => $pages
-            ], 201); // Status code here
+            ], 201); 
         
-//        return view('page.index', compact('pages', 'admin_role'));
     }
 
     /**
