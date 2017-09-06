@@ -31,6 +31,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Role')->withTimestamps();
     } 
+    
     public function generateToken(){
         return str_random(60);
     }

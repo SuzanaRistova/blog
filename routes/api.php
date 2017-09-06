@@ -35,6 +35,13 @@ Route::post('logout', 'Auth\LoginController@logout');
 
     
 Route::group(['prefix' => 'all'], function(){
+//    Users
+    Route::get('users', 'UserApiController@index');
+    Route::get('users/show/{user}', 'UserApiController@show');
+    Route::post('users/store', 'UserApiController@store');
+    Route::put('users/edit/{user}', 'UserApiController@update');
+    Route::delete('users/delete/{user}', 'UserApiController@destroy');
+    
 //    Pages
     Route::get('pages', 'PageApiController@index');
     Route::get('pages/show/{page}', 'PageApiController@show');
