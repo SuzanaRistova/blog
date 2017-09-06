@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Page;
+use JWTAuth;
 
 class PageApiController extends Controller
 {
@@ -12,9 +13,17 @@ class PageApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       return Page::all();
+       $user = JWTAuth::toUser($request->token);
+       if($user->hasRole('admin') || $user->hasRole('editor')){
+            return Page::all();
+       } else if($user->hasRole('author')){
+            $page = Page::where('user_id', $user->id)->get();
+            return $page;
+       } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+       }
     }
 
     /**
@@ -35,9 +44,18 @@ class PageApiController extends Controller
      */
     public function store(Request $request)
     {   
-        $page = Page::create($request->all());
-
-        return response()->json($page, 201);
+        $user = JWTAuth::toUser($request->token);
+        if(!$user->hasRole('subscriber')){
+            $page = new Page();
+            $page->title = $request->title;
+            $page->slug = $request->slug;
+            $page->content = $request->content;
+            $page->user_id = $user->id;
+            $page->save();
+            return response()->json($page, 201);
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
 
     /**
@@ -46,9 +64,14 @@ class PageApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show(Request $request, Page $page)
     {
-        return $page;
+        $user = JWTAuth::toUser($request->token);
+        if(!$user->hasRole('subscriber')){
+            return $page;
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
 
     /**
