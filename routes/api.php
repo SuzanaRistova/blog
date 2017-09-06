@@ -33,7 +33,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //Route::post('login', 'Auth\LoginController@login');
 //Route::post('logout', 'Auth\LoginController@logout');
 
-Route::group(['middleware' => ['api'],'prefix' => 'api'], function () {
+Route::group(['middleware' => ['api']], function () {
     Route::post('register', 'APIController@register');
     Route::post('login', 'APIController@login');
     Route::group(['middleware' => 'jwt-auth'], function () {
