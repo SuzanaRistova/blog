@@ -17,9 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Auth::guard('api')->user(); // instance of the logged user
-Auth::guard('api')->check(); // if a user is authenticated
-Auth::guard('api')->id();
+//Auth::guard('api')->user(); // instance of the logged user
+//Auth::guard('api')->check(); // if a user is authenticated
+//Auth::guard('api')->id();
 
 //Route::group(['prefix' => 'all'], function(){
 //    Route::get('pages', 'PageController@pages')->name('allpages');
@@ -28,10 +28,18 @@ Auth::guard('api')->id();
 //Route::post('signup', 'UserController@signup')->name('signup');
 //Route::get('login', 'UserController@login')->name('login');
 
-Route::post('register', 'Auth\RegisterController@register');
-Route::get('register', 'Auth\RegisterController@register');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
+//Route::post('register', 'Auth\RegisterController@register');
+//Route::get('register', 'Auth\RegisterController@register');
+//Route::post('login', 'Auth\LoginController@login');
+//Route::post('logout', 'Auth\LoginController@logout');
+
+Route::group(['middleware' => ['api'],'prefix' => 'api'], function () {
+    Route::post('register', 'APIController@register');
+    Route::post('login', 'APIController@login');
+    Route::group(['middleware' => 'jwt-auth'], function () {
+    	Route::post('get_user_details', 'APIController@get_user_details');
+    });
+});
 
     
 Route::group(['prefix' => 'all'], function(){

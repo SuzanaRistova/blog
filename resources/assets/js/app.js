@@ -22,6 +22,14 @@ const app = new Vue({
 });
 
 $(document).ready( function() {
+    
+    $.ajaxSetup({
+     headers: {
+           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+       }
+   });
+    
+    
 //  Completed Sessions
     $("#completed-view").click(function () {
         var complete = 0;

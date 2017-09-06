@@ -37,9 +37,7 @@ class UserApiController extends Controller
     public function store(Request $request)
     {
         $user = User::create($request->all());
-        $user->api_token = $user->generateToken();
         $user->roles()->attach($request->role_id);
-        $user->save();
         return response()->json($user, 201);
     }
 

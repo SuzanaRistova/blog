@@ -55,13 +55,6 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
-    
-     protected function registered(Request $request, $user) {
-        $user->api_token = $user->generateToken();
-        $user->save();
-        return response()->json(['data' => $user->toArray()], 201);
-    }
-
 
     /**
      * Create a new user instance after a valid registration.
