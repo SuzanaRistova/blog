@@ -109,19 +109,21 @@ class SessionApiController extends Controller
     public function view(Request $request, Session $session)
     {
         $user = JWTAuth::toUser($request->token);
-        if($user->hasRole('admin')){
+        if($user->hasRole('subscriber')){
             if ($request->completed == 1) {
                 $session->users()->attach($user->id);
             } else {
-                DB::table('session_user')->where('session_id', $session->id)->delete();
+                DB::table('session_user')->where('session_id', $session->id)->where('user_id', $user->id)->delete();
             }
             
-           if (isset($request->completed) ) {
+            if (isset($request->completed) ) {
                     $session->completed = $request->completed;
-             }
+            }
 
             return response()->json($session, 200);
+            
         } else {
+            
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
         }
     }
