@@ -63,6 +63,7 @@ Route::group(['middleware' => 'jwt-auth'], function(){
     Route::post('modules/store', 'ModuleApiController@store');
     Route::put('modules/edit/{module}', 'ModuleApiController@update');
     Route::delete('modules/delete/{module}', 'ModuleApiController@destroy');
+    Route::post('modules/{module}/lessons', 'ModuleApiController@get_lessons');
     
 //    Lesson
     Route::get('lessons', 'LessonApiController@index');

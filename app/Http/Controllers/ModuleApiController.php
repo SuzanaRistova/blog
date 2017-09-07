@@ -137,4 +137,15 @@ class ModuleApiController extends Controller
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
         }
     }
+    
+    public function get_lessons(Request $request, Module $module)
+    {
+        $user = JWTAuth::toUser($request->token);
+        if($user->hasRole('admin')){
+            $modules = $module->lessons;
+            return response()->json($modules, 200);
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
+    }
 }
