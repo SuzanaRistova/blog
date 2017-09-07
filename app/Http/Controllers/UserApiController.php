@@ -17,8 +17,8 @@ class UserApiController extends Controller
      */
     public function index(Request $request)
     {
-       $user = JWTAuth::toUser($request->token);
-       if($user->hasRole('admin') || $user->hasRole('editor')){
+       $login_user = JWTAuth::toUser($request->token);
+       if($login_user->hasRole('admin') || $user->hasRole('editor')){
             return User::all();
        } else {
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
@@ -91,8 +91,8 @@ class UserApiController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        $user = JWTAuth::toUser($request->token);
-        if($user->hasRole('admin') || $user->hasRole('editor')){
+        $login_user = JWTAuth::toUser($request->token);
+        if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
             return $user;
         } else {
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
@@ -134,10 +134,10 @@ class UserApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        $user = JWTAuth::toUser($request->token);
-        if ($user->hasRole('admin')) {
+        $login_user = JWTAuth::toUser($request->token);
+        if ($login_user->hasRole('admin')) {
             DB::table('role_user')->where('user_id', $user->id)->delete();
             $user->delete();
             return response()->json(null, 204);
