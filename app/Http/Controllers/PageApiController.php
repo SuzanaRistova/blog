@@ -44,8 +44,28 @@ class PageApiController extends Controller
      */
     public function store(Request $request)
     {   
+        $validator = \Validator::make(
+                
+            [
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'content' => $request->content
+            ],
+                
+            [
+                'title' => 'sometimes|string|max:255',
+                'slug' => 'sometimes|string|max:255',
+                'content' => 'sometimes|string|max:255',
+            ]
+        );
+        
         $user = JWTAuth::toUser($request->token);
         if(!$user->hasRole('subscriber')){
+        if ($validator->fails()){
+                $result = ['result' => 'Failed',
+                'message' => $validator->errors()];
+                return \Response::json($result)->setStatusCode(400, 'Fail');
+        } else {
             $page = new Page();
             $page->title = $request->title;
             $page->slug = $request->slug;
@@ -53,6 +73,7 @@ class PageApiController extends Controller
             $page->user_id = $user->id;
             $page->save();
             return response()->json($page, 201);
+        }
         } else {
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
         }
