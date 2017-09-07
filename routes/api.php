@@ -78,5 +78,6 @@ Route::group(['middleware' => 'jwt-auth'], function(){
     Route::get('sessions/show/{session}', 'SessionApiController@show');
     Route::post('sessions/store', 'SessionApiController@store');
     Route::put('sessions/edit/{session}', 'SessionApiController@update');
+    Route::put('sessions/view/{session}', 'SessionApiController@view');
     Route::delete('sessions/delete/{session}', 'SessionApiController@destroy');
 });
