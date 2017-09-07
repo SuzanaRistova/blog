@@ -42,7 +42,7 @@ Route::group(['middleware' => ['api']], function () {
 });
 
     
-Route::group(['prefix' => 'all', ['middleware' => 'jwt-auth']], function(){
+Route::group(['middleware' => 'jwt-auth'], function(){
 //    Users
     Route::get('users', 'UserApiController@index');
     Route::get('users/show/{user}', 'UserApiController@show');
@@ -51,7 +51,7 @@ Route::group(['prefix' => 'all', ['middleware' => 'jwt-auth']], function(){
     Route::delete('users/delete/{user}', 'UserApiController@destroy');
     
 //    Pages
-    Route::post('pages', 'PageApiController@index');
+    Route::get('pages', 'PageApiController@index');
     Route::get('pages/show/{page}', 'PageApiController@show');
     Route::post('pages/store', 'PageApiController@store');
     Route::put('pages/edit/{page}', 'PageApiController@update');

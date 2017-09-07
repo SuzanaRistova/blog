@@ -94,9 +94,16 @@ class PageApiController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        $page->update($request->all());
-
-        return response()->json($page, 200);
+        $user = JWTAuth::toUser($request->token);
+        if($user->hasRole('admin') || ($user->hasRole('editor'))){
+            $page->update($request->all());
+            return response()->json($page, 200);
+        } else if($user->hasRole('author')){
+            $page_author = Page::where('user_id', $user->id)->where('id', $page->id)->first();
+            return response()->json($page_author, 200);
+        } else{
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
 
     /**
@@ -105,10 +112,23 @@ class PageApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function destroy(Request $request, Page $page)
     {
-        $page->delete();
-
-        return response()->json(null, 204);
+        $user = JWTAuth::toUser($request->token);
+        if($user->hasRole('admin') || ($user->hasRole('editor'))){
+            $page->delete();
+            return response()->json(null, 204);
+        } else if($user->hasRole('author')){
+            $page_author = Page::where('user_id', $user->id)->where('id', $page->id)->first();
+            if($page_author != NULL){
+                $page_author->delete();
+                return response()->json(null, 204);
+            } else {
+                 return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+            }
+        } else{
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
+       
     }
 }
