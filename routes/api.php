@@ -49,6 +49,8 @@ Route::group(['middleware' => 'jwt-auth'], function(){
     Route::post('users/store', 'UserApiController@store');
     Route::put('users/edit/{user}', 'UserApiController@update');
     Route::delete('users/delete/{user}', 'UserApiController@destroy');
+    Route::post('users/{user}/pages', 'UserApiController@get_pages');
+    Route::post('users/{user}/modules', 'UserApiController@get_modules');
     
 //    Pages
     Route::get('pages', 'PageApiController@index');

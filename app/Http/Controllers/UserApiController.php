@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\User;
+use JWTAuth;
 use Illuminate\Http\Request;
 
 class UserApiController extends Controller
@@ -89,5 +90,27 @@ class UserApiController extends Controller
         $user->delete();
 
         return response()->json(null, 204);
+    }
+    
+    public function get_pages(Request $request, User $user)
+    {
+        $user = JWTAuth::toUser($request->token);
+        if(!$user->hasRole('subscriber')){
+            $pages = $user->pages;
+            return response()->json($pages, 200);
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
+    }
+    
+    public function get_modules(Request $request, User $user)
+    {
+        $user = JWTAuth::toUser($request->token);
+        if($user->hasRole('admin') || $user->hasRole('subscriber')){
+            $modules = $user->modules;
+            return response()->json($modules, 200);
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
 }

@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Page');
     }
     
+    public function modules()
+    {
+        return $this->hasMany('App\Module');
+    }
+    
     public function authorizeRoles($roles)
     {
         if ($this->hasAnyRole($roles)) {

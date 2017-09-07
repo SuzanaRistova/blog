@@ -142,8 +142,8 @@ class ModuleApiController extends Controller
     {
         $user = JWTAuth::toUser($request->token);
         if($user->hasRole('admin')){
-            $modules = $module->lessons;
-            return response()->json($modules, 200);
+            $lessons = $module->lessons;
+            return response()->json($lessons, 200);
         } else {
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
         }
