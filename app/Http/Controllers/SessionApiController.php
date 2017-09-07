@@ -113,7 +113,7 @@ class SessionApiController extends Controller
             if ($request->completed == 1) {
                 $session->users()->attach($user->id);
             } else {
-                DB::table('session_user')->where('session_id', $session->id)->where('user_id', $user->id)->delete();
+                DB::table('session_user')->where('session_id', $session->id)->delete();
             }
             
             if (isset($request->completed) ) {

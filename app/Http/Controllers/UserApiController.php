@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Hash;
 use App\User;
 use JWTAuth;
 use Illuminate\Http\Request;
@@ -14,9 +15,14 @@ class UserApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::all();
+       $user = JWTAuth::toUser($request->token);
+       if($user->hasRole('admin') || $user->hasRole('editor')){
+            return User::all();
+       } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+       }
     }
 
     /**
@@ -37,8 +43,43 @@ class UserApiController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
-        $user->roles()->attach($request->role_id);
+         $validator = \Validator::make(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password
+            ],
+            [
+                'name' => 'sometimes|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:6',
+                'role' => 'sometimes|string|max:255',
+            ]
+        );
+         
+        if($request->role_id == NULL){
+            $request->role_id  = 4;
+        }
+
+        $user = JWTAuth::toUser($request->token);
+        
+        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+            
+            if ($validator->fails()) {
+                $result = ['result' => 'Failed', 'message' => $validator->errors()];
+                return \Response::json($result)->setStatusCode(400, 'Fail');
+            } else {
+                $input = $request->all();
+                $input['password'] = Hash::make($input['password']);
+                $user = User::create($input);
+                $user->roles()->attach($request->role_id);
+                return response()->json($user, 201);
+            }
+        } else {
+            
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
+
         return response()->json($user, 201);
     }
 
@@ -48,9 +89,14 @@ class UserApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        return $user;
+        $user = JWTAuth::toUser($request->token);
+        if($user->hasRole('admin') || $user->hasRole('editor')){
+            return $user;
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
 
     /**
@@ -73,9 +119,13 @@ class UserApiController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
-
-        return response()->json($user, 200);
+        $user = JWTAuth::toUser($request->token);
+        if ($user->hasRole('admin')) {
+            $user->update($request->all());
+            return response()->json($user, 200);
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
 
     /**
@@ -86,10 +136,14 @@ class UserApiController extends Controller
      */
     public function destroy(User $user)
     {
-        DB::table('role_user')->where('user_id', $user->id)->delete();
-        $user->delete();
-
-        return response()->json(null, 204);
+        $user = JWTAuth::toUser($request->token);
+        if ($user->hasRole('admin')) {
+            DB::table('role_user')->where('user_id', $user->id)->delete();
+            $user->delete();
+            return response()->json(null, 204);
+        } else {
+            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+        }
     }
     
     public function get_pages(Request $request, User $user)
