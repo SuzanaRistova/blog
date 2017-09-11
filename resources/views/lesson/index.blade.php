@@ -23,7 +23,7 @@
                                 <td>{{ $lesson->slug }}</td>
                                 <td>{{ $lesson->content }}</td>
                                 <td>   
-                                    <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->id) }}">Show</a>
+                                    <a class="btn btn-primary" href="{{ route('lesson.show', $lesson->slug) }}">Show</a>
                                     <a class="btn btn-primary" href="{{ route('lesson.edit', $lesson->id) }}">Edit</a>
                                     <a class="btn btn-primary delete-button" href="{{ route('lesson.delete', $lesson->id) }}">Delete</a>
                                 </td>
