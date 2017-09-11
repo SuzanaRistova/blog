@@ -63,7 +63,7 @@ class UserApiController extends Controller
             $request->role_id  = 4;
         }
 
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         
         if ($user->hasRole('admin') || $user->hasRole('editor')) {
             
@@ -93,7 +93,7 @@ class UserApiController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        $login_user = JWTAuth::toUser($request->token);
+        $login_user =  Auth::user();
         if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
             return $user;
         } else {
@@ -121,7 +121,7 @@ class UserApiController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user =  Auth::user();
         if ($user->hasRole('admin')) {
             $user->update($request->all());
             return response()->json($user, 200);
@@ -138,7 +138,7 @@ class UserApiController extends Controller
      */
     public function destroy(Request $request, User $user)
     {
-        $login_user = JWTAuth::toUser($request->token);
+        $login_user =  Auth::user();
         if ($login_user->hasRole('admin')) {
             DB::table('role_user')->where('user_id', $user->id)->delete();
             $user->delete();
@@ -150,7 +150,7 @@ class UserApiController extends Controller
     
     public function get_pages(Request $request, User $user)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user =  Auth::user();
         if(!$user->hasRole('subscriber')){
             $pages = $user->pages;
             return response()->json($pages, 200);
@@ -161,7 +161,7 @@ class UserApiController extends Controller
     
     public function get_modules(Request $request, User $user)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user =  Auth::user();
         if($user->hasRole('admin') || $user->hasRole('subscriber')){
             $modules = $user->modules;
             return response()->json($modules, 200);
