@@ -87,6 +87,7 @@ class SessionController extends Controller
         } else if (preg_match('/youtube\.com\/verify_age\?next_url=\/watch%3Fv%3D([^\&\?\/]+)/', $url, $id)) {
             $values = $id[1];
         } else {
+            $values = false;
             // not an youtube video
         }
 

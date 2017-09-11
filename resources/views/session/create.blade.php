@@ -42,7 +42,7 @@
                             <label for="content" class="col-md-4 control-label">Content</label>
 
                             <div class="col-md-6">
-                                <textarea id="content" type="text" class="form-control" name="content" value="{{ old('content') }}" placeholder="Content" required></textarea>
+                                <textarea id="content" type="text" class="form-control" name="content" value="{{ old('content') }}" placeholder="Content" required>{{ old('content') }}</textarea>
 
                                 @if ($errors->has('content'))
                                     <span class="help-block">
@@ -70,7 +70,7 @@
                             <label for="completed" class="col-md-4 control-label">Completed</label>
 
                             <div class="col-md-6">
-                                <input id="completed" type="checkbox" class="form-control" name="completed" value="{{ old('completed') }}">
+                                <input id="completed" type="checkbox" name="completed" value="{{ old('completed') }}">
 
                                 @if ($errors->has('completed'))
                                     <span class="help-block">
