@@ -17,7 +17,7 @@ class LessonApiController extends Controller
     public function index(Request $request)
     {
         $user = JWTAuth::toUser($request->token);
-        if ($user->hasRole('admin') || $user->hasRole('subscriber')) {
+        if ($user->hasRole('admin')) {
             return Lesson::all();
         } else {
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
