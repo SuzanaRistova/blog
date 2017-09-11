@@ -7,6 +7,7 @@ use Hash;
 use App\User;
 use JWTAuth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserApiController extends Controller
 {
@@ -17,7 +18,8 @@ class UserApiController extends Controller
      */
     public function index(Request $request)
     {
-       $login_user = JWTAuth::toUser($request->token);
+       $login_user = Auth::user();
+//       $login_user = JWTAuth::toUser($request->token);
        if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
             return User::all();
        } else {

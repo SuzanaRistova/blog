@@ -42,6 +42,57 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
     
+    protected function authenticateClient(Request $request) {
+
+        $credentials = $this->credentials($request);
+
+        $data = $request->all();
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        $request->request->add([
+            'grant_type'    => $data['grant_type'],
+            'client_id'     => $data['client_id'],
+            'client_secret' => $data['client_secret'],
+            'username'      => $credentials['email'],
+            'password'      => $credentials['password'],
+            'scope'         => null,
+        ]);
+
+        $proxy = Request::create(
+            'oauth/token',
+            'POST'
+        );
+
+        return Route::dispatch($proxy);
+    }
+    
+    protected function authenticated(Request $request, $user) {
+
+        return $this->authenticateClient($request);
+    }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user());
+
+    }
+
+    public function login(Request $request)
+    {   
+        $credentials = $this->credentials($request);
+
+        if ($this->guard('api')->attempt($credentials, $request->has('remember'))) {
+
+            return $this->sendLoginResponse($request);
+        }
+    }
+
+    
 //    public function login(Request $request) {
 //        $this->validateLogin($request);
 //

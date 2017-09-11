@@ -7,8 +7,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Home</div>
                 <div class="panel-body">
-                     You are logged in!
-                     <div class="home body-container">
+                    You are logged in!
+                    <div class="home body-container">
                         <div class="link">
                             <a href="{{ route('users')}}">Users</a>
                         </div>
@@ -18,15 +18,20 @@
                         <div class="link">
                             <a href="{{ $user->hasRole('admin') ? "admin/modules" : route('modules') }}">Modules</a>
                         </div>
-                         @if($user->hasRole('admin'))
-                          <div class="link">
+                        @if($user->hasRole('admin'))
+                        <div class="link">
                             <a href="{{ route('lessons')}}">Lessons</a>
                         </div>
-                         <div class="link">
+                        <div class="link">
                             <a href="{{ route('sessions')}}">Sessions</a>
                         </div>
-                         @endif
-                     </div>
+                        <div class="link">
+                            <passport-clients></passport-clients>
+                            <passport-authorized-clients></passport-authorized-clients>
+                            <passport-personal-access-tokens></passport-personal-access-tokens>
+                        </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
