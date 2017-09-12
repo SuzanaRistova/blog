@@ -6,6 +6,7 @@ use App\Session;
 use JWTAuth;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class SessionApiController extends Controller
 {
@@ -14,10 +15,10 @@ class SessionApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = JWTAuth::toUser($request->token);
-        if ($user->hasRole('admin') || $user->hasRole('subscriber')) {
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
             return Session::all();
         } else {
             return response()->json(['result' => abort(403, 'Unauthorized action.')]);
@@ -62,7 +63,7 @@ class SessionApiController extends Controller
                 ]
         );
         
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin')) {
             if ($validator->fails()) {
                 $result = ['result' => 'Failed',
@@ -96,9 +97,9 @@ class SessionApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Session $session)
+    public function show(Session $session)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin')){
             return $session;
         } else {
@@ -108,7 +109,7 @@ class SessionApiController extends Controller
     
     public function view(Request $request, Session $session)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('subscriber')){
             if ($request->completed == 1) {
                 $session->users()->attach($user->id);
@@ -148,7 +149,7 @@ class SessionApiController extends Controller
      */
     public function update(Request $request, Session $session)
     {
-       $user = JWTAuth::toUser($request->token);
+       $user = Auth::user();
         if($user->hasRole('admin')){
             if ($request->completed == 1) {
                 $session->users()->attach($user->id);
@@ -170,9 +171,9 @@ class SessionApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Session $session)
+    public function destroy(Session $session)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin')) {
             $session->delete();
             return response()->json(null, 204);

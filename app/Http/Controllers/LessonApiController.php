@@ -6,6 +6,7 @@ use App\Lesson;
 use JWTAuth;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LessonApiController extends Controller
 {
@@ -14,9 +15,9 @@ class LessonApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin')) {
             return Lesson::all();
         } else {
@@ -54,7 +55,7 @@ class LessonApiController extends Controller
                     'content' => 'sometimes|string|max:255',
                 ]
         );
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         
         if ($user->hasRole('admin')) {
             if ($validator->fails()) {
@@ -81,9 +82,9 @@ class LessonApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Lesson $lesson)
+    public function show(Lesson $lesson)
     {       
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         $lesson_id = $lesson->id;
         $first_lesson = Lesson::first();
         
@@ -139,7 +140,7 @@ class LessonApiController extends Controller
      */
     public function update(Request $request, Lesson $lesson)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin')){
             $lesson->update($request->all());
             return response()->json($lesson, 200); }
@@ -154,9 +155,9 @@ class LessonApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Lesson $lesson) {
+    public function destroy(Lesson $lesson) {
         
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin')) {
             $lesson->delete();
             return response()->json(null, 204);
@@ -165,9 +166,9 @@ class LessonApiController extends Controller
         }
     }
     
-    public function get_sessions(Request $request, Lesson $lesson)
+    public function get_sessions(Lesson $lesson)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin')){
             $lessons = $lesson->sessions;
             return response()->json($lessons, 200);

@@ -44,15 +44,15 @@ Route::group(['middleware' => ['api']], function () {
 });
 
     
-Route::group(['middleware' => 'auth:api', 'auth_client'], function(){
+Route::group(['middleware' => 'auth:api'], function(){
 //    Users
     Route::get('users', 'UserApiController@index');
     Route::get('users/show/{user}', 'UserApiController@show');
     Route::post('users/store', 'UserApiController@store');
     Route::put('users/edit/{user}', 'UserApiController@update');
     Route::delete('users/delete/{user}', 'UserApiController@destroy');
-    Route::post('users/{user}/pages', 'UserApiController@get_pages');
-    Route::post('users/{user}/modules', 'UserApiController@get_modules');
+    Route::get('users/{user}/pages', 'UserApiController@get_pages');
+    Route::get('users/{user}/modules', 'UserApiController@get_modules');
     
 //    Pages
     Route::get('pages', 'PageApiController@index');
@@ -67,7 +67,7 @@ Route::group(['middleware' => 'auth:api', 'auth_client'], function(){
     Route::post('modules/store', 'ModuleApiController@store');
     Route::put('modules/edit/{module}', 'ModuleApiController@update');
     Route::delete('modules/delete/{module}', 'ModuleApiController@destroy');
-    Route::post('modules/{module}/lessons', 'ModuleApiController@get_lessons');
+    Route::get('modules/{module}/lessons', 'ModuleApiController@get_lessons');
     
 //    Lesson
     Route::get('lessons', 'LessonApiController@index');
@@ -75,7 +75,7 @@ Route::group(['middleware' => 'auth:api', 'auth_client'], function(){
     Route::post('lessons/store', 'LessonApiController@store');
     Route::put('lessons/edit/{lesson}', 'LessonApiController@update');
     Route::delete('lessons/delete/{lesson}', 'LessonApiController@destroy');
-    Route::post('lessons/{lesson}/sessions', 'LessonApiController@get_sessions');
+    Route::get('lessons/{lesson}/sessions', 'LessonApiController@get_sessions');
     
 //     Session
     Route::get('sessions', 'SessionApiController@index');

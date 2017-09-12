@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Module;
 use JWTAuth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModuleApiController extends Controller
 {
@@ -13,9 +14,9 @@ class ModuleApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin') || $user->hasRole('subscriber')) {
             return Module::all();
         } else {
@@ -56,7 +57,7 @@ class ModuleApiController extends Controller
             ]
         );
         
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin')) {
             if ($validator->fails()){
                 $result = ['result' => 'Failed',
@@ -82,9 +83,9 @@ class ModuleApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Module $module)
+    public function show(Module $module)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin') || $user->hasRole('subscriber')){
             return $module;
         } else {
@@ -112,7 +113,7 @@ class ModuleApiController extends Controller
      */
     public function update(Request $request, Module $module)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin')){
             $module->update($request->all());
             return response()->json($module, 200);
@@ -127,9 +128,9 @@ class ModuleApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Module $module)
+    public function destroy(Module $module)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if ($user->hasRole('admin')) {
             $module->delete();
             return response()->json(null, 204);
@@ -138,9 +139,9 @@ class ModuleApiController extends Controller
         }
     }
     
-    public function get_lessons(Request $request, Module $module)
+    public function get_lessons(Module $module)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin')){
             $lessons = $module->lessons;
             return response()->json($lessons, 200);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Page;
 use JWTAuth;
+use Illuminate\Support\Facades\Auth;
 
 class PageApiController extends Controller
 {
@@ -13,9 +14,9 @@ class PageApiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-       $user = JWTAuth::toUser($request->token);
+       $user = Auth::user();
        if($user->hasRole('admin') || $user->hasRole('editor')){
             return Page::all();
        } else if($user->hasRole('author')){
@@ -59,7 +60,7 @@ class PageApiController extends Controller
             ]
         );
         
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if(!$user->hasRole('subscriber')){
         if ($validator->fails()){
                 $result = ['result' => 'Failed',
@@ -85,9 +86,9 @@ class PageApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Page $page)
+    public function show(Page $page)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if(!$user->hasRole('subscriber')){
             return $page;
         } else {
@@ -115,7 +116,7 @@ class PageApiController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin') || ($user->hasRole('editor'))){
             $page->update($request->all());
             return response()->json($page, 200);
@@ -133,9 +134,9 @@ class PageApiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Page $page)
+    public function destroy(Page $page)
     {
-        $user = JWTAuth::toUser($request->token);
+        $user = Auth::user();
         if($user->hasRole('admin') || ($user->hasRole('editor'))){
             $page->delete();
             return response()->json(null, 204);
