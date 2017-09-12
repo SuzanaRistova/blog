@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \App\Http\Middleware\Role::class,
         'jwt-auth' => \App\Http\Middleware\authJWT::class,
+        'auth_client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
     ];
 }

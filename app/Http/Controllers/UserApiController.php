@@ -121,8 +121,8 @@ class UserApiController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user =  Auth::user();
-        if ($user->hasRole('admin')) {
+        $login_user  =  Auth::user();
+        if ($login_user ->hasRole('admin')) {
             $user->update($request->all());
             return response()->json($user, 200);
         } else {
@@ -150,8 +150,8 @@ class UserApiController extends Controller
     
     public function get_pages(Request $request, User $user)
     {
-        $user =  Auth::user();
-        if(!$user->hasRole('subscriber')){
+        $login_user =  Auth::user();
+        if(!$login_user->hasRole('subscriber')){
             $pages = $user->pages;
             return response()->json($pages, 200);
         } else {
@@ -161,8 +161,8 @@ class UserApiController extends Controller
     
     public function get_modules(Request $request, User $user)
     {
-        $user =  Auth::user();
-        if($user->hasRole('admin') || $user->hasRole('subscriber')){
+        $login_user =  Auth::user();
+        if($login_user->hasRole('admin') || $login_user->hasRole('subscriber')){
             $modules = $user->modules;
             return response()->json($modules, 200);
         } else {
