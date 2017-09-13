@@ -36,8 +36,8 @@
                            <thead>
                             <tr>
                               <th>Title</th>
-                              <th>Slug</th>
-                              <th>Content</th>
+                              <!--<th>Slug</th>-->
+                              <!--<th>Content</th>-->
                               <th>Action</th>
                             </tr>
                            </thead>
@@ -52,8 +52,8 @@
                                     ?>
                                 <tr>
                                     <td>{{ $lesson->title }}</td>
-                                    <td>{{ $lesson->slug }}</td>
-                                    <td>{{ $lesson->content }}</td>
+                                    <!--<td></td>-->
+                                    <!--<td></td>-->
                                     <td>  
                                         @if(($lesson_completed) || ($key == 0) )
                                             <a class="btn btn-primary" href="{{ ($user->hasRole('admin')) ? "/admin/lesson/show/$lesson->slug":  route('lesson.show', $lesson->slug) }}">Show</a>

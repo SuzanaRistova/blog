@@ -25,12 +25,12 @@
                         <div class="link">
                             <a href="{{ route('sessions')}}">Sessions</a>
                         </div>
+                        @endif
                         <div class="link">
                             <passport-clients></passport-clients>
                             <passport-authorized-clients></passport-authorized-clients>
                             <passport-personal-access-tokens></passport-personal-access-tokens>
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
