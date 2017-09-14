@@ -67,7 +67,16 @@ class APIController extends Controller
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             
             $user = Auth::user();
-            $success['token'] =  $user->createToken('Web App Token')->accessToken;
+            if($user->hasRole('admin')){
+                $success['token'] =  $user->createToken('Admin Token', ['read', 'delete', 'create', 'update'])->accessToken; 
+            } else if($user->hasRole('editor')){
+                $success['token'] =  $user->createToken('Editor Token', ['user-create', 'user-read'])->accessToken;
+            } else if($user->hasRole('author')){
+                $success['token'] =  $user->createToken('Author Token', ['create', 'read'])->accessToken;
+            } else {
+                $success['token'] =  $user->createToken('Subscriber Token', ['module-read', 'session-view-edit', 'lesson-show'])->accessToken;
+            }
+
             
 //            $oauth_client = \App\OauthClient::create([
 //                        'user_id' => $user->id,

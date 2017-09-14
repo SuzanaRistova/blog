@@ -28,6 +28,18 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Passport::routes();
+        
+        Passport::tokensCan([
+            'read' => 'Index, Show',
+            'create' => 'Store, Create',
+            'update' => 'Edit', 'Update',
+            'delete' => 'Delete',
+            'user-read' => 'User read - index, show',
+            'user-create' => 'User create - create, save',
+            'module-read' => 'Module read -index, show',
+            'lesson-show' => 'Lesson show - show',
+            'session-view-edit' => 'Session view - view, update'
+          ]);
 
 //        Passport::tokensExpireIn(Carbon::now()->addDays(1));
 //

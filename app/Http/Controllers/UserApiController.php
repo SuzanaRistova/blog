@@ -18,13 +18,15 @@ class UserApiController extends Controller
      */
     public function index(Request $request)
     {
-       $login_user = Auth::user();
-//       $login_user = JWTAuth::toUser($request->token);
-       if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
+        $login_user = Auth::user();
+            if ($login_user->tokenCan('read') || $login_user->tokenCan('user-read')) {
             return User::all();
-       } else {
-            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
-       }
+        }
+//       if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
+//            return User::all();
+//       } else {
+//            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+//       }
     }
 
     /**
