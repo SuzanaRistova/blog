@@ -25,6 +25,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
 
 Auth::routes();
 
+Route::get('mail', 'HomeController@mail');
+
 //User routes
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor']], function(){
     Route::get('users', 'UserController@index')->name('users')->middleware('role:admin,editor');

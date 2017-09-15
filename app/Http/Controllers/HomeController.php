@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -26,4 +27,16 @@ class HomeController extends Controller
     {   $user = Auth::user();
         return view('home', compact('user'));
     }
+    
+    public function mail() {
+        $user = User::find(1)->toArray();
+
+        \Mail::send('emails.email', $user, function($message) use ($user) {
+            $message->to("suzanaristova@yahoo.com");
+            $message->subject('Blog');
+        });
+
+        dd('Mail Send Successfully');
+    }
+
 }
