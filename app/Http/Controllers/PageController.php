@@ -51,7 +51,15 @@ class PageController extends Controller
         return view('page.index', compact('pages', 'admin_role'));
     }
     
-     public function pages(Request $request)
+    public function indexvue(){
+        
+        $pages = Page::get();
+        
+        return response()->json($pages, 201);
+    }
+
+
+    public function pages(Request $request)
     {
         $user_id = $request->user_id;
         $validator = \Validator::make(\Illuminate\Support\Facades\Input::all(), [

@@ -9,7 +9,8 @@
                 <div class="panel-body">
                     You are logged in!
                     <div class="home body-container">
-                         <home></home>
+                        
+                         <page></page>
                         <div class="link">
                             <a href="{{ route('users')}}">Users</a>
                         </div>

@@ -1121,7 +1121,7 @@ window.Vue = __webpack_require__(58);
 
 Vue.component('example', __webpack_require__(44));
 
-Vue.component('home', __webpack_require__(45));
+Vue.component('page', __webpack_require__(45));
 
 Vue.component('passport-clients', __webpack_require__(47));
 
@@ -2099,10 +2099,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mounted: function mounted() {
-        console.log('Component mounted.');
+    data: function data() {
+        return {
+            list: [],
+            page: {
+                user_id: '',
+                title: '',
+                slug: '',
+                content: ''
+            }
+        };
+    },
+    created: function created() {
+        this.fetchPageList();
+    },
+
+
+    methods: {
+        fetchPageList: function fetchPageList() {
+            var _this = this;
+
+            axios.get('vue/pages').then(function (res) {
+                _this.list = res.data;
+            });
+        },
+        createPage: function createPage() {
+            var _this2 = this;
+
+            axios.post('vue/pages', this.page).then(function (res) {
+                _this2.page.title = '';
+                _this2.page.slug = '';
+                _this2.page.content = '';
+                _this2.edit = false;
+                _this2.fetchPageList();
+            }).catch(function (err) {
+                return console.error(err);
+            });
+        },
+        deletePage: function deletePage(id) {
+            var _this3 = this;
+
+            axios.get('vue/page/delete/' + id).then(function (res) {
+                _this3.fetchPageList();
+            }).catch(function (err) {
+                return console.error(err);
+            });
+        }
     }
 });
 
@@ -32936,7 +32994,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(51),
+  __webpack_require__(50),
   /* scopeId */
   null,
   /* cssModules */
@@ -32970,15 +33028,15 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(49),
+  __webpack_require__(51),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/codeart11/public_html/blog/resources/assets/js/components/Home.vue"
+Component.options.__file = "/home/codeart11/public_html/blog/resources/assets/js/components/Page.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Home.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] Page.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -32987,9 +33045,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16fe1455", Component.options)
+    hotAPI.createRecord("data-v-67332a05", Component.options)
   } else {
-    hotAPI.reload("data-v-16fe1455", Component.options)
+    hotAPI.reload("data-v-67332a05", Component.options)
   }
 })()}
 
@@ -33008,7 +33066,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(50),
+  __webpack_require__(49),
   /* scopeId */
   "data-v-37b83b66",
   /* cssModules */
@@ -33115,29 +33173,6 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel panel-default"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_vm._v("Example Component")]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_vm._v("\n        Hello test vue.js\n    ")])])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-16fe1455", module.exports)
-  }
-}
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [(_vm.tokens.length > 0) ? _c('div', [_c('div', {
     staticClass: "panel panel-default"
   }, [_c('div', {
@@ -33180,7 +33215,7 @@ if (false) {
 }
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33205,6 +33240,121 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-5e8d45e4", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('h1', [_vm._v("My Pages")]), _vm._v(" "), _c('h4', [_vm._v("New Pages")]), _vm._v(" "), _c('form', {
+    attrs: {
+      "action": "#"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.createPage()
+      }
+    }
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page.title),
+      expression: "page.title"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "title",
+      "autofocus": ""
+    },
+    domProps: {
+      "value": (_vm.page.title)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.page.title = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page.slug),
+      expression: "page.slug"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "slug"
+    },
+    domProps: {
+      "value": (_vm.page.slug)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.page.slug = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.page.content),
+      expression: "page.content"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "content"
+    },
+    domProps: {
+      "value": (_vm.page.content)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.page.content = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _vm._m(0)])]), _vm._v(" "), _c('h4', [_vm._v("All Pages")]), _vm._v(" "), _c('ul', {
+    staticClass: "list-group"
+  }, [(_vm.list.length === 0) ? _c('li', [_vm._v("There are no pages yet!")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.list), function(page, index) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_vm._v("\n             " + _vm._s(page.title) + "\n             "), _c('button', {
+      staticClass: "btn btn-danger btn-xs pull-right",
+      on: {
+        "click": function($event) {
+          _vm.deletePage(page.id)
+        }
+      }
+    }, [_vm._v("Delete")])])
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("New Page")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-67332a05", module.exports)
   }
 }
 
