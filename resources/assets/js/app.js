@@ -19,6 +19,8 @@ Vue.component('example', require('./components/Example.vue'));
 
 Vue.component('page', require('./components/Page.vue'));
 
+Vue.component('autocomplete', require('./components/Autocomplete.vue'));
+
 Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue')

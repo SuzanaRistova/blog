@@ -10,7 +10,12 @@
                     You are logged in!
                     <div class="home body-container">
                         
-                         <page></page>
+                        <div class="panel-body">
+                            <autocomplete></autocomplete>
+                        </div>
+                        
+                        <page></page>
+                        
                         <div class="link">
                             <a href="{{ route('users')}}">Users</a>
                         </div>
