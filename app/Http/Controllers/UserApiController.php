@@ -18,10 +18,10 @@ class UserApiController extends Controller
      */
     public function index(Request $request)
     {
-        $login_user = Auth::user();
-            if ($login_user->tokenCan('read') || $login_user->tokenCan('user-read')) {
+//        $login_user = Auth::user();
+//            if ($login_user->tokenCan('read') || $login_user->tokenCan('user-read')) {
             return User::all();
-        }
+//        }
 //       if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
 //            return User::all();
 //       } else {

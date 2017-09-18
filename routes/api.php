@@ -49,7 +49,7 @@ Route::group(['middleware' => ['api']], function () {
     
 Route::group(['middleware' => 'auth:api'], function(){
 //    Users
-    Route::get('users', 'UserApiController@index')->middleware('scopes:user-read');
+    Route::get('users', 'UserApiController@index')->middleware('scope:user-read,read');
     Route::get('users/show/{user}', 'UserApiController@show');
     Route::post('users/store', 'UserApiController@store');
     Route::put('users/edit/{user}', 'UserApiController@update');
