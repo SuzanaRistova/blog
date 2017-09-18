@@ -50,12 +50,12 @@ Route::group(['middleware' => ['api']], function () {
 Route::group(['middleware' => 'auth:api'], function(){
 //    Users
     Route::get('users', 'UserApiController@index')->middleware('scope:user-read,read');
-    Route::get('users/show/{user}', 'UserApiController@show');
-    Route::post('users/store', 'UserApiController@store');
-    Route::put('users/edit/{user}', 'UserApiController@update');
-    Route::delete('users/delete/{user}', 'UserApiController@destroy');
-    Route::get('users/{user}/pages', 'UserApiController@get_pages');
-    Route::get('users/{user}/modules', 'UserApiController@get_modules');
+    Route::get('users/show/{user}', 'UserApiController@show')->middleware('scope:user-read,read');
+    Route::post('users/store', 'UserApiController@store')->middleware('scope:user-read,read');;
+    Route::put('users/edit/{user}', 'UserApiController@update')->middleware('scope:read');
+    Route::delete('users/delete/{user}', 'UserApiController@destroy')->middleware('scope:read');
+    Route::get('users/{user}/pages', 'UserApiController@get_pages')->middleware('scope:read');
+    Route::get('users/{user}/modules', 'UserApiController@get_modules')->middleware('scope:read');
     
 //    Pages
     Route::post('pages/store', 'PageApiController@store');

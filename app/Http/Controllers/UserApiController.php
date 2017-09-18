@@ -67,7 +67,7 @@ class UserApiController extends Controller
 
         $user = Auth::user();
         
-        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+//        if ($user->hasRole('admin') || $user->hasRole('editor')) {
             
             if ($validator->fails()) {
                 $result = ['result' => 'Failed', 'message' => $validator->errors()];
@@ -79,10 +79,10 @@ class UserApiController extends Controller
                 $user->roles()->attach($request->role_id);
                 return response()->json($user, 201);
             }
-        } else {
-            
-            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
-        }
+//        } else {
+//            
+//            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+//        }
 
         return response()->json($user, 201);
     }
@@ -95,12 +95,12 @@ class UserApiController extends Controller
      */
     public function show(Request $request, User $user)
     {
-        $login_user =  Auth::user();
-        if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
+//        $login_user =  Auth::user();
+//        if($login_user->hasRole('admin') || $login_user->hasRole('editor')){
             return $user;
-        } else {
-            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
-        }
+//        } else {
+//            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+//        }
     }
 
     /**
@@ -123,13 +123,13 @@ class UserApiController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $login_user  =  Auth::user();
-        if ($login_user ->hasRole('admin')) {
+//        $login_user  =  Auth::user();
+//        if ($login_user ->hasRole('admin')) {
             $user->update($request->all());
             return response()->json($user, 200);
-        } else {
-            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
-        }
+//        } else {
+//            return response()->json(['result' => abort(403, 'Unauthorized action.')]);
+//        }
     }
 
     /**
