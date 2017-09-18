@@ -43,6 +43,9 @@ Route::group(['middleware' => ['api']], function () {
     });
 });
 
+ Route::get('pages', 'PageApiController@index');
+ Route::get('pages/show/{page}', 'PageApiController@show');
+
     
 Route::group(['middleware' => 'auth:api'], function(){
 //    Users
@@ -55,8 +58,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('users/{user}/modules', 'UserApiController@get_modules');
     
 //    Pages
-    Route::get('pages', 'PageApiController@index');
-    Route::get('pages/show/{page}', 'PageApiController@show');
     Route::post('pages/store', 'PageApiController@store');
     Route::put('pages/edit/{page}', 'PageApiController@update');
     Route::delete('pages/delete/{page}', 'PageApiController@destroy');
