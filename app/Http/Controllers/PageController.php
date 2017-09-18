@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function __construct() {
         
-        $this->middleware('auth',  ['except' => ['pages']]);
+        $this->middleware('auth',  ['except' => ['show', 'index']]);
     }
     
     protected function rules() {
@@ -33,15 +33,21 @@ class PageController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $pages = Page::where('user_id', $user->id)->get();
-        if ($user->hasRole('admin') || $user->hasRole('editor')) {
-            $admin_role = true;  
-            $pages = Page::get();
+//        $pages = Page::where('user_id', $user->id)->get();
+//        if ($user->hasRole('admin') || $user->hasRole('editor')) {
+//            $admin_role = true;  
+//            $pages = Page::get();
+//        } else {
+//            $admin_role = false;  
+//        }
+        
+        $pages = Page::get();
+        if ($user != NULL) {
+            $admin_role = true;
         } else {
-            $admin_role = false;  
+            $admin_role = false;
         }
-        
-        
+
         return view('page.index', compact('pages', 'admin_role'));
     }
     
@@ -110,13 +116,13 @@ class PageController extends Controller
      */
     public function show(Page $page, $slug)
     {
-        $user_id = Auth::user()->id;
-        $user =  Auth::user();
+//        $user_id = Auth::user()->id;
+//        $user =  Auth::user();
         $page = Page::where('slug', $slug)->first();
-
-        if (($user->hasRole('author')) && ($page->user_id != $user_id)) {
-            abort(403, 'Unauthorized action.');
-        }
+//
+//        if (($user->hasRole('author')) && ($page->user_id != $user_id)) {
+//            abort(403, 'Unauthorized action.');
+//        }
 
         return view('page.show', compact('page'));
     }
@@ -175,7 +181,14 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        $page->delete();
-        return back();
+        $user_id = Auth::user()->id;
+        $user =  Auth::user();
+        
+        if (($user->id == 3 ) && ($page->user_id != $user_id)) {
+            abort(403, 'Unauthorized action.');
+        } else {
+            $page->delete();
+            return back();
+        }
     }
 }

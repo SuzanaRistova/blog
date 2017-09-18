@@ -52,6 +52,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
     Route::get('page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageController@destroy']);
 });
 
+ Route::get('pages', 'PageController@index')->name('pages');
+ Route::get('page/show/{slug}', 'PageController@show')->name("page.show");
+
 //Module routes with prefix admin
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
     Route::get('modules', 'ModuleController@index')->name('modules')->middleware('role:admin');

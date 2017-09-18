@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Pages</div>
                 <div class="panel-body">
-                    <a class="btn btn-primary" href="{{ route('page.create') }}">Add page</a>
+                     <?php if($admin_role) { ?><a class="btn btn-primary" href="{{ route('page.create') }}">Add page</a><?php } ?>
                      <table class="table">
                         <thead>
                          <tr>
@@ -25,8 +25,8 @@
                                 <td>{{ $page->content }}</td>
                                 <td>   
                                     <a class="btn btn-primary" href="{{ route('page.show', $page->slug) }}">Show</a>
-                                    <a class="btn btn-primary" href="{{ route('page.edit', $page->id) }}">Edit</a>
-                                    <a class="btn btn-primary delete-button" href="{{ route('page.delete', $page->id) }}">Delete</a>
+                                    <?php if($admin_role) { ?><a class="btn btn-primary" href="{{ route('page.edit', $page->id) }}">Edit</a><?php } ?>
+                                    <?php if($admin_role) { ?><a class="btn btn-primary delete-button" href="{{ route('page.delete', $page->id) }}">Delete</a><?php } ?>
                                 </td>
                             </tr>
                             @endforeach   
