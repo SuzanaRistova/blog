@@ -2155,7 +2155,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         deletePage: function deletePage(id) {
             var _this3 = this;
 
-            axios.get('vue/page/delete/' + id).then(function (res) {
+            axios.delete('vue/page/delete/' + id).then(function (res) {
                 _this3.fetchPageList();
             }).catch(function (err) {
                 return console.error(err);

@@ -60,7 +60,7 @@
             },
  
             deletePage(id) {
-                axios.get('vue/page/delete/' + id)
+                axios.delete('vue/page/delete/' + id)
                     .then((res) => {
                         this.fetchPageList()
                     })

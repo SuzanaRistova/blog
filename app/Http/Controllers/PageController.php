@@ -50,14 +50,6 @@ class PageController extends Controller
 
         return view('page.index', compact('pages', 'admin_role'));
     }
-    
-    public function indexvue(){
-        
-        $pages = Page::get();
-        
-        return response()->json($pages, 201);
-    }
-
 
     public function pages(Request $request)
     {
