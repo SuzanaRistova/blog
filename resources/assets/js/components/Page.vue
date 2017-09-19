@@ -1,17 +1,17 @@
 <template>
-    <div class='row'>
-        <h1>My Pages</h1>
-        <h4>New Pages</h4>
+    <div class='row panel-footer'>
+        <h4>Add new page</h4>
         <form action="#" @submit.prevent="createPage()">
-            <div class="input-group">
-                <input v-model="page.title" type="text" name="title" class="form-control" autofocus>
-                <input v-model="page.slug" type="text" name="slug" class="form-control">
-                <input v-model="page.content" type="text" name="content" class="form-control">
+            <div class="form-group">
+                <input v-model="page.title"  placeholder="Title" type="text" name="title" class="form-control form-group" autofocus>
+                <input v-model="page.slug" placeholder="Slug" type="text" name="slug" class="form-control form-group">
+                <input v-model="page.content" placeholder="Content" type="text" name="content" class="form-control form-group">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary">New Page</button>
                 </span>
             </div>
         </form>
+
         <h4>All Pages</h4>
         <ul class="list-group">
             <li v-if='list.length === 0'>There are no pages yet!</li>
@@ -21,6 +21,7 @@
             </li>
         </ul>
     </div>
+
 </template>
 <script>
     export default {

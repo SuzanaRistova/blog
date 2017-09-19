@@ -2074,27 +2074,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      query: '',
-      results: []
-    };
-  },
+    data: function data() {
+        return {
+            query: '',
+            results: []
+        };
+    },
 
-  methods: {
-    autoComplete: function autoComplete() {
-      var _this = this;
+    methods: {
+        autoComplete: function autoComplete() {
+            var _this = this;
 
-      this.results = [];
-      if (this.query.length > 2) {
-        axios.get('/api/search', { params: { query: this.query } }).then(function (response) {
-          _this.results = response.data;
-        });
-      }
+            this.results = [];
+            if (this.query.length > 1) {
+                axios.get('/api/search', { params: { query: this.query } }).then(function (response) {
+                    _this.results = response.data;
+                });
+            }
+        }
     }
-  }
+
 });
 
 /***/ }),
@@ -2132,6 +2136,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -33250,7 +33255,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('input', {
+  return _c('div', {
+    staticClass: "row panel-footer form-group"
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -33272,15 +33279,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.query = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.results.length) ? _c('div', {
-    staticClass: "panel-footer"
-  }, [_c('ul', {
+  }), _vm._v(" "), _c('div', [_c('ul', {
     staticClass: "list-group"
-  }, _vm._l((_vm.results), function(result) {
+  }, [(_vm.results.length === 0) ? _c('li', {
+    staticClass: "list-group-item"
+  }, [_vm._v("There are no result!")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.results), function(result) {
     return _c('li', {
       staticClass: "list-group-item"
-    }, [_vm._v("\n    " + _vm._s(result.email) + "\n   ")])
-  }))]) : _vm._e()])
+    }, [_vm._v("\n            " + _vm._s(result.name) + "\n         ")])
+  })], 2)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33371,8 +33378,8 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row"
-  }, [_c('h1', [_vm._v("My Pages")]), _vm._v(" "), _c('h4', [_vm._v("New Pages")]), _vm._v(" "), _c('form', {
+    staticClass: "row panel-footer"
+  }, [_c('h4', [_vm._v("Add new page")]), _vm._v(" "), _c('form', {
     attrs: {
       "action": "#"
     },
@@ -33383,7 +33390,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('div', {
-    staticClass: "input-group"
+    staticClass: "form-group"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -33391,8 +33398,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.page.title),
       expression: "page.title"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control form-group",
     attrs: {
+      "placeholder": "Title",
       "type": "text",
       "name": "title",
       "autofocus": ""
@@ -33413,8 +33421,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.page.slug),
       expression: "page.slug"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control form-group",
     attrs: {
+      "placeholder": "Slug",
       "type": "text",
       "name": "slug"
     },
@@ -33434,8 +33443,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.page.content),
       expression: "page.content"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control form-group",
     attrs: {
+      "placeholder": "Content",
       "type": "text",
       "name": "content"
     },

@@ -10,9 +10,7 @@
                     You are logged in!
                     <div class="home body-container">
                         
-                        <div class="panel-body">
-                            <autocomplete></autocomplete>
-                        </div>
+                        <autocomplete></autocomplete>
                         
                         <page></page>
                         

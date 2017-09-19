@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,11 @@ Route::group(['middleware' => ['api']], function () {
  Route::get('pages', 'PageApiController@index');
  Route::get('pages/show/{page}', 'PageApiController@show');
 
+  Route::get('/search',function(){
+    $query = Input::get('query');
+    $users = User::where('name','like','%'.$query.'%')->get();
+    return response()->json($users);
+});
     
 Route::group(['middleware' => 'auth:api'], function(){
 //    Users

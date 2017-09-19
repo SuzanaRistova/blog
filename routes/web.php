@@ -1,6 +1,4 @@
 <?php
-use Illuminate\Support\Facades\Input;
-use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,12 +58,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
  Route::post('vue/pages', 'PageApiController@store')->name('vue/pages');
  Route::get('vue/pages', 'PageApiController@index')->name('vue/pages');
  Route::delete('vue/page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageApiController@destroy']);
- 
- Route::get('/search',function(){
-    $query = Input::get('query');
-    $users = User::where('email','like','%'.$query.'%')->get();
-    return response()->json($users);
-});
 
 //Module routes with prefix admin
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
