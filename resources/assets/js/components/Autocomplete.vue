@@ -1,6 +1,6 @@
 <template>
     <div class="row panel-footer form-group">
-        <input type="text" placeholder="what are you looking for?" v-model="query" v-on:keyup="autoComplete" class="form-control">
+        <input type="text" placeholder="search users?" v-model="query" v-on:keyup="autoComplete" class="form-control">
         <div>
             <ul class="list-group">
             <li class="list-group-item" v-if='results.length === 0'>There are no result!</li>
