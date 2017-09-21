@@ -32,6 +32,8 @@ Auth::routes();
 
 Route::get('mail', 'HomeController@mail');
 
+Route::get('user/notify/{user}', 'UserController@notify')->name("user.notify");
+
 //User routes
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor']], function(){
     Route::get('users', 'UserController@index')->name('users')->middleware('role:admin,editor');

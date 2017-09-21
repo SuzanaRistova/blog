@@ -16,6 +16,11 @@
                            <th>Actions</th>
                          </tr>
                         </thead>
+                        <?php if($status = \Session::get('status')){ ?>
+                            <div class="alert alert-success">
+                                {{ $status}}
+                            </div>
+                        <?php } ?>
                         <tbody>
                             @foreach($users as $user)
                                                         <tr>
@@ -29,7 +34,10 @@
                                 @endif
 
                                 @if($admin_role) 
-                                    <a class="btn btn-primary delete-button" href="{{ route('user.delete', $user->id) }}">Delete</a>
+                                    <a class="btn btn-danger delete-button" href="{{ route('user.delete', $user->id) }}">Delete</a>
+                                @endif
+                                 @if($admin_role) 
+                                 <a class="btn btn-default" href="{{ route('user.notify', $user->id) }}">Notify</a>
                                 @endif
                             </td>
                              </tr>

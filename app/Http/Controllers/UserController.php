@@ -5,6 +5,7 @@ use DB;
 use App\User;
 use App\Role;
 use Image;
+use App\Page;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -157,6 +158,14 @@ class UserController extends Controller {
         
         $role = $user->roles->first();
         return view('user.show', compact('user', 'role'));
+    }
+    
+    public function  notify(User $user){
+        
+        $user->notify(new \App\Notifications\UserPaged($user));
+        
+        return back()->with('status', 'Notification send on '.$user->name .' : '.$user->email);
+        
     }
 
     public function create() {
