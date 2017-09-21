@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -9,10 +10,18 @@
                 <div class="panel-body">
                     You are logged in!
                     <div class="home body-container">
+
+                    <div id="root">
+                       <modal v-if="showModal"  @close="showModal=false">
+                           <p>test here</p> 
+                        </modal>
+
+                       <button @click="showModal=true">Show Modal</button>
+                           
+                    </div>
                         
-                        <autocomplete></autocomplete>
+
                         
-                        <page></page>
                         
                         <div class="link">
                             <a href="{{ route('users')}}">Users</a>
@@ -32,9 +41,9 @@
                         </div>
                         @endif
                         <div class="link">
-                            <passport-clients></passport-clients>
+<!--                            <passport-clients></passport-clients>
                             <passport-authorized-clients></passport-authorized-clients>
-                            <passport-personal-access-tokens></passport-personal-access-tokens>
+                            <passport-personal-access-tokens></passport-personal-access-tokens>-->
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,17 @@ Vue.component('example', require('./components/Example.vue'));
 
 Vue.component('page', require('./components/Page.vue'));
 
+Vue.component('modal', {
+    template:  require('./components/modal.html'),
+});
+    
+new Vue({
+    el: '#root',
+        data: {
+            showModal: false,
+        }
+});
+
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));
 
 Vue.component(
@@ -36,9 +47,9 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
-const app = new Vue({
-    el: '#app'
-});
+//const app = new Vue({
+//    el: '#app'
+//});
 
 $(document).ready( function() {
     
