@@ -10,18 +10,17 @@
                 <div class="panel-body">
                     You are logged in!
                     <div class="home body-container">
-
-                    <div id="root">
-                       <modal v-if="showModal"  @close="showModal=false">
-                           <p>test here</p> 
-                        </modal>
-
-                       <button @click="showModal=true">Show Modal</button>
-                           
-                    </div>
                         
-
+                        <autocomplete></autocomplete>
                         
+                        <page></page>
+                        
+                        <div id="root">
+                            <modal v-if="showModal"  @close="showModal=false">
+                                <p>test here</p> 
+                            </modal>
+                            <button @click="showModal=true">Show Modal</button>
+                        </div>
                         
                         <div class="link">
                             <a href="{{ route('users')}}">Users</a>
@@ -41,9 +40,9 @@
                         </div>
                         @endif
                         <div class="link">
-<!--                            <passport-clients></passport-clients>
+                            <passport-clients></passport-clients>
                             <passport-authorized-clients></passport-authorized-clients>
-                            <passport-personal-access-tokens></passport-personal-access-tokens>-->
+                            <passport-personal-access-tokens></passport-personal-access-tokens>
                         </div>
                     </div>
                 </div>

@@ -1127,7 +1127,7 @@ Vue.component('modal', {
     template: ' <div class="">\n                    <div class="modal-background"></div>\n                    <div class="modal-content">\n                        <div class="box">\n                            <slot></slot>\n                        </div> \n                    <button class="modal-close" @click="$emit(\'close\')">Close</button>\n                    </div> \n                </div> '
 });
 
-new Vue({
+var root = new Vue({
     el: '#root',
     data: {
         showModal: false
@@ -1142,9 +1142,9 @@ Vue.component('passport-authorized-clients', __webpack_require__(48));
 
 Vue.component('passport-personal-access-tokens', __webpack_require__(50));
 
-//const app = new Vue({
-//    el: '#app'
-//});
+var app = new Vue({
+    el: '#app'
+});
 
 $(document).ready(function () {
 
