@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 64);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -528,7 +528,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(45)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(44)))
 
 /***/ }),
 /* 3 */
@@ -606,7 +606,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(61)
+var listToStyles = __webpack_require__(60)
 
 /*
 type StyleObject = {
@@ -1111,7 +1111,7 @@ module.exports = g;
 
 __webpack_require__(37);
 
-window.Vue = __webpack_require__(62);
+window.Vue = __webpack_require__(61);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -1119,12 +1119,12 @@ window.Vue = __webpack_require__(62);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(47));
+Vue.component('example', __webpack_require__(46));
 
-Vue.component('page', __webpack_require__(48));
+Vue.component('page', __webpack_require__(47));
 
 Vue.component('modal', {
-    template: __webpack_require__(42)
+    template: ' <div class="">\n                    <div class="modal-background"></div>\n                    <div class="modal-content">\n                        <div class="box">\n                            <slot></slot>\n                        </div> \n                    <button class="modal-close" @click="$emit(\'close\')">Close</button>\n                    </div> \n                </div> '
 });
 
 new Vue({
@@ -1134,13 +1134,13 @@ new Vue({
     }
 });
 
-Vue.component('autocomplete', __webpack_require__(46));
+Vue.component('autocomplete', __webpack_require__(45));
 
-Vue.component('passport-clients', __webpack_require__(50));
+Vue.component('passport-clients', __webpack_require__(49));
 
-Vue.component('passport-authorized-clients', __webpack_require__(49));
+Vue.component('passport-authorized-clients', __webpack_require__(48));
 
-Vue.component('passport-personal-access-tokens', __webpack_require__(51));
+Vue.component('passport-personal-access-tokens', __webpack_require__(50));
 
 //const app = new Vue({
 //    el: '#app'
@@ -3046,7 +3046,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(44);
+window._ = __webpack_require__(43);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -3055,7 +3055,7 @@ window._ = __webpack_require__(44);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(43);
+  window.$ = window.jQuery = __webpack_require__(42);
 
   __webpack_require__(38);
 } catch (e) {}
@@ -5505,12 +5505,6 @@ exports.push([module.i, "\n.action-link[data-v-8df5c57e] {\n    cursor: pointer;
 
 /***/ }),
 /* 42 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"\">\n    <div class=\"modal-background\"></div>\n    <div class=\"modal-content\"><div class=\"box\">\n            <slot></slot>\n        </div> <button class=\"modal-close\" @click=\"$emit('close')\">Close</button>\n    </div>\n</div>";
-
-/***/ }),
-/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -15770,7 +15764,7 @@ return jQuery;
 
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32859,10 +32853,10 @@ return jQuery;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(63)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(62)(module)))
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -33052,14 +33046,14 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(52),
+  __webpack_require__(51),
   /* scopeId */
   null,
   /* cssModules */
@@ -33086,14 +33080,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(54),
+  __webpack_require__(53),
   /* scopeId */
   null,
   /* cssModules */
@@ -33120,14 +33114,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(55),
+  __webpack_require__(54),
   /* scopeId */
   null,
   /* cssModules */
@@ -33154,18 +33148,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(58)
+__webpack_require__(57)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(53),
+  __webpack_require__(52),
   /* scopeId */
   "data-v-37b83b66",
   /* cssModules */
@@ -33192,18 +33186,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(60)
+__webpack_require__(59)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(57),
+  __webpack_require__(56),
   /* scopeId */
   "data-v-8df5c57e",
   /* cssModules */
@@ -33230,18 +33224,18 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(59)
+__webpack_require__(58)
 
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(56),
+  __webpack_require__(55),
   /* scopeId */
   "data-v-73498f15",
   /* cssModules */
@@ -33268,7 +33262,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33315,7 +33309,7 @@ if (false) {
 }
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33361,7 +33355,7 @@ if (false) {
 }
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33390,7 +33384,7 @@ if (false) {
 }
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33508,7 +33502,7 @@ if (false) {
 }
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -33708,7 +33702,7 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -34020,7 +34014,7 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -34046,7 +34040,7 @@ if(false) {
 }
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -34072,7 +34066,7 @@ if(false) {
 }
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -34098,7 +34092,7 @@ if(false) {
 }
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports) {
 
 /**
@@ -34131,7 +34125,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -43830,7 +43824,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -43858,7 +43852,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
