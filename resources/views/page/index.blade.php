@@ -19,7 +19,8 @@
                         </thead>
                         <tbody>
                             @foreach($pages as $page)
-                            <tr>
+                            @include('page._modal', ['page' => $page])
+                            <tr class="item<?= $page->id?>">
                                 <td>{{ $page->title }}</td>
                                 <td>{{ $page->slug }}</td>
                                 <td>{{ $page->content }}</td>
@@ -27,6 +28,7 @@
                                     <a class="btn btn-primary" href="{{ route('page.show', $page->slug) }}">Show</a>
                                     <?php if($admin_role) { ?><a class="btn btn-primary" href="{{ route('page.edit', $page->id) }}">Edit</a><?php } ?>
                                     <?php if($admin_role) { ?><a class="btn btn-primary delete-button" href="{{ route('page.delete', $page->id) }}">Delete</a><?php } ?>
+                                    <?php if($admin_role) { ?><button class="edit-modal" data-image-page="/uploads/pages/large/{{ $page->image }}" data-content="{{$page->content}}" data-slug="{{$page->slug}}" data-title="{{$page->title}}" data-id="{{ $page->id }}">Update </button><?php } ?>
                                 </td>
                             </tr>
                             @endforeach   

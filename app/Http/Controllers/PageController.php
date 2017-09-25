@@ -191,4 +191,75 @@ class PageController extends Controller
             return back();
         }
     }
+    
+     public function save(Request $request){
+        
+        $validator = $this->validate($request, $this->rules());
+        $pages = Page::get();
+        $admin_role = true;
+        $user_id = Auth::user()->id;
+        $page = Page::find($request->id);
+        $page->user_id = $user_id;
+        $page->title = $request->title;
+        $page->slug = $request->slug;
+        $page->content = $request->content;
+        $page->image = "1506326573.jpg";
+        
+//        if ($request->hasFile('image')) {
+//            $image = $request->file('image');
+//            $filename = time() . "." . $image->getClientOriginalExtension();
+//            Image::make($image)->save(public_path('/uploads/pages/large/' . $filename));
+//            Image::make($image)->resize(32, 32)->save(public_path('/uploads/pages/small/' . $filename));
+//            $page->image = $filename;
+//        }
+        
+         $page->update();
+
+            return response()->json(['success' => $page]);
+         
+      
+//             return response()->json(['success' => $page]);
+
+
+//        }
+        
+//        return \Response::json(['errors' => $validator->errors()]);
+
+    }
+    
+    
+    public function addPage(Request $request) {
+        
+    $rules = array (
+           'title' => 'sometimes|string|max:255',
+            'slug' => 'sometimes|string|max:255',
+            'content' => 'sometimes|string|max:255',
+    );
+    $validator = Validator::make(\Input::all(), $rules);
+        if ($validator->fails()) {
+
+            return \Response::json(array(
+                        'errors' => $validator->getMessageBag()->toArray()
+            ));
+        } else {
+
+            $page = new Page();
+            $page->title = $request->title;
+            $page->slug = $request->slug;
+            $page->content = $request->content;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $filename = time() . "." . $image->getClientOriginalExtension();
+                Image::make($image)->save(public_path('/uploads/pages/large/' . $filename));
+                Image::make($image)->resize(32, 32)->save(public_path('/uploads/pages/small/' . $filename));
+                $page->image = $filename;
+            }
+
+            $page->save();
+
+            return response()->json($page);
+        }
+    }
+
 }

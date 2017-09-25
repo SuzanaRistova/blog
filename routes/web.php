@@ -34,6 +34,9 @@ Route::get('mail', 'HomeController@mail');
 
 Route::get('user/notify/{user}', 'UserController@notify')->name("user.notify");
 
+Route::post('page/save', 'PageController@save')->name("page.save");
+Route::post('page/addPage', 'PageController@addPage')->name("page.addPage");
+
 //User routes
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor']], function(){
     Route::get('users', 'UserController@index')->name('users')->middleware('role:admin,editor');
@@ -63,9 +66,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
  Route::get('page/show/{slug}', 'PageController@show')->name("page.show");
  
 // Vue js
- Route::post('vue/pages', 'PageApiController@store')->name('vue/pages');
- Route::get('vue/pages', 'PageApiController@index')->name('vue/pages');
- Route::delete('vue/page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageApiController@destroy']);
+// Route::post('vue/pages', 'PageApiController@store')->name('vue/pages');
+// Route::get('vue/pages', 'PageApiController@index')->name('vue/pages');
+// Route::delete('vue/page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageApiController@destroy']);
 
 //Module routes with prefix admin
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){

@@ -31,12 +31,12 @@ Vue.component('modal', {
                 </div> `
 });
     
-new Vue({
-    el: '#root',
-        data: {
-            showModal: false,
-        }
-});
+//new Vue({
+//    el: '#root',
+//        data: {
+//            showModal: false,
+//        }
+//});
 
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));
 
@@ -60,6 +60,62 @@ Vue.component(
 //});
 
 $(document).ready( function() {
+    
+//    $('#confirm-update').on('show.bs.modal', function (e) {
+//        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+//    });
+    
+    $(document).on('click', '.edit-modal', function (e) {
+        e.preventDefault();
+        $('#id').val($(this).data('id'));
+        $id = $('#id').val();
+        $('#title').val($(this).data('title'));
+        $('#slug').val($(this).data('slug'));
+        $('#content').val($(this).data('content'));
+        $('#confirm-update').modal('show');
+    });
+    
+ $('body').on('submit', '#update_page_modal', function(e) {
+        e.preventDefault();
+        
+        var $id = $('#id').val();
+        var $title =  $('#title').val();
+        var $slug = $('#slug').val();
+        var $content = $('#content').val();
+        
+        $.ajax({
+            type: "POST",
+            url: "/page/save",
+            dataType: "JSON",
+            data: {
+                '_token': $('meta[name=csrf-token]').attr("content"),
+                'id': $id,
+                'title': $title,
+                'slug': $slug,
+                'content': $content,
+            },
+
+            success: function (data) {
+                if(data.success){
+                   
+                $('#confirm-update').modal('hide');
+                $('.item' + $id).replaceWith("<tr class='item" + $id + "'><td>" + $title + "</td><td>" + $slug + "</td><td>" + $content + "</td><td><a class='btn btn-primary' href='/page/show/"+$slug+"'>Show</a><a class='btn btn-primary' href='admin/page/edit/"+$id+"'>Edit</a><a class='btn btn-primary delete-button' href='admin/page/delete/"+$id+"'>Delete</a><button class='edit-modal' data-content='"+ $content +"' data-slug='"+ $slug +"' data-title='"+ $title +"' data-id='"+ $id +"'>Update </button></tr>");
+            }
+            },
+            error: function (data) {
+                var errors = data.responseJSON;
+                $.each(errors, function (key, value) {
+                    if($(".form-group." + key).hasClass("has-error")){
+                         $(".form-group." + key).removeClass("has-error");
+                    } else {
+                    $(".form-group." + key).addClass("has-error");
+                    $(".help-block." + key).append('<strong>' + value + '</strong>')
+                }
+                });
+
+            }
+        });
+    });
     
     $.ajaxSetup({
      headers: {
