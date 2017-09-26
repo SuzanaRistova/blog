@@ -193,29 +193,24 @@ class PageController extends Controller
     }
     
      public function save(Request $request){
-        
-        $validator = $this->validate($request, $this->rules());
-        $pages = Page::get();
-        $admin_role = true;
-        $user_id = Auth::user()->id;
-        $page = Page::find($request->id);
-        $page->user_id = $user_id;
-        $page->title = $request->title;
-        $page->slug = $request->slug;
-        $page->content = $request->content;
-        $page->image = "1506326573.jpg";
-        $page->update();
+        $rules = array('title' => 'required', 'slug' => 'required');
+        $validator = \Validator::make($request->all(), $this->rules());
+        if ($validator->fails()) {
 
+            return response()->json(['errors' => $validator->errors()]);
+        } else {
+            $pages = Page::get();
+            $user_id = Auth::user()->id;
+            $page = Page::find($request->id);
+            $page->user_id = $user_id;
+            $page->title = $request->title;
+            $page->slug = $request->slug;
+            $page->content = $request->content;
+            $page->image = "1506326573.jpg";
+            $page->update();
+            
             return response()->json(['success' => $page]);
-         
-      
-//             return response()->json(['success' => $page]);
-
-
-//        }
-        
-//        return \Response::json(['errors' => $validator->errors()]);
-
+        }
     }
     
     

@@ -1100,8 +1100,9 @@ module.exports = g;
 
 /***/ }),
 /* 11 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -1142,9 +1143,9 @@ Vue.component('passport-authorized-clients', __webpack_require__(48));
 
 Vue.component('passport-personal-access-tokens', __webpack_require__(50));
 
-//const app = new Vue({
-//    el: '#app'
-//});
+var app = new Vue({
+    el: '#app'
+});
 
 $(document).ready(function () {
     $.ajaxSetup({
@@ -1160,7 +1161,7 @@ $(document).ready(function () {
     $(document).on('click', '.edit-modal', function (e) {
         e.preventDefault();
         $('#id').val($(this).data('id'));
-        $id = $('#id').val();
+        var $id = $('#id').val();
         $('#title').val($(this).data('title'));
         $('#slug').val($(this).data('slug'));
         var content = $('#content').val($(this).data('content'));
@@ -1174,6 +1175,7 @@ $(document).ready(function () {
 
     $('#update_page_modal').on('submit', function (e) {
         e.preventDefault();
+        var form = $(this);
         var $id = $('#id').val();
         var $title = $('#title').val();
         var $slug = $('#slug').val();
@@ -1194,22 +1196,30 @@ $(document).ready(function () {
             },
 
             success: function success(data) {
-                if (data.success) {
 
+                if (data.success) {
+                    if ($(".form-group").hasClass("has-error")) {
+                        $(".form-group").removeClass("has-error");
+                        $(".help-block strong").remove();
+                    }
                     $('#confirm-update').modal('hide');
                     $('.item' + $id).replaceWith("<tr class='item" + $id + "'><td>" + $title + "</td><td>" + $slug + "</td><td>" + $content + "</td><td><a class='btn btn-primary' href='/page/show/" + $slug + "'>Show</a><a class='btn btn-primary' href='admin/page/edit/" + $id + "'>Edit</a><a class='btn btn-primary delete-button' href='admin/page/delete/" + $id + "'>Delete</a><button class='edit-modal' data-content='" + $content + "' data-slug='" + $slug + "' data-title='" + $title + "' data-id='" + $id + "'>Update </button></tr>");
                 }
+
+                if (data.errors) {
+                    var errors = data.errors;
+                    $.each(errors, function (key, value) {
+                        $(".form-group." + key).addClass("has-error");
+                        if ($(".help-block." + key).find("strong").length < 1) {
+                            $(".help-block." + key).append('<strong>' + value + '</strong>');
+                        }
+                    });
+                }
             },
+
             error: function error(data) {
                 var errors = data.responseJSON;
-                $.each(errors, function (key, value) {
-                    if ($(".form-group." + key).hasClass("has-error")) {
-                        $(".form-group." + key).removeClass("has-error");
-                    } else {
-                        $(".form-group." + key).addClass("has-error");
-                        $(".help-block." + key).append('<strong>' + value + '</strong>');
-                    }
-                });
+                alert(errors);
             }
         });
     });
