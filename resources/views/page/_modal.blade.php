@@ -41,19 +41,20 @@
                     </div>-->
                     
                     <input id="id" type="hidden" class="form-control" name="id" >
-
-                    <button type="submit" class="btn btn-primary edit-btn">
-                        Update
-                    </button>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary edit-btn">
+                            Update
+                        </button>
+                    </div>
+                  
                    
                 </form>
             </div>
                                   
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-danger btn-ok">Delete</a>
-            </div>
+            
         </div>
     </div>
 </div>
