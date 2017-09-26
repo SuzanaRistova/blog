@@ -1147,6 +1147,11 @@ Vue.component('passport-personal-access-tokens', __webpack_require__(50));
 //});
 
 $(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     //    $('#confirm-update').on('show.bs.modal', function (e) {
     //        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
@@ -1158,17 +1163,22 @@ $(document).ready(function () {
         $id = $('#id').val();
         $('#title').val($(this).data('title'));
         $('#slug').val($(this).data('slug'));
-        $('#content').val($(this).data('content'));
+        var content = $('#content').val($(this).data('content'));
+        var content_value = content.val();
+        tinymce.activeEditor.setContent(content_value);
+        //        var image = $('#image').val($(this).data('image'));
+        //        var add_image = document.getElementById('image');
+        //        add_image.src = "/uploads/pages/large/"+image.val();
         $('#confirm-update').modal('show');
     });
 
-    $('body').on('submit', '#update_page_modal', function (e) {
+    $('#update_page_modal').on('submit', function (e) {
         e.preventDefault();
-
         var $id = $('#id').val();
         var $title = $('#title').val();
         var $slug = $('#slug').val();
-        var $content = $('#content').val();
+        var $content = tinymce.activeEditor.getContent();
+        //        var $image =  "/uploads/pages/large/"+$('#image_id').val();
 
         $.ajax({
             type: "POST",
@@ -1180,6 +1190,7 @@ $(document).ready(function () {
                 'title': $title,
                 'slug': $slug,
                 'content': $content
+
             },
 
             success: function success(data) {
@@ -1201,12 +1212,6 @@ $(document).ready(function () {
                 });
             }
         });
-    });
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
     });
 
     //  Completed Sessions
@@ -1271,7 +1276,9 @@ $(document).ready(function () {
 
     tinymce.init({
         selector: 'textarea',
-        auto_focus: 'content'
+        auto_focus: 'content',
+        mode: "specific_textareas",
+        editor_selector: "content"
     });
 });
 

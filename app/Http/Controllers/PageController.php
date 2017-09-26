@@ -204,16 +204,7 @@ class PageController extends Controller
         $page->slug = $request->slug;
         $page->content = $request->content;
         $page->image = "1506326573.jpg";
-        
-//        if ($request->hasFile('image')) {
-//            $image = $request->file('image');
-//            $filename = time() . "." . $image->getClientOriginalExtension();
-//            Image::make($image)->save(public_path('/uploads/pages/large/' . $filename));
-//            Image::make($image)->resize(32, 32)->save(public_path('/uploads/pages/small/' . $filename));
-//            $page->image = $filename;
-//        }
-        
-         $page->update();
+        $page->update();
 
             return response()->json(['success' => $page]);
          

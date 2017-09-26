@@ -35,6 +35,7 @@ Route::get('mail', 'HomeController@mail');
 Route::get('user/notify/{user}', 'UserController@notify')->name("user.notify");
 
 Route::post('page/save', 'PageController@save')->name("page.save");
+Route::get('page/save', 'PageController@save')->name("page.save");
 Route::post('page/addPage', 'PageController@addPage')->name("page.addPage");
 
 //User routes
