@@ -74,6 +74,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin,editor,author']]
  Route::post('vue/pages', 'PageApiController@store')->name('vue/pages');
  Route::get('vue/pages', 'PageApiController@index')->name('vue/pages');
  Route::delete('vue/page/delete/{page}', ['as' => 'page.delete', 'uses' => 'PageApiController@destroy']);
+ 
+  Route::post('vue/modules', 'ModuleApiController@store')->name('vue/pages');
+ Route::get('vue/modules', 'ModuleApiController@index')->name('vue/pages');
 
 //Module routes with prefix admin
 Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){

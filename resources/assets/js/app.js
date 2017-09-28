@@ -9,11 +9,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.use(VeeValidate);
+
+import VeeValidate from 'vee-validate';
 
 Vue.component('example', require('./components/Example.vue'));
 
@@ -21,22 +19,73 @@ Vue.component('page', require('./components/Page.vue'));
 
 Vue.component('modal', {
     template: ` <div class="">
-                    <div class="modal-background"></div>
                     <div class="modal-content">
-                        <div class="box">
-                            <slot></slot>
-                        </div> 
-                    <button class="modal-close" @click="$emit('close')">Close</button>
+                        <div class="modal-background"></div>
+                        
+                        <div class="modal-header">
+                            <button type="button" class="close"  @click="$emit('close')" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Modal</h4>
+                        </div>
+    
+                        <form @submit.prevent="savePage()" action="#">
+                            <p :class="{ 'control': true }">
+                                <input v-validate="'required|title'" :class="{'input': true, 'is-danger': errors.has('title') }"  v-model="title" type="text" name="title" placeholder="Title">
+                                <span v-show="errors.has('title')" class="help is-danger">{{ errors.first('title') }}</span>
+                            </p>   
+                        <p :class="{ 'control': true }">
+                            <input v-validate="'required|slug'" :class="{'input': true, 'is-danger': errors.has('slug') }" v-model="slug" type="text" name="slug" placeholder="Slug">
+                            <span v-show="errors.has('slug')" class="help is-danger">{{ errors.first('slug') }}</span>
+                        </p>
+                        <p :class="{ 'control': true }">
+                            <input v-validate="'required|content'" :class="{'input': true, 'is-danger': errors.has('content') }" v-model="content" type="text" name="content" placeholder="Content">
+                            <span v-show="errors.has('content')" class="help is-danger">{{ errors.first('content') }}</span>
+                        </p>
+                            <button>Submit</button>
+                        </form>
+                           
+                        <button class="modal-close" @click="$emit('close')">Close</button>
                     </div> 
-                </div> `
+                </div> `,
+    data: function () {
+        return {
+            title: '',
+            slug: '',
+            content: '',
+
+        }
+     },
+  
+    methods: {
+
+        savePage() {
+             axios.post('vue/pages', {
+                        title: this.title,
+                        slug: this.slug,
+                        content: this.content
+                      })
+                    this.$validator.validateAll({
+                        title: this.title,
+                        slug: this.slug,
+                        content: this.content,
+                    })
+                    .then((res) => {
+                        this.title = '';
+                        this.slug = '';
+                        this.content = '';
+             
+                    })
+                    .catch((err) => console.error(err));
+        },
+    },
 });
     
-//new Vue({
-//    el: '#root',
-//        data: {
-//            showModal: false,
-//        }
-//});
+new Vue({
+    el: '#root',
+    
+        data: {
+            showModal: false,
+        },
+});
 
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));
 
@@ -55,9 +104,9 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
-const app = new Vue({
-    el: '#app'
-});
+//const app = new Vue({
+//    el: '#app'
+//});
 
 $(document).ready( function() {
     $.ajaxSetup({
@@ -65,11 +114,7 @@ $(document).ready( function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
-//    $('#confirm-update').on('show.bs.modal', function (e) {
-//        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
-//    });
-    
+        
     $(document).on('click', '.edit-modal', function (e) {
         e.preventDefault();
         $('#id').val($(this).data('id'));

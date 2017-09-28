@@ -17,7 +17,7 @@
                         
                         <div id="root">
                             <modal v-if="showModal"  @close="showModal=false">
-                                <p>test here</p> 
+                               
                             </modal>
                             <button @click="showModal=true">Show Modal</button>
                         </div>
