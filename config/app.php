@@ -182,6 +182,7 @@ return [
         Unisharp\Ckeditor\ServiceProvider::class,
         RaymondWilkinson\SweetalertLaravel\AlertServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
     ],
 

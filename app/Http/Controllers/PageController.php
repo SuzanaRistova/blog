@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Page;
 use Image;
+use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,14 +42,15 @@ class PageController extends Controller
 //            $admin_role = false;  
 //        }
         
-        $pages = Page::get();
+        $pages = DB::table('pages')->paginate(4);
         if ($user != NULL) {
             $admin_role = true;
         } else {
             $admin_role = false;
         }
+        $pages_paginate =  Page::paginate(4);
 
-        return view('page.index', compact('pages', 'admin_role'));
+        return view('page.index', compact('pages', 'admin_role', 'pages_paginate'));
     }
 
     public function pages(Request $request)

@@ -1,14 +1,16 @@
 <?php
 
 namespace App;
+use DB;
 
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Scout\Searchable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +29,34 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+      public function searchableAs()
+    {
+
+        return 'users_index';
+
+    }
+    
+    public static function  lists(){
+        $users = DB::table('users')->select('id')->get();
+        return $users;
+    }
+
+        public function searches(Request $request)
+    {
+        $error = ['error' => 'No results found, please try with different keywords.'];
+
+        if($request->has('q')) {
+
+            $users = User::search($request->get('q'))->get();
+
+            return $users->count() ? $users : $error;
+
+        }
+
+        // Return the error message if no keywords existed
+        return $error;
+    }
     
     public function roles()
     {

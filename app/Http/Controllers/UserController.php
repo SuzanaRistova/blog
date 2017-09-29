@@ -42,6 +42,7 @@ class UserController extends Controller {
         } else {
             $admin_role = false;  
         }
+        
         return view('user.index', compact('users', 'admin_role'));
     }
     

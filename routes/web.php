@@ -32,6 +32,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
     Route::post('session_user', 'SessionController@update_session_user');
 });
 
+Route::get('user-lists', ['as'=>'user-lists','uses'=>'UserSearchController@index']);
+
+Route::post('create-user', ['as'=>'create-user','uses'=>'UserSearchController@create']);
+
 Auth::routes();
 
 Route::get('mail', 'HomeController@mail');

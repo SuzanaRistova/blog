@@ -53,6 +53,9 @@ Route::group(['middleware' => ['api']], function () {
     $users = User::where('name','like','%'.$query.'%')->get();
     return response()->json($users);
 });
+
+  Route::get('/searches',function(){
+});
     
 Route::group(['middleware' => 'auth:api'], function(){
 //    Users
