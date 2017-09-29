@@ -39,7 +39,7 @@ class User extends Authenticatable
     } 
     
     public function isAdmin() {
-        if ($this->role_id === 1) {
+        if ($this->roles()->where('role_id', 1)->first()) {
             return true;
         } else {
             return false;
@@ -47,7 +47,7 @@ class User extends Authenticatable
     }
      
     public function isSubscriber() {
-        if ($this->role_id === 2) {
+        if ($this->roles()->where('role_id', 2)->first()) {
             return true;
         } else {
             return false;

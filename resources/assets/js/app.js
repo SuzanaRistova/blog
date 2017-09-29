@@ -40,6 +40,10 @@ Vue.component('modal', {
                             <input v-validate="'required|content'" :class="{'input': true, 'is-danger': errors.has('content') }" v-model="content" type="text" name="content" placeholder="Content">
                             <span v-show="errors.has('content')" class="help is-danger">{{ errors.first('content') }}</span>
                         </p>
+                        <p :class="{ 'control': true }">
+                            <input v-validate="'required|image'" :class="{'input': true, 'is-danger': errors.has('image') }" v-model="image" type="file" name="image" placeholder="Content">
+                            <span v-show="errors.has('image')" class="help is-danger">{{ errors.first('image') }}</span>
+                        </p>
                             <button>Submit</button>
                         </form>
                            
@@ -51,6 +55,7 @@ Vue.component('modal', {
             title: '',
             slug: '',
             content: '',
+            image: ''
 
         }
      },
@@ -61,17 +66,20 @@ Vue.component('modal', {
              axios.post('vue/pages', {
                         title: this.title,
                         slug: this.slug,
-                        content: this.content
+                        content: this.content,
+                        image: this.image
                       })
                     this.$validator.validateAll({
                         title: this.title,
                         slug: this.slug,
                         content: this.content,
+                        image: this.image
                     })
                     .then((res) => {
                         this.title = '';
                         this.slug = '';
                         this.content = '';
+                        this.image = '';
              
                     })
                     .catch((err) => console.error(err));

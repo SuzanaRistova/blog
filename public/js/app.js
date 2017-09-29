@@ -7734,12 +7734,13 @@ Vue.component('example', __webpack_require__(47));
 Vue.component('page', __webpack_require__(48));
 
 Vue.component('modal', {
-    template: ' <div class="">\n                    <div class="modal-content">\n                        <div class="modal-background"></div>\n                        \n                        <div class="modal-header">\n                            <button type="button" class="close"  @click="$emit(\'close\')" data-dismiss="modal" aria-hidden="true">&times;</button>\n                            <h4 class="modal-title" id="myModalLabel">Modal</h4>\n                        </div>\n    \n                        <form @submit.prevent="savePage()" action="#">\n                            <p :class="{ \'control\': true }">\n                                <input v-validate="\'required|title\'" :class="{\'input\': true, \'is-danger\': errors.has(\'title\') }"  v-model="title" type="text" name="title" placeholder="Title">\n                                <span v-show="errors.has(\'title\')" class="help is-danger">{{ errors.first(\'title\') }}</span>\n                            </p>   \n                        <p :class="{ \'control\': true }">\n                            <input v-validate="\'required|slug\'" :class="{\'input\': true, \'is-danger\': errors.has(\'slug\') }" v-model="slug" type="text" name="slug" placeholder="Slug">\n                            <span v-show="errors.has(\'slug\')" class="help is-danger">{{ errors.first(\'slug\') }}</span>\n                        </p>\n                        <p :class="{ \'control\': true }">\n                            <input v-validate="\'required|content\'" :class="{\'input\': true, \'is-danger\': errors.has(\'content\') }" v-model="content" type="text" name="content" placeholder="Content">\n                            <span v-show="errors.has(\'content\')" class="help is-danger">{{ errors.first(\'content\') }}</span>\n                        </p>\n                            <button>Submit</button>\n                        </form>\n                           \n                        <button class="modal-close" @click="$emit(\'close\')">Close</button>\n                    </div> \n                </div> ',
+    template: ' <div class="">\n                    <div class="modal-content">\n                        <div class="modal-background"></div>\n                        \n                        <div class="modal-header">\n                            <button type="button" class="close"  @click="$emit(\'close\')" data-dismiss="modal" aria-hidden="true">&times;</button>\n                            <h4 class="modal-title" id="myModalLabel">Modal</h4>\n                        </div>\n    \n                        <form @submit.prevent="savePage()" action="#">\n                            <p :class="{ \'control\': true }">\n                                <input v-validate="\'required|title\'" :class="{\'input\': true, \'is-danger\': errors.has(\'title\') }"  v-model="title" type="text" name="title" placeholder="Title">\n                                <span v-show="errors.has(\'title\')" class="help is-danger">{{ errors.first(\'title\') }}</span>\n                            </p>   \n                        <p :class="{ \'control\': true }">\n                            <input v-validate="\'required|slug\'" :class="{\'input\': true, \'is-danger\': errors.has(\'slug\') }" v-model="slug" type="text" name="slug" placeholder="Slug">\n                            <span v-show="errors.has(\'slug\')" class="help is-danger">{{ errors.first(\'slug\') }}</span>\n                        </p>\n                        <p :class="{ \'control\': true }">\n                            <input v-validate="\'required|content\'" :class="{\'input\': true, \'is-danger\': errors.has(\'content\') }" v-model="content" type="text" name="content" placeholder="Content">\n                            <span v-show="errors.has(\'content\')" class="help is-danger">{{ errors.first(\'content\') }}</span>\n                        </p>\n                        <p :class="{ \'control\': true }">\n                            <input v-validate="\'required|image\'" :class="{\'input\': true, \'is-danger\': errors.has(\'image\') }" v-model="image" type="file" name="image" placeholder="Content">\n                            <span v-show="errors.has(\'image\')" class="help is-danger">{{ errors.first(\'image\') }}</span>\n                        </p>\n                            <button>Submit</button>\n                        </form>\n                           \n                        <button class="modal-close" @click="$emit(\'close\')">Close</button>\n                    </div> \n                </div> ',
     data: function data() {
         return {
             title: '',
             slug: '',
-            content: ''
+            content: '',
+            image: ''
 
         };
     },
@@ -7751,16 +7752,19 @@ Vue.component('modal', {
             axios.post('vue/pages', {
                 title: this.title,
                 slug: this.slug,
-                content: this.content
+                content: this.content,
+                image: this.image
             });
             this.$validator.validateAll({
                 title: this.title,
                 slug: this.slug,
-                content: this.content
+                content: this.content,
+                image: this.image
             }).then(function (res) {
                 _this.title = '';
                 _this.slug = '';
                 _this.content = '';
+                _this.image = '';
             }).catch(function (err) {
                 return console.error(err);
             });
