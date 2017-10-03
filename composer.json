@@ -23,7 +23,8 @@
         "tymon/jwt-auth": "^0.5.12",
         "unisharp/laravel-ckeditor": "^4.6",
         "view-components/eloquent-data-processing": "^1.2",
-        "view-components/grids": "^0.5.9"
+        "view-components/grids": "^0.5.9",
+        "yajra/laravel-disqus": "^1.1"
     },
     "require-dev": {
         "backpack/generators": "^1.1",

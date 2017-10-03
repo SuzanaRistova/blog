@@ -87,5 +87,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script id="dsq-count-scr" src="//http-blog-dev-2.disqus.com/count.js" async></script>
 </body>
 </html>

@@ -188,6 +188,7 @@ return [
         Backpack\LogManager\LogManagerServiceProvider::class,
         Backpack\Base\BaseServiceProvider::class,
         Assurrussa\GridView\GridViewServiceProvider::class,
+        Yajra\Disqus\DisqusServiceProvider::class
 
     ],
 
