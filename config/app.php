@@ -183,6 +183,11 @@ return [
         RaymondWilkinson\SweetalertLaravel\AlertServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Laravel\Scout\ScoutServiceProvider::class,
+        Backpack\CRUD\CrudServiceProvider::class,
+        Backpack\LangFileManager\LangFileManagerServiceProvider::class,
+        Backpack\LogManager\LogManagerServiceProvider::class,
+        Backpack\Base\BaseServiceProvider::class,
+        Assurrussa\GridView\GridViewServiceProvider::class,
 
     ],
 
@@ -235,6 +240,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'AmiGridView' => Assurrussa\GridView\Facades\GridViewFacade::class,
+        
 
     ],
 

@@ -7,6 +7,11 @@
     "require": {
         "php": ">=5.6.4",
         "algolia/algoliasearch-client-php": "^1.20",
+        "assurrussa/grid-view-table": "^0.9.18",
+        "backpack/base": "^0.7.25",
+        "backpack/crud": "^3.2",
+        "backpack/langfilemanager": "^1.0",
+        "backpack/logmanager": "^2.3",
         "intervention/image": "^2.4",
         "laravel/framework": "5.4.*",
         "laravel/passport": "^4.0",
@@ -16,9 +21,12 @@
         "raymondwilkinson/sweetalert-laravel": "^1.0",
         "tinymce/tinymce": "^4.6",
         "tymon/jwt-auth": "^0.5.12",
-        "unisharp/laravel-ckeditor": "^4.6"
+        "unisharp/laravel-ckeditor": "^4.6",
+        "view-components/eloquent-data-processing": "^1.2",
+        "view-components/grids": "^0.5.9"
     },
     "require-dev": {
+        "backpack/generators": "^1.1",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~5.7"

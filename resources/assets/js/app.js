@@ -6,10 +6,14 @@
  */
 
 require('./bootstrap');
+require('./jquery-ui');
+require('./daterangepicker');
 
 window.Vue = require('vue');
 
 Vue.use(VeeValidate);
+
+import * as moment from 'moment'
 
 import VeeValidate from 'vee-validate';
 
@@ -122,6 +126,8 @@ $(document).ready( function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+    
+   $('input[name="daterange"]').daterangepicker();
         
     $(document).on('click', '.edit-modal', function (e) {
         e.preventDefault();

@@ -7,6 +7,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">Pages</div>
                 <div class="panel-body">
+                    <input type="text" name="daterange"/>
                      <?php if($admin_role) { ?><a class="btn btn-primary" href="{{ route('page.create') }}">Add page</a><?php } ?>
                     <table class="table table-bordered">
                         <thead>
