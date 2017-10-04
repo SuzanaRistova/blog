@@ -249,5 +249,38 @@ class PageController extends Controller
             return response()->json($page);
         }
     }
+    
+    public function addmapsave(Request $request)
+    {
+        $validator = $this->validate($request, $this->rules());
+        $user_id = Auth::user()->id;
+        $page = new Page();
+        $page->user_id = $user_id;
+        $page->title = $request->title;
+        $page->slug = str_random(10);
+        $page->content = "content";
+        $page->image = NULL;
+        $page->map = $request->map;
+        $page->lat = $request->lat;
+        $page->lng = $request->lng;
+        
+        $page->save();
+        
+       return view('page.show', compact('page'));
+        
+    }
+    
+    public function addmap(Request $request)
+    {
+        $user_id = $request->user_id;
+        $validator = \Validator::make(\Illuminate\Support\Facades\Input::all(), [
+                    'user_id' => 'required|integer',
+        ]);
+        
+        $pages = Page::where('user_id', $user_id)->get();
+        
+        return view('page.addmap', compact('page'));
+        
+    }
 
 }

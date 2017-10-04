@@ -34,6 +34,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function(){
 
 Route::get('user-lists', ['as'=>'user-lists','uses'=>'UserSearchController@index']);
 
+Route::post('page/addmap', 'PageController@addmapsave')->name("page.addmapsave");
+Route::get('page/addmap', 'PageController@addmap')->name("page.addmap");
+
 Route::post('create-user', ['as'=>'create-user','uses'=>'UserSearchController@create']);
 
 Auth::routes();

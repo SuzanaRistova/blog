@@ -91,13 +91,13 @@ Vue.component('modal', {
     },
 });
     
-new Vue({
-    el: '#root',
-    
-        data: {
-            showModal: false,
-        },
-});
+//new Vue({
+//    el: '#root',
+//    
+//        data: {
+//            showModal: false,
+//        },
+//});
 
 Vue.component('autocomplete', require('./components/Autocomplete.vue'));
 
@@ -116,11 +116,70 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
-//const app = new Vue({
-//    el: '#app'
-//});
+const app = new Vue({
+    el: '#app'
+});
 
 $(document).ready( function() {
+//    var location = [
+//    ['Bondi Beach', -33.890542, 151.274856],
+//    ['Coogee Beach', -33.923036, 151.259052],
+//    ['test Beach', -33.95, 151.28],
+//  ];
+//     var map = new google.maps.Map(document.getElementById('map-canvas'),{
+//
+//       center:{ lat: 27.72, lng: 85.36},
+//       
+//       zoom: 15,
+//    });
+//    var marker = new google.maps.Marker({
+//        
+////        position: { lat: location[1], lng: location[2]},
+//        position: {
+//            lat: 27.72,
+//            lng: 85.36,
+//        },
+//        
+//        map: map,
+//        
+//        draggable: true,
+//    });
+//    
+//    var searchbox = new google.maps.places.SearchBox(document.getElementById('map'));
+//    
+//    google.maps.event.addListener(searchbox, 'places_changed', function(){
+//        
+//        var places = searchbox.getPlaces();
+//        
+//        var bounds = new google.maps.LatLngBounds();
+//        
+//        var i;
+//        var place;
+//        for( i=0; place=places[i]; i++){
+//            bounds.extend(place.geometry.location);
+//            marker.setPosition(place.geometry.location);
+//        }
+//        map.fitBounds(bounds);
+//        map.setZoom(15);
+//    });
+    
+//    var k;
+//     for( k = 0; k < location.length; k++ ) {
+//          var loc = location[k]
+//          var marker = new google.maps.Marker({
+//          position: {lat: loc[1], lng: loc[2]},
+//          map: map,
+//        });
+//    }
+    
+//     google.maps.event.addListener(marker, 'position_changed', function(){
+//         var lat = marker.getPosition().lat();
+//         var lng = marker.getPosition().lng();
+//         
+//         $('#lat').val(lat);
+//         $('#lng').val(lng);
+//     });
+    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

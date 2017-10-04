@@ -28,6 +28,7 @@
                                     <a class="btn btn-primary" href="{{ route('page.show', $page->slug) }}">Show</a>
                                     <?php if($admin_role) { ?><a class="btn btn-primary" href="{{ route('page.edit', $page->id) }}">Edit</a><?php } ?>
                                     <?php if($admin_role) { ?><a class="btn btn-primary delete-button" href="{{ route('page.delete', $page->id) }}">Delete</a><?php } ?>
+                                    <?php if($admin_role) { ?><a class="btn btn-primary" href="{{ route('page.addmap') }}">Add map</a><?php } ?>
                                     <?php if($admin_role) { ?><button class="edit-modal" data-image="{{ $page->image }}" data-content="{{$page->content}}" data-slug="{{$page->slug}}" data-title="{{$page->title}}" data-id="{{ $page->id }}">Update </button><?php } ?>
                                 </td>
                             </tr>
