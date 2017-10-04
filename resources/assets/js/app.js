@@ -8,6 +8,7 @@
 require('./bootstrap');
 require('./jquery-ui');
 require('./daterangepicker');
+require('./markerclusterer');
 
 window.Vue = require('vue');
 

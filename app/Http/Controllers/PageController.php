@@ -42,7 +42,9 @@ class PageController extends Controller
 //            $admin_role = false;  
 //        }
         
-        $pages = DB::table('pages')->paginate(4);
+        $pages = DB::table('pages')->get();
+        $lat = DB::table('pages')->select('lat')->get();
+
         if ($user != NULL) {
             $admin_role = true;
         } else {
@@ -50,7 +52,7 @@ class PageController extends Controller
         }
         $pages_paginate =  Page::paginate(4);
 
-        return view('page.index', compact('pages', 'admin_role', 'pages_paginate'));
+        return view('page.index', compact('pages', 'admin_role', 'pages_paginate', 'lat'));
     }
 
     public function pages(Request $request)
