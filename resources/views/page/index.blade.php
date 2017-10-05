@@ -6,6 +6,7 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">Pages</div>
+               
                 <div id="maps" style="width:100%; height: 400px;"></div>
                 <div class="panel-body">
                     <input type="text" name="daterange"/>
@@ -20,7 +21,7 @@
                          </tr>
                         </thead>
                         <tbody>
-                            @foreach($pages as $page)
+                            @foreach($pages_all as $page)
                             <tr class="item<?= $page->id?>">
                                 <td>{{ $page->title }}</td>
                                 <td>{{ $page->slug }}</td>
@@ -44,85 +45,78 @@
         </div>
     </div>
 </div>
-                <?php 
-for($i=0; $i< count($pages); $i++) {
-    echo $pages[$i]->lat; 
-}
-?>
 @endsection
 
  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-aLAQ_dkqmtildzme3joJQ4ZGB7qsv6M&libraries=places"
     async defer></script>
 <script>
-    $(document).ready( function() {
-       var location = [
-        ['Bondi Beach', -33.890542, 151.274856],
-        ['Coogee Beach', -33.923036, 151.259052],
-        ['test Beach', -33.95, 151.28],
-  ];
-    var title = "{{ $page->title}}";
-    var content = "{{ $page->content}}";
     
-    var map = new google.maps.Map(document.getElementById('maps'),{
-     center:{ lat: -33.8, lng: 151.27 },
-       zoom: 15,
+$(document).ready( function() {
+    $.ajax({
+        url: '/page/addmaps',
+        type: 'GET',
+        dataType: 'json',
+        success: function ( data) {
+            locations(data);
+            console.log(data);
+        },
+        error: function ( data ) {
+            console.log('error');
+        }
     });
-    
-       for (i = 0; i < location.length; i++) {
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(location[i][1], location[i][2]),
-                map: map,
-            });
-            
            
-    }
-    
-    infowindow = new google.maps.InfoWindow();
-        google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
-        return function() {
-            infowindow.setContent("dadad");
-            infowindow.open(map,marker);
-        };
-    })(marker,content,infowindow));  
-    
-    
-//     marker.addListener('click', function() {
-//                infowindow = new google.maps.InfoWindow();
-//                infowindow.setContent("location[i][0]");
-//                infowindow.open(map, marker);
-//            });
-    
-    
-     var contentString = '<div id="content">'+
-            '<div id="siteNotice">'+
-            '</div>'+
-            '<h4 id="firstHeading" class="firstHeading">'+title+'</h4>'+
-            '<div id="bodyContent">'+
-            '<p> ' +
-            ''+content+
-            '</p>'+
-            '</div>'+
-            '</div>';
-    });
-    
-    
-//     var marker = location.map(function(location, i) {
-////          return new google.maps.Marker({
-//           position: { lat: location[1], lng: location[2]},
-//           map: map,
-////          });
-//        });
-//        
+   function locations(data){ 
+       
+        var location = data;
 
-//    
-//     var options =  {
-//         imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
-//     };
-          
-//    var markerCluster = new MarkerClusterer(map, markers, options);
-   
-    
+        var options =  {
+            imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+        };
+
+        var markers = [];
+
+        infowindow = new google.maps.InfoWindow();
+
+        var map = new google.maps.Map(document.getElementById('maps'),{
+            center:{ lat: -33.8, lng: 151.27 },
+                zoom: 5,
+        });
+
+        for (i = 0; i < location.length; i++) {
+            if((location[i]['lat'] != null) || (location[i]['lng'] != null)){
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(location[i]['lat'], location[i]['lng']),
+                    map: map,
+                });   
+
+                var content = '<div id="content">'+
+                    '<div id="siteNotice">'+
+                    '</div>'+
+                    '<h4 id="firstHeading" class="firstHeading">'+location[i]['title']+'</h4>'+
+                    '<div id="bodyContent">'+
+                    '<p> ' +
+                    ''+location[i]['content']+
+                    '</p>'+
+                    '</div>'+
+                    '</div>';
+
+                google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){ 
+                    return function() {
+                        infowindow.setContent(content);
+                        infowindow.open(map,marker);
+                        };
+                    })(marker,content,infowindow));
+
+                    markers.push(marker);
+            }
+
+        }
+            var markerCluster = new MarkerClusterer(map, markers, options);
+    }
+
+});
+       
 </script>
 
 <script>

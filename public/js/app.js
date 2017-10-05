@@ -27104,7 +27104,7 @@ $(document).ready(function () {
         $('#slug').val($(this).data('slug'));
         var content = $('#content').val($(this).data('content'));
         var content_value = content.val();
-        tinymce.activeEditor.setContent(content_value);
+        //        tinymce.activeEditor.setContent(content_value);
         //        var image = $('#image').val($(this).data('image'));
         //        var add_image = document.getElementById('image');
         //        add_image.src = "/uploads/pages/large/"+image.val();
@@ -27117,7 +27117,7 @@ $(document).ready(function () {
         var $id = $('#id').val();
         var $title = $('#title').val();
         var $slug = $('#slug').val();
-        var $content = tinymce.activeEditor.getContent();
+        //        var $content =   tinymce.activeEditor.getContent();
         //        var $image =  "/uploads/pages/large/"+$('#image_id').val();
 
         $.ajax({
@@ -27129,7 +27129,7 @@ $(document).ready(function () {
                 'id': $id,
                 'title': $title,
                 'slug': $slug,
-                'content': $content
+                'content': "dada"
 
             },
 
@@ -27184,7 +27184,10 @@ $(document).ready(function () {
                 'completed': complete,
                 'session_id': session_id
             },
-            success: function success(data) {},
+            success: function success(data) {
+                var test = data;
+                alert(test);
+            },
             errors: function errors(data) {}
         });
     });

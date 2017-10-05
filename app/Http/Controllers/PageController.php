@@ -12,7 +12,7 @@ class PageController extends Controller
 {
     public function __construct() {
         
-        $this->middleware('auth',  ['except' => ['show', 'index']]);
+        $this->middleware('auth',  ['except' => ['show', 'index', 'addmapsave']]);
     }
     
     protected function rules() {
@@ -42,7 +42,7 @@ class PageController extends Controller
 //            $admin_role = false;  
 //        }
         
-        $pages = DB::table('pages')->get();
+        $pages_all = DB::table('pages')->get();
         $lat = DB::table('pages')->select('lat')->get();
 
         if ($user != NULL) {
@@ -51,8 +51,11 @@ class PageController extends Controller
             $admin_role = false;
         }
         $pages_paginate =  Page::paginate(4);
+        
+        $pages = json_encode($pages_all);
 
-        return view('page.index', compact('pages', 'admin_role', 'pages_paginate', 'lat'));
+
+        return view('page.index', compact('pages', 'admin_role', 'pages_paginate', 'pages_all'));
     }
 
     public function pages(Request $request)
@@ -272,17 +275,17 @@ class PageController extends Controller
         
     }
     
-    public function addmap(Request $request)
-    {
-        $user_id = $request->user_id;
-        $validator = \Validator::make(\Illuminate\Support\Facades\Input::all(), [
-                    'user_id' => 'required|integer',
-        ]);
-        
-        $pages = Page::where('user_id', $user_id)->get();
-        
-        return view('page.addmap', compact('page'));
+     public function addmap(Request $request)
+    {  
+       return view('page.addmap', compact('page'));
         
     }
+    
+    public function addmaps()
+    {
+        $pages = Page::get();
+
+          return response()->json($pages);
+   }
 
 }
